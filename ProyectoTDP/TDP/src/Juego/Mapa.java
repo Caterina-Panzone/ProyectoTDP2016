@@ -54,13 +54,15 @@ public class Mapa {
 							break; 
 						}
 						case "P":{
-							obst = new Piso(celda); 
+							obst = null;
 							break; 
 						}
 					}
 					celda.setObstaculo(obst); 
 					matriz[i][j]=celda; 
-					gui.add(obst.getImagenActual());
+					if (obst!=null){
+						gui.add(obst.getImagenActual());
+					}
 				}
 			}
 		}catch(IOException e){
@@ -77,13 +79,17 @@ public class Mapa {
 	//Comandos 
 	
 	public void concretarMovimientoTanque(Celda vieja, Celda nueva){
+		boolean agarre;
+		
 		Tanque tanque = vieja.getTanque();
 		nueva.setTanque(tanque);
 		vieja.setTanque(null);
 		tanque.setCelda(nueva);
 		
-		//en la celda nueva deberíamos verificar si hay algo que me quiere afectar
-		
+		agarre= tanque.actuar(nueva.getPower());
+		if (agarre)
+			nueva.setPower(null);
+	
 	}
 	
 	//Consultas

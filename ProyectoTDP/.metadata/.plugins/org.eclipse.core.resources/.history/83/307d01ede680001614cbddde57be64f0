@@ -1,0 +1,16 @@
+package Tanques;
+
+import javax.swing.ImageIcon;
+
+import Juego.Celda;
+
+//Constructor
+
+    public class Basico(Celda celda){
+	    super(1,1,1,'I',celda, 100);
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorDerecha.png"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorIzquierda.png"));
+		cambiarImagenActual(0);
+    }

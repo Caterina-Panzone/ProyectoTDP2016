@@ -24,6 +24,10 @@ public abstract class ObjetoConImagen{
 	
 	//Comandos
 	
+	protected void ponerImagenVacia(){
+		imagenActual.setIcon(null);
+	}
+	
 	public void cambiarImagenActual(int índice){
 		imagenActual.setIcon(imagenes[índice]);
 		imagenActual.setBounds(celda.getColumna()*32,celda.getFila()*32,tamaño, tamaño);

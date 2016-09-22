@@ -1,7 +1,8 @@
 package Tanques;
 
-import javax.swing.Icon;
 import Juego.*;
+import Poderes.PowerUp;
+
 import javax.swing.ImageIcon;
 
 public class Jugador extends Tanque {
@@ -34,6 +35,12 @@ public class Jugador extends Tanque {
 	
 	//Comando
 	
+	public boolean actuar(PowerUp poder){
+		if(poder!=null)
+			poder.actuar(this);	
+	    return true;
+	}
+	
 	public void reiniciarDestruidos(){
 		enemigosDestruidos = 0;
 	}
@@ -43,7 +50,7 @@ public class Jugador extends Tanque {
 	}
 	
 	public void aumentarPuntos(int puntos){
-		this.puntos = puntos;
+		this.puntos += puntos;
 	}
 	
 	public void aumentarNivel(){

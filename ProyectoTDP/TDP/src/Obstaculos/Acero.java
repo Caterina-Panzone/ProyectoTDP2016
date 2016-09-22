@@ -27,7 +27,8 @@ public class Acero extends Obstaculo{
 	public boolean recibirGolpe(){
 		golpesRecibidos++; 
 		if(golpesRecibidos>=4){
-			celda.piso();
+			ponerImagenVacia();
+			celda.setObstaculo(null);
 			celda = null; 
 		}else
 			cambiarImagenActual(golpesRecibidos);

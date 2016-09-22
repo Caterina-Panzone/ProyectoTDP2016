@@ -11,7 +11,6 @@ public abstract class PowerUp extends ObjetoConImagen {
 	
 	//Comandos
 	
-//	public abstract boolean actuar(Jugador tanque);
-//	public abstract boolean actuar(Enemigo tanque); 
+	public abstract boolean actuar(Jugador tanque);
 	
 }

@@ -38,7 +38,17 @@ public class GUI extends JFrame{
 	public GUI() {
 		addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent arg0) {
-				mover(arg0); 
+				if (arg0.getKeyCode()==KeyEvent.VK_G){
+					generarEnemigo();
+				}
+				else{
+					if(arg0.getKeyCode()==KeyEvent.VK_P){
+					  romperPared();	
+					}
+					else{
+				      mover(arg0);
+					}
+				}
 			}
 		});
 		getContentPane().setLayout(null);
@@ -54,13 +64,22 @@ public class GUI extends JFrame{
 		logica = new Logica(this);
 	}
 	
+	protected void romperPared(){
+		logica.romperPared();
+		this.repaint();
+	}
+	
+	protected void generarEnemigo(){
+		logica.generarEnemigo();
+		this.repaint();
+	}
+	
 	protected void mover(KeyEvent key){
 		
 		//si key es F entonces llamo a disparar
 		// sino :
 		
 		logica.moverJugador(key.getKeyCode());
-		
 		this.repaint();
 	}
 	

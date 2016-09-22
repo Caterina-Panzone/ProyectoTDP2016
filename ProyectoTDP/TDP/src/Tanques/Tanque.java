@@ -3,6 +3,7 @@ package Tanques;
 import java.util.LinkedList;
 import java.util.List;
 import Juego.*;
+import Poderes.PowerUp;
 
 public abstract class Tanque extends ObjetoConImagen {
 
@@ -28,6 +29,8 @@ public abstract class Tanque extends ObjetoConImagen {
 	}
 	
 	//Comandos
+	
+	public abstract boolean actuar(PowerUp poder);
 	
 	public Disparo disparar(){
 		Disparo disparo = new Disparo(this, direccion, celda);

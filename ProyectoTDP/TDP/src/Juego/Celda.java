@@ -39,10 +39,6 @@ public class Celda {
 		powerUp = power; 
 	}
 	
-	public void piso(){
-		obstaculo = new Piso(this); 
-	}
-	
 	//Consultas
 	
 	public int getColumna(){
@@ -54,7 +50,7 @@ public class Celda {
 	}
 	
 	public boolean permitidoAvanzarTanque(){
-		return (obstaculo.atraviesanTanques() || tanque!=null);
+		return (((obstaculo==null) || obstaculo.atraviesanTanques()) && tanque==null);
 	}
 	
 	public Obstaculo getObstaculo(){

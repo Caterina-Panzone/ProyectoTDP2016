@@ -1,6 +1,8 @@
 package Obstaculos;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 import Juego.*; 
 
 public class Ladrillo extends Obstaculo {
@@ -26,7 +28,8 @@ public class Ladrillo extends Obstaculo {
 	public boolean recibirGolpe(){
 		golpesRecibidos++; 
 		if(golpesRecibidos>=4){
-			celda.piso();
+			ponerImagenVacia();
+			celda.setObstaculo(null);
 			celda = null; 
 		}else
 			cambiarImagenActual(golpesRecibidos);

@@ -36,7 +36,7 @@ public class Logica {
 	//Comandos 
 	
 	private void generarNuevoMapa(){
-		mapa = new Mapa("nivel"+nivelMapa+".txt",gui); 		
+		mapa = new Mapa(this.getClass().getResource("/nivel"+nivelMapa+".txt").getPath(),gui); 		
 	}
 	
 	public void moverJugador(int dir){

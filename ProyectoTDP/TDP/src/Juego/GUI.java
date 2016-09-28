@@ -44,13 +44,13 @@ public class GUI extends JFrame{
 				else{
 					if(arg0.getKeyCode()==KeyEvent.VK_P){
 					  romperPared();	
-					}
-					else{
-				      mover(arg0);
-					}
-				}
-			}
-		});
+					} if (arg0.getKeyCode()==KeyEvent.VK_N){
+						cambiarNivelJugador(); 
+					}else{
+					      mover(arg0);
+						}
+		}}});
+		
 		getContentPane().setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,6 +72,10 @@ public class GUI extends JFrame{
 	protected void generarEnemigo(){
 		logica.generarEnemigo();
 		this.repaint();
+	}
+	
+	protected void cambiarNivelJugador(){
+		logica.cambiarNivelJugador();
 	}
 	
 	protected void mover(KeyEvent key){

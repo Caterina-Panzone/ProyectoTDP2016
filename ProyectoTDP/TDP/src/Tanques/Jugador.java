@@ -1,8 +1,8 @@
 package Tanques;
 
 import Juego.*;
+import Niveles.*;
 import Poderes.PowerUp;
-
 import javax.swing.ImageIcon;
 
 public class Jugador extends Tanque {
@@ -10,24 +10,24 @@ public class Jugador extends Tanque {
 	
 	protected int puntos;
 	protected int vidas;
-	protected int nivel;
+	protected Nivel nivel;
 	protected int enemigosDestruidos;
 	protected boolean invulnerabilidad;
-	protected int disparosSimultaneos;
+
 	
 	//Constructor
 	
 	public Jugador(Celda celda){
-		super(2,1,1,'A',celda);
+		super('A',celda);
 		
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));
 		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorDerecha.png"));
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorIzquierda.png"));
 		cambiarImagenActual(0);
-		disparosSimultaneos=1;
+		
 		vidas = 4;
-		nivel = 1;
+		nivel = new Nivel1();
 		puntos = 0;
 		enemigosDestruidos = 0;
 		invulnerabilidad = false;
@@ -36,9 +36,11 @@ public class Jugador extends Tanque {
 	//Comando
 	
 	public boolean actuar(PowerUp poder){
-		if(poder!=null)
+		if(poder!=null){
 			poder.actuar(this);	
-	    return true;
+			return true;
+		}
+		return false; 
 	}
 	
 	public void reiniciarDestruidos(){
@@ -54,28 +56,7 @@ public class Jugador extends Tanque {
 	}
 	
 	public void aumentarNivel(){
-		switch(nivel){
-			case 1:{
-				nivel++;
-				velocidadMovimiento=3; 
-				velocidadDisparo=2;
-				break;
-			}
-			case 2:{
-				nivel++;
-				resistencia = 2;
-				velocidadMovimiento = 2;
-				disparosSimultaneos = 2; 
-				break; 
-			}
-			case 3: {
-				nivel++;
-				resistencia = 4;
-				disparosSimultaneos = 3;
-				velocidadDisparo = 3; 
-				break; 
-			}
-		}
+		nivel = nivel.siguienteNivel();
 	}
 	
 	public void aumentarVida(){
@@ -91,11 +72,7 @@ public class Jugador extends Tanque {
 		vidas--; 
 		if(vidas<=0)
 			return false;
-		nivel = 1;
-		resistencia = 1;
-		velocidadMovimiento = 2; 
-		velocidadDisparo = 1;
-		disparosSimultaneos = 1;
+		nivel = new Nivel1(); 
 		return true; 
 	}
 	
@@ -103,10 +80,6 @@ public class Jugador extends Tanque {
 	
 	public int getVidas(){
 		return vidas;
-	}
-	
-	public int getNivel(){
-		return nivel;
 	}
 	
 	public int getPuntos(){
@@ -119,5 +92,21 @@ public class Jugador extends Tanque {
 	
 	public int getEnemigosDestruidos(){
 		return enemigosDestruidos; 
+	}
+	
+	public int getVelocidadMovimiento(){
+		return nivel.getVelocidadMovimiento();
+	}
+	
+	public int getVelocidadDisparo(){
+		return nivel.getVelocidadDisparo(); 
+	}
+	
+	public int getResistencia(){
+		return nivel.getResistencia();
+	}
+	
+	public int getDisparosSimultaneos(){
+		return nivel.getDisparosSimultaneos(); 
 	}
 }

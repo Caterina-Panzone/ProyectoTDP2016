@@ -1,0 +1,13 @@
+package Tanques;
+
+public abstract class Niveles {
+	
+	//Atributos 
+	
+	protected int disparosSimultaneos;
+	protected int velocidadMovimiento;
+	protected int velocidadDisparo;
+	protected int resistencia;
+	
+	
+}

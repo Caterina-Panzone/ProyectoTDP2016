@@ -1,0 +1,5 @@
+TERCER SPRINT:
+- Cuando implementamos un metodo abstracto hay que volver a poner el metodo en el diagrama UML? Como se pone?
+
+- Tenemos que poner que cumple la capacidad como nota o como un if? VICECITY. DIAGRAMA EN PUEDE PAGAR. 
+

@@ -39,6 +39,20 @@ public class Logica {
 		mapa = new Mapa("nivel"+nivelMapa+".txt",gui); 		
 	}
 	
+	public void cambiarNivelJugador(){
+		jugador.aumentarNivel(); 
+		
+		// Muestra por pantalla los atributos de Jugador modificados. 
+		
+		System.out.println("---------------------------------");
+		System.out.println("Nuevo nivel: ");
+		System.out.println(); 
+		System.out.println("Resistencia: "+jugador.getResistencia()); 
+		System.out.println("Velocidad Movimiento: "+jugador.getVelocidadMovimiento()); 
+		System.out.println("Velocidad Disparo: "+jugador.getVelocidadDisparo()); 
+		System.out.println("Disparos Simultaneos: "+jugador.getDisparosSimultaneos()); 
+	}
+	
 	public void moverJugador(int dir){
 		int i = jugador.getFila(), j = jugador.getColumna();
 		

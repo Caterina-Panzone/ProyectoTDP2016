@@ -9,20 +9,14 @@ public abstract class Tanque extends ObjetoConImagen {
 
     //Atributos
 	
-	protected int velocidadMovimiento;
-	protected int velocidadDisparo;
-	protected int resistencia;
 	protected int golpesRecibidos; 
 	protected List<Disparo> disparosRealizados;
 	protected char direccion;
 	
 	//Constructor
 	
-	public Tanque(int vm, int vd, int resis, char direc, Celda celda){
+	public Tanque(char direc, Celda celda){
 		super(32,celda);
-		vm = velocidadMovimiento;
-		vd = velocidadDisparo;
-		resistencia = resis;
 		direccion = direc;
 		golpesRecibidos=0;
 		disparosRealizados = new LinkedList<Disparo>();
@@ -49,7 +43,7 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	public boolean recibirGolpe(){
 		golpesRecibidos++;
-		if(golpesRecibidos == resistencia)
+		if(golpesRecibidos == getResistencia())
 			return false;
 		else 
 			return true; 
@@ -65,11 +59,9 @@ public abstract class Tanque extends ObjetoConImagen {
 		return direccion;
 	}
 	
-	public int getVelocidadMovimiento(){
-		return velocidadMovimiento;
-	}
+	public abstract int getResistencia(); 
 	
-	public int getVelocidadDisparo(){
-		return velocidadDisparo;
-	}
+	public abstract int getVelocidadMovimiento();
+	
+	public abstract int getVelocidadDisparo();
 }

@@ -10,14 +10,11 @@ public class Granada extends PowerUp{
 	public Granada(Celda celda){
 		super(celda); 
 	}
-
 	
 	
-	//haceeeeeeeeeeeeeeeeeeer
-	
-	
-	public boolean actuar(Jugador tanque) {
+	public void actuar(Jugador tanque) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		//haceeeeeeeeeeeeeeeeeeer
 	}
 }

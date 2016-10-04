@@ -11,6 +11,8 @@ public abstract class PowerUp extends ObjetoConImagen {
 	
 	//Comandos
 	
-	public abstract void actuar(Jugador tanque);
+	public void actuar(Jugador tanque){
+		celda.setPower(null);
+	}
 	
 }

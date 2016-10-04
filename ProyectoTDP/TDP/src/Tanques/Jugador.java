@@ -35,12 +35,9 @@ public class Jugador extends Tanque {
 	
 	//Comando
 	
-	public boolean actuar(PowerUp poder){
-		if(poder!=null){
+	public void actuar(PowerUp poder){
+		if(poder!=null)
 			poder.actuar(this);	
-			return true;
-		}
-		return false; 
 	}
 	
 	public void reiniciarDestruidos(){

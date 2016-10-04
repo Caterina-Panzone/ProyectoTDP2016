@@ -22,7 +22,7 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	 * @return Si le pego al aguila retorna verdadero, sino retorna falso. 
 	 */
 	
-	public abstract boolean recibirGolpe(); 
+	public abstract void recibirGolpe(); 
 	
 	//Consultas
 	

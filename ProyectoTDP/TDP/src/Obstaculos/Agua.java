@@ -16,8 +16,6 @@ public class Agua extends Obstaculo{
 	
 	//Comandos
 	
-	public boolean recibirGolpe(){
-		return false; 
-	}
+	public void recibirGolpe(){	}
 
 }

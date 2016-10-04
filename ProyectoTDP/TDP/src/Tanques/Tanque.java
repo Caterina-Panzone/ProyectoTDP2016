@@ -24,7 +24,7 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	//Comandos
 	
-	public abstract boolean actuar(PowerUp poder);
+	public abstract void actuar(PowerUp poder);
 	
 	public Disparo disparar(){
 		Disparo disparo = new Disparo(this, direccion, celda);

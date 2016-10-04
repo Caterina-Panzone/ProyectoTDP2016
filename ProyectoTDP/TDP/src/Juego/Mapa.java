@@ -13,7 +13,7 @@ public class Mapa {
 	
 	//Constructor
 	
-	public Mapa(String archivo, GUI gui){
+	public Mapa(String archivo, GUI gui, Logica logica){
 		BufferedReader br = null; 
 		try{
 			br = new BufferedReader(new FileReader(archivo));
@@ -50,7 +50,7 @@ public class Mapa {
 							break; 
 						}
 						case "F":{
-							obst = new Aguila(celda);
+							obst = new Aguila(celda,logica);
 							break; 
 						}
 						case "P":{
@@ -79,17 +79,12 @@ public class Mapa {
 	//Comandos 
 	
 	public void concretarMovimientoTanque(Celda vieja, Celda nueva){
-		boolean agarre;
-		
 		Tanque tanque = vieja.getTanque();
 		nueva.setTanque(tanque);
 		vieja.setTanque(null);
 		tanque.setCelda(nueva);
 		
-		agarre= tanque.actuar(nueva.getPower());
-		if (agarre)
-			nueva.setPower(null);
-	
+		tanque.actuar(nueva.getPower());
 	}
 	
 	//Consultas

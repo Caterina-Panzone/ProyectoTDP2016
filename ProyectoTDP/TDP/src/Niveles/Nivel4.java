@@ -13,22 +13,6 @@ public class Nivel4 extends Nivel{
 	
 	//Consultas
 	
-	public int getVelocidadMovimiento(){
-		return velocidadMovimiento;
-	}
-	
-	public int getVelocidadDisparo(){
-		return velocidadDisparo;
-	}
-	
-	public int getResistencia(){
-		return resistencia; 
-	}
-	
-	public int getDisparosSimultaneos(){
-		return disparosSimultaneos; 
-	}
-	
 	public Nivel siguienteNivel(){
 		return this;
 	}

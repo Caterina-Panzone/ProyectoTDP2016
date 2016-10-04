@@ -16,8 +16,6 @@ public class Arbol extends Obstaculo{
 	
 	//Comandos
 	
-	public boolean recibirGolpe(){
-		return false; 
-	}
+	public void recibirGolpe(){	}
 
 }

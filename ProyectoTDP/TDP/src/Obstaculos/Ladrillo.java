@@ -25,7 +25,7 @@ public class Ladrillo extends Obstaculo {
 	
 	//Comandos
 	
-	public boolean recibirGolpe(){
+	public void recibirGolpe(){
 		golpesRecibidos++; 
 		if(golpesRecibidos>=4){
 			ponerImagenVacia();
@@ -33,7 +33,5 @@ public class Ladrillo extends Obstaculo {
 			celda = null; 
 		}else
 			cambiarImagenActual(golpesRecibidos);
-
-		return false; 
 	}
 }

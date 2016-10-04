@@ -36,7 +36,8 @@ public class Logica {
 	//Comandos 
 	
 	private void generarNuevoMapa(){
-		mapa = new Mapa("nivel"+nivelMapa+".txt",gui); 		
+//		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui);
+		mapa = new Mapa("nivel"+nivelMapa+".txt",gui,this); 		
 	}
 	
 	public void cambiarNivelJugador(){
@@ -132,5 +133,9 @@ public class Logica {
 	           rompi=true;
 			}
 		}while(!rompi);
+	}
+	
+	public void finalizarJuego(){
+		//HACER
 	}
 }

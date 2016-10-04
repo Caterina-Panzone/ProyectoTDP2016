@@ -13,7 +13,7 @@ public class Granada extends PowerUp{
 	
 	
 	public void actuar(Jugador tanque) {
-		// TODO Auto-generated method stub
+		super.actuar(tanque); 
 		
 		//haceeeeeeeeeeeeeeeeeeer
 	}

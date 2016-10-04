@@ -1,14 +1,15 @@
 package Obstaculos;
 
 import javax.swing.ImageIcon;
-
-import Juego.Celda;
+import Juego.*;
 
 public class Aguila extends Obstaculo{
 	//Constructor
+	protected Logica logica; 
 	
-	public Aguila(Celda celda){
+	public Aguila(Celda celda,Logica logica){
 		super(false, false, celda); 
+		this.logica = logica; 
 		
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/F.png"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/AguilaMuerta.png"));
@@ -17,9 +18,9 @@ public class Aguila extends Obstaculo{
 	
 	//Comando
 	
-	public boolean recibirGolpe(){
+	public void recibirGolpe(){
 		cambiarImagenActual(1);
-		return true; 
+		logica.finalizarJuego(); 
 	}
 
 }

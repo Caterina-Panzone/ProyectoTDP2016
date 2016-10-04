@@ -11,13 +11,21 @@ public abstract class Nivel {
 	
 	//Consultas
 	
-	public abstract int getDisparosSimultaneos();
+	public int getVelocidadMovimiento(){
+		return velocidadMovimiento;
+	}
 	
-	public abstract int getVelocidadMovimiento();
+	public int getVelocidadDisparo(){
+		return velocidadDisparo;
+	}
 	
-	public abstract int getVelocidadDisparo(); 
+	public int getResistencia(){
+		return resistencia; 
+	}
 	
-	public abstract int getResistencia(); 
+	public int getDisparosSimultaneos(){
+		return disparosSimultaneos; 
+	}
 	
 	public abstract Nivel siguienteNivel(); 
 }

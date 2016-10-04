@@ -24,8 +24,8 @@ public class Enemigo extends Tanque{
 	
 	//Comandos
 	
-	public boolean actuar(PowerUp poder){
-		return false;
+	public void actuar(PowerUp poder){
+		
 	}
 	
 	//Consultas

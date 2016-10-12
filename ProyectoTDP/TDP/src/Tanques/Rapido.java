@@ -1,5 +1,7 @@
 package Tanques;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 import Juego.*;
@@ -8,8 +10,8 @@ import Juego.*;
   
 	//Constructor
 	  
-    public Rapido(Celda celda){
-	    super(3,2,1,'I',celda, 200);
+    public Rapido(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
+	    super(3,2,1,'I',celda, 200, inteligencia,enemigos);
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoArriba.png"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoAbajo.png"));
 		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoDerecha.png"));

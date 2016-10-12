@@ -1,6 +1,7 @@
 package Juego;
 
 import Tanques.*;
+
 import java.awt.event.KeyEvent;
 
 import java.util.LinkedList;
@@ -15,9 +16,12 @@ public class Logica {
 	
 	protected GUI gui;
 	protected List<Enemigo> enemigos;
+	protected List<Disparo> disparos;
 	protected Jugador jugador;
 	protected int nivelMapa;
 	protected Mapa mapa;
+	protected ControladorEnemigos controladorEnemigos; 
+	protected ControladorDisparos controladorDisparos; 
 	
 	//Constructor
 	
@@ -26,11 +30,15 @@ public class Logica {
 		nivelMapa=1; 
 		generarNuevoMapa(); 
 		Celda celda = mapa.getCelda(mapa.cantidadFilas()-1, mapa.cantidadColumnas()/2-2);
-		jugador = new Jugador(celda);
+		jugador = new Jugador(celda, this);
 		celda.setTanque(jugador);
 		gui.add(jugador.getImagenActual()); 
+		
 		enemigos= new LinkedList<Enemigo>();
-//		generarEnemigos();
+		controladorEnemigos = new ControladorEnemigos(enemigos);
+		disparos = new LinkedList<Disparo>(); 
+		controladorDisparos = new ControladorDisparos(disparos); 
+		generarEnemigos();
 	}
 	
 	//Comandos 
@@ -89,15 +97,53 @@ public class Logica {
 		}
 	}
 	
+	public void generarEnemigos(){
+		InteligenciaEnemigo inteligencia = new InteligenciaEnemigo(mapa);
+		Celda celda;
+		Enemigo enemigo;  
+		
+		celda = mapa.getCelda(0, mapa.cantidadColumnas()-1);
+		enemigo = new Basico(celda, inteligencia,enemigos); 
+		celda.setTanque(enemigo);
+		enemigos.add(enemigo);
+		enemigo.setDireccion('B');
+		gui.add(enemigo.getImagenActual()); 	
+		
+		celda = mapa.getCelda(0, 0);
+		enemigo = new DePoder(celda, inteligencia,enemigos); 
+		celda.setTanque(enemigo);
+		enemigos.add(enemigo);
+		enemigo.setDireccion('B');
+		gui.add(enemigo.getImagenActual()); 
+		
+		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2 -1);
+		enemigo = new Blindado(celda, inteligencia,enemigos); 
+		celda.setTanque(enemigo);
+		enemigos.add(enemigo);
+		enemigo.setDireccion('I');
+		gui.add(enemigo.getImagenActual()); 
+		
+		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2);
+		enemigo = new Rapido(celda, inteligencia,enemigos); 
+		celda.setTanque(enemigo);
+		enemigos.add(enemigo);
+		enemigo.setDireccion('D');
+		gui.add(enemigo.getImagenActual()); 
+		
+		controladorEnemigos.start(); 
+	}
+	
+	//ELIMINAR DESPUES DE GENERAR ENEMIGOS. 
 	public void generarEnemigo(){
 		
-		if(enemigos.size()==1){
+		if(enemigos.size()>4){
 			eliminarEnemigo();
 		}
 		else{
 			Celda celda= mapa.getCelda(0, mapa.cantidadColumnas()-1);
+			InteligenciaEnemigo inteligencia = new InteligenciaEnemigo(mapa);
 			if(celda.getTanque()==null){
-				Enemigo enemigo= new Basico(celda);
+				Enemigo enemigo= new Basico(celda, inteligencia, enemigos);
 				celda.setTanque(enemigo);
 				enemigos.add(enemigo);
 				gui.add(enemigo.getImagenActual());
@@ -111,7 +157,7 @@ public class Logica {
 		int columna= eliminado.getColumna();
 		
 		jugador.aumentarPuntos(eliminado.getPuntos());
-		System.out.println(jugador.getPuntos());
+		//System.out.println(jugador.getPuntos());
 		
 		mapa.getCelda(fila, columna).setTanque(null);
 		eliminado.setCelda(null);

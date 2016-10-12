@@ -87,6 +87,83 @@ public class Mapa {
 		tanque.actuar(nueva.getPower());
 	}
 	
+	public void concretarMovimientoDisparo(Celda vieja){
+		Disparo disparo = vieja.getBala();
+		int fila = vieja.getFila(); 
+		int columna = vieja.getColumna(); 
+		Celda nueva = null; 
+		char direccion = disparo.getDireccion(); 
+		
+		switch(direccion){
+			case 'I':
+			{
+				if(columna-1>=0)
+					nueva = getCelda(fila, columna-1); 
+				else {
+					disparo.destruirse(); 
+				}
+			    break; 
+		    }
+		case 'D': 
+			{
+				if(columna+1<cantidadColumnas())
+					nueva = getCelda(fila, columna+1); 
+				else {
+					disparo.destruirse(); 
+				}
+				break; 
+		    }
+		case 'B': 
+			{
+				if(fila+1<cantidadFilas())
+					nueva = getCelda(fila+1, columna); 
+				else {
+					disparo.destruirse();  
+				}
+				break; 
+			}
+		case 'A': 
+			{
+				if(fila-1>=0)
+					nueva = getCelda(fila-1, columna); 
+				else {
+					disparo.destruirse();  
+				}
+				break; 
+			}
+		}
+		
+		vieja.setBala(null);
+		
+		if(nueva!=null){
+			
+			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
+				if(nueva.getBala()==null){
+					if(nueva.getTanque()==null){
+						nueva.setBala(disparo); 
+						disparo.setCelda(nueva);
+					}
+					else{
+						nueva.getTanque().recibirGolpe(); 
+					}
+				}
+				else{
+					nueva.getBala().destruirse(); 
+					disparo.destruirse(); 
+				}
+			}
+			else{
+				//Ver lo de la pared de acero. 
+				if(nueva.getObstaculo()!=null){
+					nueva.getObstaculo().recibirGolpe();
+					disparo.destruirse(); 
+				}
+			}
+		}
+	}
+	
+	
+	
 	//Consultas
 	
 	public Celda getCelda(int fila, int columna){

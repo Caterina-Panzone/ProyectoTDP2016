@@ -1,0 +1,8 @@
+Clase inteligencia enemigo runnable que conoce al juego. 
+Cuando se mueve el jugador, el jugador hereda de "algo" que modela los game objects. 
+El movimiento del tanque es el mismo que el de los enemigos. 
+Desde la GUI pasa por el juego y llama a jugador movete. 
+
+
+-Estrategia: No toods los enemigos tienen su inteligencia sino que hay algo en el juego que conoce a todos los enemigos y le dice a cada uno ques e mueva. 
+-Los threads estan en el juego y no en el enemigo. 

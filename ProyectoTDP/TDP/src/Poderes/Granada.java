@@ -1,8 +1,7 @@
 package Poderes;
 
 import Juego.*;
-import Tanques.Jugador;
-import Tanques.Tanque; 
+import Tanques.*; 
 
 public class Granada extends PowerUp{
 	//Constructor

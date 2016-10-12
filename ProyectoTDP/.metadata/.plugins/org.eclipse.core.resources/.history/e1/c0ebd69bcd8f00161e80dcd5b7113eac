@@ -1,0 +1,95 @@
+package Tanques;
+
+import java.util.Random;
+
+import Juego.*;
+
+public class InteligenciaEnemigo {
+	//Atributos
+	protected Mapa mapa; 
+	
+	//Constructor
+	public InteligenciaEnemigo(Mapa mapa){
+		this.mapa = mapa; 
+	}
+	
+	//Comandos
+	public void moverse(Enemigo enemigo){
+		int i = enemigo.getFila(); 
+		int j = enemigo.getColumna(); 
+		int columnas = mapa.cantidadColumnas(); 
+		int filas = mapa.cantidadFilas(); 
+		
+		switch(enemigo.getDireccion()){
+			case 'I': {
+				if ((j-1>=0) && (mapa.getCelda(i, j-1).permitidoAvanzarTanque())){
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j-1));
+					}
+				else{
+					nuevaDireccion(enemigo); 
+					}
+				break; 
+				}
+			case 'D': {
+				if ((j+1<columnas) && (mapa.getCelda(i, j+1).permitidoAvanzarTanque())){
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j+1));
+					}
+				else{
+					nuevaDireccion(enemigo); 
+					}
+				break; 
+				}
+			case 'B': {
+				if ((i+1<filas) && (mapa.getCelda(i+1, j).permitidoAvanzarTanque())){
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i+1, j));
+					}
+				else{
+					nuevaDireccion(enemigo); 
+					}
+				break; 
+				}
+			case 'A': {
+				if ((i-1>=0) && (mapa.getCelda(i-1, j).permitidoAvanzarTanque())){
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i-1, j));
+					}
+				else{
+					nuevaDireccion(enemigo); 
+					}
+				break; 
+				}
+			}
+	}
+	
+	private char transformarDireccion(int n){
+		char retorno='A';
+		
+		switch (n){
+		case 1: {
+			retorno = 'I'; 
+			break;
+			}
+		case 2: {
+			retorno = 'D'; 
+			break;
+			}
+		case 3: {
+			retorno = 'B'; 
+			break;
+			}
+		}
+		
+		return retorno; 
+	}
+	
+	private void nuevaDireccion(Enemigo enemigo){
+		int n; char direccion; 
+		Random rnd = new Random();
+		do{
+			n = rnd.nextInt(4)+1;
+			direccion = transformarDireccion(n); 
+		}while(direccion==enemigo.getDireccion()); 
+		
+		enemigo.setDireccion(direccion); 
+		moverse(enemigo); 
+	}
+}

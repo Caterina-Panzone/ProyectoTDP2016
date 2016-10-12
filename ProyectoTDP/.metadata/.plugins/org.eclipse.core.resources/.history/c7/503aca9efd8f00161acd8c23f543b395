@@ -1,0 +1,109 @@
+package Tanques;
+
+import java.util.Random;
+
+import Juego.*;
+
+public class InteligenciaEnemigo {
+	//Atributos
+	protected Mapa mapa; 
+	
+	//Constructor
+	public InteligenciaEnemigo(Mapa mapa){
+		this.mapa = mapa; 
+	}
+	
+	//Comandos
+	
+	private boolean puedoMoverIzquierda(int i, int j){
+		return ((j-1>=0) && (mapa.getCelda(i, j-1).permitidoAvanzarTanque()));
+	}
+	
+	private boolean puedoMoverDerecha(int i, int j){
+		return ((j+1<mapa.cantidadColumnas()) && (mapa.getCelda(i, j+1).permitidoAvanzarTanque()));
+	}
+	
+	private boolean puedoMoverAbajo(int i, int j){
+		return ((i+1<mapa.cantidadFilas()) && (mapa.getCelda(i+1, j).permitidoAvanzarTanque()));
+	}
+	
+	private boolean puedoMoverArriba(int i, int j){
+	    return ((i-1>=0) && (mapa.getCelda(i-1, j).permitidoAvanzarTanque()));
+	}
+	
+	public void moverse(Enemigo enemigo){
+		int i = enemigo.getFila(); 
+		int j = enemigo.getColumna(); 
+		char direccion=enemigo.getDireccion();
+
+		if(!( (direccion=='I' && puedoMoverIzquierda(i,j)) ||
+			     (direccion=='D' && puedoMoverDerecha(i,j)    ||
+			     (direccion=='B' && puedoMoverAbajo(i,j))     ||
+			     (direccion=='A' && puedoMoverArriba(i,j))    ) ))
+		{ 
+			nuevaDireccion(enemigo);
+			direccion=enemigo.getDireccion();
+		}
+		else{
+			switch(enemigo.getDireccion()){
+				case 'I':
+					{
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j-1));
+					enemigo.cambiarImagenActual(3);
+				    break; 
+				    }
+				case 'D': 
+					{
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j+1));
+					enemigo.cambiarImagenActual(2);
+					break; 
+				    }
+				case 'B': 
+					{
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i+1, j));
+					enemigo.cambiarImagenActual(1);
+					break; 
+					}
+				case 'A': 
+					{
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i-1, j));
+					enemigo.cambiarImagenActual(0);
+					break; 
+					}
+				}
+		}
+	}
+	
+	private char transformarDireccion(int n){
+		char retorno='A';
+		
+		switch (n){
+		case 1: {
+			retorno = 'I'; 
+			break;
+			}
+		case 2: {
+			retorno = 'D'; 
+			break;
+			}
+		case 3: {
+			retorno = 'B'; 
+			break;
+			}
+		}
+		
+		return retorno; 
+	}
+	
+	private void nuevaDireccion(Enemigo enemigo){
+		int n; char direccion; 
+		Random rnd = new Random();
+		do{
+			n = rnd.nextInt(4)+1;
+			System.out.println(""+n);
+			direccion = transformarDireccion(n); 
+		}while(direccion==enemigo.getDireccion()); 
+		
+		enemigo.setDireccion(direccion); 
+	}
+}

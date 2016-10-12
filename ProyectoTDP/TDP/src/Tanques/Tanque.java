@@ -9,8 +9,9 @@ public abstract class Tanque extends ObjetoConImagen {
 
     //Atributos
 	
+	protected int cantMaxima; 
 	protected int golpesRecibidos; 
-	protected List<Disparo> disparosRealizados;
+	protected int disparosRealizados;
 	protected char direccion;
 	
 	//Constructor
@@ -19,7 +20,7 @@ public abstract class Tanque extends ObjetoConImagen {
 		super(32,celda);
 		direccion = direc;
 		golpesRecibidos=0;
-		disparosRealizados = new LinkedList<Disparo>();
+		disparosRealizados = 0;
 	}
 	
 	//Comandos
@@ -28,18 +29,16 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	public Disparo disparar(){
 		Disparo disparo = new Disparo(this, direccion, celda);
-		disparosRealizados.add(disparo);
+		if(disparosRealizados<1)
+			disparosRealizados++;
 		return disparo;
 	}
 	
 	public void eliminarDisparo(Disparo disparo){
-		disparosRealizados.remove(disparo);
+		disparosRealizados--;
 	}
 	
-	/**
-	 * 
-	 * @return Falso si el tanque fue destruido, sino retorna verdadero. 
-	 */
+	//hay que cambiar el boolean a void. 
 	
 	public boolean recibirGolpe(){
 		golpesRecibidos++;

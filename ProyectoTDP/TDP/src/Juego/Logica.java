@@ -29,24 +29,31 @@ public class Logica {
 		this.gui=gui; 
 		nivelMapa=1; 
 		generarNuevoMapa(); 
+		
 		Celda celda = mapa.getCelda(mapa.cantidadFilas()-1, mapa.cantidadColumnas()/2-2);
 		jugador = new Jugador(celda, this);
 		celda.setTanque(jugador);
 		gui.add(jugador.getImagenActual()); 
 		
 		enemigos= new LinkedList<Enemigo>();
-		controladorEnemigos = new ControladorEnemigos(enemigos);
+		controladorEnemigos = new ControladorEnemigos(this);
 		disparos = new LinkedList<Disparo>(); 
-		controladorDisparos = new ControladorDisparos(disparos); 
+		controladorDisparos = new ControladorDisparos(disparos, mapa); 
 		generarEnemigos();
 	}
 	
 	//Comandos 
 	
+	public void añadirDisparo(Disparo disparo){
+		disparos.add(disparo);
+		gui.add(disparo.getImagenActual());
+	}
+	
 	private void generarNuevoMapa(){
 //		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui);
 		mapa = new Mapa("nivel"+nivelMapa+".txt",gui,this); 		
 	}
+	
 	
 	public void cambiarNivelJugador(){
 		jugador.aumentarNivel(); 
@@ -131,6 +138,7 @@ public class Logica {
 		gui.add(enemigo.getImagenActual()); 
 		
 		controladorEnemigos.start(); 
+		controladorDisparos.start();
 	}
 	
 	//ELIMINAR DESPUES DE GENERAR ENEMIGOS. 
@@ -184,4 +192,20 @@ public class Logica {
 	public void finalizarJuego(){
 		//HACER
 	}
+	
+	public void respawnearJugador(){
+		Celda celda = mapa.getCelda(mapa.cantidadFilas()-1, mapa.cantidadColumnas()/2-2);
+		celda.setTanque(jugador);
+		gui.add(jugador.getImagenActual()); 
+	}
+//Consultas
+	
+	public List<Disparo> getListaDisparos(){
+		return disparos;
+	}
+	
+	public List<Enemigo> getListaEnemigos(){
+		return enemigos;
+	}
+	
 }

@@ -26,6 +26,7 @@ public class Enemigo extends Tanque{
 		velocidadMovimiento = vm; 
 		this.puntos= puntos;
 		this.inteligencia = inteligencia; 
+		cantMaxima=1;
 	}
 	
 	//Comandos
@@ -36,6 +37,24 @@ public class Enemigo extends Tanque{
 	
 	public void moverse(){
 		inteligencia.moverse(this); 
+	}
+	
+	public void recibirGolpe(Jugador tanque){
+		golpesRecibidos++;
+		if(resistencia<=golpesRecibidos){
+			enemigos.remove(this);
+			celda.setTanque(null);
+			celda = null; 
+			ponerImagenVacia();
+		}
+	}
+	
+	public void recibirGolpe(Enemigo tanque){
+		
+	}
+	
+	public void dispareTanque(Tanque tanque){
+		tanque.recibirGolpe(this);
 	}
 	
 	//Consultas

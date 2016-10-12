@@ -1,0 +1,37 @@
+package Juego;
+
+import Tanques.*; 
+import java.util.List;
+
+
+public class ControladorEnemigos extends Thread{
+	protected Logica logica;
+	protected List<Disparo> disparos;
+	protected List<Enemigo> enemigos; 
+	private volatile boolean ejecutar; 
+	
+	public ControladorEnemigos(Logica logica){
+		this.logica=logica;
+		disparos=logica.getListaDisparos();
+		enemigos=logica.getListaEnemigos();
+	}
+	
+	public void terminate(){
+		ejecutar = false; 
+	}
+	
+	public void run() {
+		ejecutar = true; 
+		while(ejecutar){
+			try {
+				for(int i=0; i<enemigos.size(); i++){
+					enemigos.get(i).moverse(); 
+					enemigos.get(i).disparar(disparos); 
+				}
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

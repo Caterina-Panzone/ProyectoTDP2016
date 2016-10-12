@@ -13,6 +13,7 @@ public class Jugador extends Tanque {
 	protected Nivel nivel;
 	protected int enemigosDestruidos;
 	protected boolean invulnerabilidad;
+	protected Logica logica;
 
 	
 	//Constructor
@@ -31,6 +32,10 @@ public class Jugador extends Tanque {
 		puntos = 0;
 		enemigosDestruidos = 0;
 		invulnerabilidad = false;
+		
+		this.logica=logica;
+		
+		cantMaxima=nivel.getDisparosSimultaneos();
 	}
 	
 	//Comando
@@ -54,11 +59,41 @@ public class Jugador extends Tanque {
 	
 	public void aumentarNivel(){
 		nivel = nivel.siguienteNivel();
+		cantMaxima=nivel.getDisparosSimultaneos();
 	}
 	
 	public void aumentarVida(){
 		vidas++;
 	}
+	
+	public void recibirGolpe(Enemigo tanque){
+		if(!invulnerabilidad){
+			golpesRecibidos++;
+		}
+		if(nivel.getResistencia()<=golpesRecibidos){
+			celda.setTanque(null);
+			celda = null; 
+			ponerImagenVacia();
+			vidas--;
+			if(vidas<=0){
+				logica.finalizarJuego();
+			}
+			else{
+				nivel=new Nivel1();
+				cantMaxima=nivel.getDisparosSimultaneos();
+				logica.respawnearJugador();
+			}
+		}
+	}
+	
+	public void recibirGolpe(Jugador tanque){
+		
+	}
+	
+	public void dispareTanque(Tanque tanque){
+		tanque.recibirGolpe(this);
+	}
+	
 	
 	/**
 	 * 

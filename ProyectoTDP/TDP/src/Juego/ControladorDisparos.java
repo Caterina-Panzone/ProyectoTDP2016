@@ -3,13 +3,17 @@ package Juego;
 import java.util.List;
 
 import Tanques.*;
+import Juego.Mapa;
 
 public class ControladorDisparos extends Thread{
-	List<Disparo> disparos;
+
+	protected List<Disparo> disparos;
 	private volatile boolean ejecutar; 
+	protected Mapa mapa;
 	
-	public ControladorDisparos(List<Disparo> disparos){
+	public ControladorDisparos(List<Disparo> disparos, Mapa mapa){
 		this.disparos = disparos; 
+		this.mapa=mapa;
 	}
 	
 	public void terminate(){
@@ -21,9 +25,9 @@ public class ControladorDisparos extends Thread{
 		while(ejecutar){
 			try {
 				for(int i=0; i<disparos.size(); i++){
-					//disparos.get(i).avanzar); 
+					disparos.get(i).avanzar(mapa, disparos); 
 				}
-				Thread.sleep(400);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

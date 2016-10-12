@@ -1,8 +1,9 @@
 package Tanques;
 
+import java.util.List;
+
 import javax.swing.ImageIcon;
-import Juego.Celda;
-import Juego.ObjetoConImagen;
+import Juego.*;
 
 public class Disparo extends ObjetoConImagen{
 
@@ -14,7 +15,7 @@ public class Disparo extends ObjetoConImagen{
 	//Constructor
 	
 	public Disparo(Tanque emisor, char dir, Celda celda){
-		super(8,celda);
+		super(32,celda);
 		this.emisor=emisor;
 		direccion=dir;
 		
@@ -45,13 +46,93 @@ public class Disparo extends ObjetoConImagen{
 	
 	//Comandos 
 	
-	public void destruirse(){
+	public void destruirse(List<Disparo> disparos){
 		//emisor.eliminarDisparo(this);
 		emisor=null;
+		celda=null;
+		disparos.remove(this);
+		ponerImagenVacia();
 	}
 	
 	public void setCelda(Celda celda){
 		this.celda = celda;  
+	}
+	
+	public void avanzar(Mapa mapa, List<Disparo> disparos){
+		
+		int fila = celda.getFila(); 
+		int columna = celda.getColumna(); 
+		Celda nueva = null; 
+		
+		switch(direccion){
+			case 'I':
+			{
+				if(columna-1>=0)
+					nueva = mapa.getCelda(fila, columna-1); 
+				else {
+					destruirse(disparos); 
+				}
+			    break; 
+		    }
+		case 'D': 
+			{
+				if(columna+1<mapa.cantidadColumnas())
+					nueva = mapa.getCelda(fila, columna+1); 
+				else {
+					destruirse(disparos); 
+				}
+				break; 
+		    }
+		case 'B': 
+			{
+				if(fila+1<mapa.cantidadFilas())
+					nueva = mapa.getCelda(fila+1, columna); 
+				else {
+					destruirse(disparos);  
+				}
+				break; 
+			}
+		case 'A': 
+			{
+				if(fila-1>=0)
+					nueva = mapa.getCelda(fila-1, columna); 
+				else {
+					destruirse(disparos); 
+				}
+				break; 
+			}
+		}
+		
+		celda.setBala(null);
+		
+		if(nueva!=null){
+			
+			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
+				if(nueva.getBala()==null){
+					if(nueva.getTanque()==null){
+						nueva.setBala(this); 
+						setCelda(nueva);
+					}
+					else{
+						getEmisor().dispareTanque(nueva.getTanque());
+					}
+				}
+				else{
+					nueva.getBala().destruirse(disparos); 
+					destruirse(disparos);
+				}
+			}
+			else{
+				//Ver lo de la pared de acero. 
+				if(nueva.getObstaculo()!=null){
+					nueva.getObstaculo().recibirGolpe();
+					destruirse(disparos);
+				}
+				else{
+					nueva.setBala(this);
+				}
+			}
+		}
 	}
 	
 	//Consultas

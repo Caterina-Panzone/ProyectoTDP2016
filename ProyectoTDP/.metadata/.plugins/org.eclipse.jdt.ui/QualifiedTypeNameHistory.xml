@@ -3,9 +3,9 @@
 <fullyQualifiedTypeName name="Juego.Celda"/>
 <fullyQualifiedTypeName name="Poderes.PowerUp"/>
 <fullyQualifiedTypeName name="Tanques.Jugador"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="Obstaculos.Obstaculo"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

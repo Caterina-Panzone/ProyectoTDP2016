@@ -39,7 +39,7 @@ public class Enemigo extends Tanque{
 		inteligencia.moverse(this); 
 	}
 	
-	public void recibirGolpe(Jugador tanque){
+	public boolean recibirGolpe(Jugador tanque){
 		golpesRecibidos++;
 		if(resistencia<=golpesRecibidos){
 			enemigos.remove(this);
@@ -47,14 +47,15 @@ public class Enemigo extends Tanque{
 			celda = null; 
 			ponerImagenVacia();
 		}
+		return true; 
 	}
 	
-	public void recibirGolpe(Enemigo tanque){
-		
+	public boolean recibirGolpe(Enemigo tanque){
+		return false; 
 	}
 	
-	public void dispareTanque(Tanque tanque){
-		tanque.recibirGolpe(this);
+	public boolean dispareTanque(Tanque tanque){
+		return tanque.recibirGolpe(this);
 	}
 	
 	//Consultas

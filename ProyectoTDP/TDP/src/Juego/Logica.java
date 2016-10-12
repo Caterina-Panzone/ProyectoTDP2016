@@ -38,7 +38,7 @@ public class Logica {
 		enemigos= new LinkedList<Enemigo>();
 		controladorEnemigos = new ControladorEnemigos(this);
 		disparos = new LinkedList<Disparo>(); 
-		controladorDisparos = new ControladorDisparos(disparos, mapa); 
+		controladorDisparos = new ControladorDisparos(this); 
 		generarEnemigos();
 	}
 	
@@ -159,7 +159,7 @@ public class Logica {
 		}
 	}
 	
-	private void eliminarEnemigo(){
+	public void eliminarEnemigo(){
 		Enemigo eliminado=enemigos.get(0);
 		int fila= eliminado.getFila();
 		int columna= eliminado.getColumna();
@@ -208,4 +208,11 @@ public class Logica {
 		return enemigos;
 	}
 	
+	public Mapa getMapa(){
+		return mapa; 
+	}
+	
+	public void repaint(){
+		gui.repaint();
+	}
 }

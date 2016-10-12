@@ -47,8 +47,10 @@ public class Disparo extends ObjetoConImagen{
 	//Comandos 
 	
 	public void destruirse(List<Disparo> disparos){
-		//emisor.eliminarDisparo(this);
+		cambiarImagenActual(transformarDireccion());
+		emisor.eliminarDisparo();
 		emisor=null;
+		celda.setBala(null);
 		celda=null;
 		disparos.remove(this);
 		ponerImagenVacia();
@@ -103,8 +105,6 @@ public class Disparo extends ObjetoConImagen{
 			}
 		}
 		
-		celda.setBala(null);
-		
 		if(nueva!=null){
 			
 			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
@@ -112,9 +112,18 @@ public class Disparo extends ObjetoConImagen{
 					if(nueva.getTanque()==null){
 						nueva.setBala(this); 
 						setCelda(nueva);
+						cambiarImagenActual(transformarDireccion());
 					}
 					else{
-						getEmisor().dispareTanque(nueva.getTanque());
+						//No avanza a la otra celda
+						if(getEmisor().dispareTanque(nueva.getTanque()))
+							destruirse(disparos);
+						else {
+							nueva.setBala(this);
+							celda=nueva;
+							cambiarImagenActual(transformarDireccion());
+						}
+							
 					}
 				}
 				else{
@@ -130,9 +139,32 @@ public class Disparo extends ObjetoConImagen{
 				}
 				else{
 					nueva.setBala(this);
+					celda=nueva;
+					cambiarImagenActual(transformarDireccion());
 				}
 			}
 		}
+	}
+	
+	private int transformarDireccion(){
+		int retorno=3;
+		
+		switch (direccion){
+			case 'A': {
+				retorno = 0; 
+				break;
+				}
+			case 'B':{ 
+				retorno = 1; 
+				break;
+				}
+			case 'D': {
+				retorno = 2; 
+				break;
+				}
+		}
+		
+		return retorno; 
 	}
 	
 	//Consultas

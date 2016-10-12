@@ -39,7 +39,7 @@ public class GUI extends JFrame{
 		addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent arg0) {
 				if (arg0.getKeyCode()==KeyEvent.VK_G){
-					generarEnemigo();
+					eliminarEnemigo();
 				}
 				else{
 					if(arg0.getKeyCode()==KeyEvent.VK_P){
@@ -69,8 +69,8 @@ public class GUI extends JFrame{
 		this.repaint();
 	}
 	
-	protected void generarEnemigo(){
-		logica.generarEnemigo();
+	protected void eliminarEnemigo(){
+		logica.eliminarEnemigo();
 		this.repaint();
 	}
 	

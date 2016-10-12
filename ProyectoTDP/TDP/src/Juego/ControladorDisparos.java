@@ -10,10 +10,12 @@ public class ControladorDisparos extends Thread{
 	protected List<Disparo> disparos;
 	private volatile boolean ejecutar; 
 	protected Mapa mapa;
+	protected Logica logica; 
 	
-	public ControladorDisparos(List<Disparo> disparos, Mapa mapa){
-		this.disparos = disparos; 
-		this.mapa=mapa;
+	public ControladorDisparos(Logica logica){
+		this.logica = logica; 
+		disparos = logica.getListaDisparos(); 
+		mapa=logica.getMapa();
 	}
 	
 	public void terminate(){
@@ -24,10 +26,12 @@ public class ControladorDisparos extends Thread{
 		ejecutar = true; 
 		while(ejecutar){
 			try {
+				Disparo disparo;
 				for(int i=0; i<disparos.size(); i++){
-					disparos.get(i).avanzar(mapa, disparos); 
+					disparo = disparos.get(i);
+					disparo.avanzar(mapa, disparos);  
 				}
-				Thread.sleep(100);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

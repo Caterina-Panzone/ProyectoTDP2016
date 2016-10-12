@@ -36,21 +36,21 @@ public abstract class Tanque extends ObjetoConImagen {
 		return disparo;
 	}
 	
-	public void eliminarDisparo(Disparo disparo){
+	public void eliminarDisparo(){
 		disparosRealizados--;
 	}
 	
 	//hay que cambiar el boolean a void. 
 	
-	public abstract void recibirGolpe(Jugador tanque);
+	public abstract boolean recibirGolpe(Jugador tanque);
 	
-	public abstract void recibirGolpe(Enemigo tanque);
+	public abstract boolean recibirGolpe(Enemigo tanque);
 	
 	public void setDireccion(char dir){
 		direccion=dir;
 	}
 	
-	public abstract void dispareTanque(Tanque tanque);
+	public abstract boolean dispareTanque(Tanque tanque);
 	
 	//Consultas
 	

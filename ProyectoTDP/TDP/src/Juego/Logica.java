@@ -211,8 +211,4 @@ public class Logica {
 	public Mapa getMapa(){
 		return mapa; 
 	}
-	
-	public void repaint(){
-		gui.repaint();
-	}
 }

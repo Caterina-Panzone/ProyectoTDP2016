@@ -37,7 +37,7 @@ public class GUI extends JFrame{
 	 */
 	public GUI() {
 		addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent arg0) {
+			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode()==KeyEvent.VK_G){
 					eliminarEnemigo();
 				}

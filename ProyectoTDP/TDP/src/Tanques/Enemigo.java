@@ -26,7 +26,6 @@ public class Enemigo extends Tanque{
 		velocidadMovimiento = vm; 
 		this.puntos= puntos;
 		this.inteligencia = inteligencia; 
-		cantMaxima=1;
 	}
 	
 	//Comandos

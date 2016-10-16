@@ -15,7 +15,7 @@ public class Acero extends Obstaculo{
 		super(false, false, celda); 
 		golpesRecibidos=0;
 		
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/A.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/A1.png"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/A2.png"));
 		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/A3.png"));
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/A4.png"));

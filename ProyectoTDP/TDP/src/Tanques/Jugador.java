@@ -34,8 +34,7 @@ public class Jugador extends Tanque {
 		invulnerabilidad = false;
 		
 		this.logica=logica;
-		
-		cantMaxima=nivel.getDisparosSimultaneos();
+
 	}
 	
 	//Comando
@@ -59,7 +58,6 @@ public class Jugador extends Tanque {
 	
 	public void aumentarNivel(){
 		nivel = nivel.siguienteNivel();
-		cantMaxima=nivel.getDisparosSimultaneos();
 	}
 	
 	public void aumentarVida(){
@@ -80,7 +78,6 @@ public class Jugador extends Tanque {
 			}
 			else{
 				nivel=new Nivel1();
-				cantMaxima=nivel.getDisparosSimultaneos();
 				logica.respawnearJugador();
 			}
 		}
@@ -139,7 +136,7 @@ public class Jugador extends Tanque {
 		return nivel.getResistencia();
 	}
 	
-	public int getDisparosSimultaneos(){
+	public int cantMaximaDisparos(){
 		return nivel.getDisparosSimultaneos(); 
 	}
 }

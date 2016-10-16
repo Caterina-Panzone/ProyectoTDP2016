@@ -42,8 +42,8 @@ public class GUI extends JFrame{
 					eliminarEnemigo();
 				}
 				else{
-					if(arg0.getKeyCode()==KeyEvent.VK_P){
-					  romperPared();	
+					if(arg0.getKeyCode()==KeyEvent.VK_SPACE){
+					  jugadorDispara();	
 					} if (arg0.getKeyCode()==KeyEvent.VK_N){
 						cambiarNivelJugador(); 
 					}else{
@@ -64,9 +64,8 @@ public class GUI extends JFrame{
 		logica = new Logica(this);
 	}
 	
-	protected void romperPared(){
-		logica.romperPared();
-		this.repaint();
+	protected void jugadorDispara(){
+		logica.jugadorDispara();
 	}
 	
 	protected void eliminarEnemigo(){

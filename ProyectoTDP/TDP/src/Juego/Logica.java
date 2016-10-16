@@ -66,7 +66,7 @@ public class Logica {
 		System.out.println("Resistencia: "+jugador.getResistencia()); 
 		System.out.println("Velocidad Movimiento: "+jugador.getVelocidadMovimiento()); 
 		System.out.println("Velocidad Disparo: "+jugador.getVelocidadDisparo()); 
-		System.out.println("Disparos Simultaneos: "+jugador.getDisparosSimultaneos()); 
+		System.out.println("Disparos Simultaneos: "+jugador.cantMaximaDisparos()); 
 	}
 	
 	public void moverJugador(int dir){
@@ -74,31 +74,31 @@ public class Logica {
 		
 		switch (dir){
 			case KeyEvent.VK_UP : //Arriba
+				jugador.setDireccion('A');
+				jugador.cambiarImagenActual(0);
 				if ((i-1>=0 && mapa.getCelda(i-1,j).permitidoAvanzarTanque())){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i-1,j)); 
-					jugador.cambiarImagenActual(0);
-					jugador.setDireccion('A');
 				}
 				break;
 			case KeyEvent.VK_DOWN : //Abajo
+				jugador.setDireccion('B');
+				jugador.cambiarImagenActual(1);
 				if ((i+1<mapa.cantidadFilas()) && mapa.getCelda(i+1,j).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i+1,j)); 
-					jugador.cambiarImagenActual(1);
-					jugador.setDireccion('B');
 				}
 				break;
 			case KeyEvent.VK_LEFT: //Izquierda
+				jugador.setDireccion('I');
+				jugador.cambiarImagenActual(3);
 				if ((j-1>=0) && mapa.getCelda(i,j-1).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i,j-1)); 
-					jugador.cambiarImagenActual(3);
-					jugador.setDireccion('I');
 				}
 				break;
 			case KeyEvent.VK_RIGHT : //Derecha
+				jugador.setDireccion('D');
+				jugador.cambiarImagenActual(2);
 				if ((j+1<mapa.cantidadColumnas()) && mapa.getCelda(i,j+1).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i,j+1)); 
-					jugador.cambiarImagenActual(2);
-					jugador.setDireccion('D');
 				}
 				break;
 		}
@@ -191,6 +191,12 @@ public class Logica {
 	
 	public void finalizarJuego(){
 		//HACER
+	}
+	
+	public void jugadorDispara(){
+		Disparo nuevo= jugador.disparar();
+		if(nuevo!=null)
+			añadirDisparo(nuevo);
 	}
 	
 	public void respawnearJugador(){

@@ -1,7 +1,5 @@
 package Tanques;
 
-import java.util.LinkedList;
-import java.util.List;
 import Juego.*;
 import Poderes.PowerUp;
 
@@ -9,7 +7,6 @@ public abstract class Tanque extends ObjetoConImagen {
 
     //Atributos
 	
-	protected int cantMaxima; 
 	protected int golpesRecibidos; 
 	protected int disparosRealizados;
 	protected char direccion;
@@ -29,7 +26,7 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	public Disparo disparar(){
 		Disparo disparo= null;
-		if(disparosRealizados<cantMaxima){
+		if(disparosRealizados<cantMaximaDisparos()){
 			disparosRealizados++;
 			disparo = new Disparo(this, direccion, celda);
 		}
@@ -56,6 +53,10 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	public char getDireccion(){
 		return direccion;
+	}
+	
+	public int cantMaximaDisparos(){
+		return 1;
 	}
 	
 	public abstract int getResistencia(); 

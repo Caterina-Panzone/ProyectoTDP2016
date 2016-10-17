@@ -30,7 +30,7 @@ public abstract class ObjetoConImagen{
 	
 	public void cambiarImagenActual(int índice){
 		imagenActual.setIcon(imagenes[índice]);
-		imagenActual.setBounds(celda.getColumna()*tamaño,celda.getFila()*tamaño,tamaño, tamaño);
+		imagenActual.setBounds(celda.getColumna()*32,celda.getFila()*32,tamaño, tamaño);
 	}
 	
 	public void setCelda(Celda celda){

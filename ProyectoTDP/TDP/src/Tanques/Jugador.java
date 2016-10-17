@@ -19,7 +19,7 @@ public class Jugador extends Tanque {
 	//Constructor
 	
 	public Jugador(Celda celda,Logica logica){
-		super('A',celda);
+		super(0,celda);
 		
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));

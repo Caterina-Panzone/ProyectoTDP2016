@@ -28,8 +28,8 @@ public abstract class ObjetoConImagen{
 		imagenActual.setIcon(null);
 	}
 	
-	public void cambiarImagenActual(int índice){
-		imagenActual.setIcon(imagenes[índice]);
+	public void cambiarImagenActual(int indice){
+		imagenActual.setIcon(imagenes[indice]);
 		imagenActual.setBounds(celda.getColumna()*tamaño,celda.getFila()*tamaño,tamaño, tamaño);
 	}
 	

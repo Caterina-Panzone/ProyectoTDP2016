@@ -35,25 +35,25 @@ public class InteligenciaEnemigo {
 		}
 		else{
 			switch(enemigo.getDireccion()){
-				case 3:
+				case 'I':
 					{
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j-1));
 					enemigo.cambiarImagenActual(3);
 				    break; 
 				    }
-				case 2: 
+				case 'D': 
 					{
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j+1));
 					enemigo.cambiarImagenActual(2);
 					break; 
 				    }
-				case 1: 
+				case 'B': 
 					{
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i+1, j));
 					enemigo.cambiarImagenActual(1);
 					break; 
 					}
-				case 0: 
+				case 'A': 
 					{
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i-1, j));
 					enemigo.cambiarImagenActual(0);
@@ -66,6 +66,27 @@ public class InteligenciaEnemigo {
 	/*
 	 * METODOS PRIVADOS
 	 */
+	
+	private char transformarDireccion(int n){
+		char retorno='A';
+		
+		switch (n){
+		case 1: {
+			retorno = 'B'; 
+			break;
+			}
+		case 2: {
+			retorno = 'D'; 
+			break;
+			}
+		case 3: {
+			retorno = 'I'; 
+			break;
+			}
+		}
+		
+		return retorno; 
+	}
 	
 	private boolean puedoMoverIzquierda(int i, int j){
 		return ((j-1>=0) && (mapa.getCelda(i, j-1).permitidoAvanzarTanque()));
@@ -91,12 +112,12 @@ public class InteligenciaEnemigo {
 	}
 	
 	private void nuevaDireccion(Enemigo enemigo){
-		int n; int direccion; 
+		int n; char direccion; 
 		Random rnd = new Random();
 		do{
 			n = rnd.nextInt(4);
 			enemigo.cambiarImagenActual(n);
-			direccion = n;
+			direccion = transformarDireccion(n); 
 		}while(direccion==enemigo.getDireccion()); 
 		
 		enemigo.setDireccion(direccion); 

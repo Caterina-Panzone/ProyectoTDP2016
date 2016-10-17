@@ -43,7 +43,7 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	public abstract boolean recibirGolpe(Enemigo tanque);
 	
-	public void setDireccion(int dir){
+	public void setDireccion(char dir){
 		direccion=dir;
 	}
 	

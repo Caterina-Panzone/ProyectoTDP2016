@@ -24,13 +24,30 @@ public class Disparo extends ObjetoConImagen{
 		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaD.png"));
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaI.png"));
 		
-		cambiarImagenActual(direccion);
+		switch (direccion){
+			case 'A': {
+				cambiarImagenActual(0);
+				break;
+			}
+			case 'B': {
+				cambiarImagenActual(1);
+				break;
+			}
+			case 'D': {
+				cambiarImagenActual(2);
+				break;
+			}
+			case 'I': {
+				cambiarImagenActual(3);
+				break;
+			}
+		}
 	}
 	
 	//Comandos 
 	
 	public void destruirse(List<Disparo> disparos){
-		cambiarImagenActual(direccion);
+		cambiarImagenActual(transformarDireccion());
 		emisor.eliminarDisparo();
 		emisor=null;
 		celda.setBala(null);
@@ -50,7 +67,7 @@ public class Disparo extends ObjetoConImagen{
 		Celda nueva = null; 
 		
 		switch(direccion){
-			case 3:
+			case 'I':
 			{
 				if(columna-1>=0)
 					nueva = mapa.getCelda(fila, columna-1); 
@@ -59,7 +76,7 @@ public class Disparo extends ObjetoConImagen{
 				}
 			    break; 
 		    }
-		case 2: 
+		case 'D': 
 			{
 				if(columna+1<mapa.cantidadColumnas())
 					nueva = mapa.getCelda(fila, columna+1); 
@@ -68,7 +85,7 @@ public class Disparo extends ObjetoConImagen{
 				}
 				break; 
 		    }
-		case 1: 
+		case 'B': 
 			{
 				if(fila+1<mapa.cantidadFilas())
 					nueva = mapa.getCelda(fila+1, columna); 
@@ -77,7 +94,7 @@ public class Disparo extends ObjetoConImagen{
 				}
 				break; 
 			}
-		case 0: 
+		case 'A': 
 			{
 				if(fila-1>=0)
 					nueva = mapa.getCelda(fila-1, columna); 
@@ -95,7 +112,7 @@ public class Disparo extends ObjetoConImagen{
 					if(nueva.getTanque()==null){
 						nueva.setBala(this); 
 						setCelda(nueva);
-						cambiarImagenActual(direccion);
+						cambiarImagenActual(transformarDireccion());
 					}
 					else{
 						//No avanza a la otra celda
@@ -104,7 +121,7 @@ public class Disparo extends ObjetoConImagen{
 						else {
 							nueva.setBala(this);
 							celda=nueva;
-							cambiarImagenActual(direccion);
+							cambiarImagenActual(transformarDireccion());
 						}
 							
 					}
@@ -123,10 +140,31 @@ public class Disparo extends ObjetoConImagen{
 				else{
 					nueva.setBala(this);
 					celda=nueva;
-					cambiarImagenActual(direccion);
+					cambiarImagenActual(transformarDireccion());
 				}
 			}
 		}
+	}
+	
+	private int transformarDireccion(){
+		int retorno=3;
+		
+		switch (direccion){
+			case 'A': {
+				retorno = 0; 
+				break;
+				}
+			case 'B':{ 
+				retorno = 1; 
+				break;
+				}
+			case 'D': {
+				retorno = 2; 
+				break;
+				}
+		}
+		
+		return retorno; 
 	}
 	
 	//Consultas

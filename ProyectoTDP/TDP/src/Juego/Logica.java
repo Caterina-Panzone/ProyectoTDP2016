@@ -74,28 +74,28 @@ public class Logica {
 		
 		switch (dir){
 			case KeyEvent.VK_UP : //Arriba
-				jugador.setDireccion('A');
+				jugador.setDireccion(0);
 				jugador.cambiarImagenActual(0);
 				if ((i-1>=0 && mapa.getCelda(i-1,j).permitidoAvanzarTanque())){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i-1,j)); 
 				}
 				break;
 			case KeyEvent.VK_DOWN : //Abajo
-				jugador.setDireccion('B');
+				jugador.setDireccion(1);
 				jugador.cambiarImagenActual(1);
 				if ((i+1<mapa.cantidadFilas()) && mapa.getCelda(i+1,j).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i+1,j)); 
 				}
 				break;
 			case KeyEvent.VK_LEFT: //Izquierda
-				jugador.setDireccion('I');
+				jugador.setDireccion(3);
 				jugador.cambiarImagenActual(3);
 				if ((j-1>=0) && mapa.getCelda(i,j-1).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i,j-1)); 
 				}
 				break;
 			case KeyEvent.VK_RIGHT : //Derecha
-				jugador.setDireccion('D');
+				jugador.setDireccion(2);
 				jugador.cambiarImagenActual(2);
 				if ((j+1<mapa.cantidadColumnas()) && mapa.getCelda(i,j+1).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i,j+1)); 
@@ -113,28 +113,28 @@ public class Logica {
 		enemigo = new Basico(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
 		enemigos.add(enemigo);
-		enemigo.setDireccion('B');
+		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 	
 		
 		celda = mapa.getCelda(0, 0);
 		enemigo = new DePoder(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
 		enemigos.add(enemigo);
-		enemigo.setDireccion('B');
+		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 
 		
 		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2 -1);
 		enemigo = new Blindado(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
 		enemigos.add(enemigo);
-		enemigo.setDireccion('I');
+		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 
 		
 		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2);
 		enemigo = new Rapido(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
 		enemigos.add(enemigo);
-		enemigo.setDireccion('D');
+		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 
 		
 		controladorEnemigos.start(); 

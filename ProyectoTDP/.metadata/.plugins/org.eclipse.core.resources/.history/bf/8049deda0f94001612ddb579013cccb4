@@ -9,11 +9,11 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	protected int golpesRecibidos; 
 	protected int disparosRealizados;
-	protected int direccion;
+	protected char direccion;
 	
 	//Constructor
 	
-	public Tanque(int direc, Celda celda){
+	public Tanque(char direc, Celda celda){
 		super(32,celda);
 		direccion = direc;
 		golpesRecibidos=0;
@@ -43,7 +43,7 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	public abstract boolean recibirGolpe(Enemigo tanque);
 	
-	public void setDireccion(int dir){
+	public void setDireccion(char dir){
 		direccion=dir;
 	}
 	
@@ -51,7 +51,7 @@ public abstract class Tanque extends ObjetoConImagen {
 	
 	//Consultas
 	
-	public int getDireccion(){
+	public char getDireccion(){
 		return direccion;
 	}
 	

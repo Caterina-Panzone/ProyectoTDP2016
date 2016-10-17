@@ -18,7 +18,7 @@ public class Enemigo extends Tanque{
 	
 	//Constructor
 	
-	public Enemigo(int vm, int vd, int resis, int direc, Celda celda, int puntos, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
+	public Enemigo(int vm, int vd, int resis, char direc, Celda celda, int puntos, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 		super(direc, celda);
 		this.enemigos = enemigos; 
 		resistencia = resis; 

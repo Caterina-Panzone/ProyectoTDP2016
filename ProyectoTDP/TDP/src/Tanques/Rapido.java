@@ -8,7 +8,7 @@ import Juego.*;
 
   public class Rapido extends Enemigo{
   
-	//Constructor
+	//Constructor 
 	  
     public Rapido(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 	    super(3,2,1,3,celda, 200, inteligencia,enemigos);

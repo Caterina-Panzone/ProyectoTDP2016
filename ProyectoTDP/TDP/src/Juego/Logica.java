@@ -74,32 +74,32 @@ public class Logica {
 		
 		switch (dir){
 			case KeyEvent.VK_UP : //Arriba
-				jugador.setDireccion(0);
-				jugador.cambiarImagenActual(0);
 				if ((i-1>=0 && mapa.getCelda(i-1,j).permitidoAvanzarTanque())){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i-1,j)); 
 				}
+				jugador.setDireccion(0);
+				jugador.cambiarImagenActual(0);
 				break;
 			case KeyEvent.VK_DOWN : //Abajo
-				jugador.setDireccion(1);
-				jugador.cambiarImagenActual(1);
 				if ((i+1<mapa.cantidadFilas()) && mapa.getCelda(i+1,j).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i+1,j)); 
 				}
+				jugador.setDireccion(1);
+				jugador.cambiarImagenActual(1);
 				break;
 			case KeyEvent.VK_LEFT: //Izquierda
-				jugador.setDireccion(3);
-				jugador.cambiarImagenActual(3);
 				if ((j-1>=0) && mapa.getCelda(i,j-1).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i,j-1)); 
 				}
+				jugador.setDireccion(3);
+				jugador.cambiarImagenActual(3);
 				break;
 			case KeyEvent.VK_RIGHT : //Derecha
-				jugador.setDireccion(2);
-				jugador.cambiarImagenActual(2);
 				if ((j+1<mapa.cantidadColumnas()) && mapa.getCelda(i,j+1).permitidoAvanzarTanque()){
 					mapa.concretarMovimientoTanque(mapa.getCelda(i,j),mapa.getCelda(i,j+1)); 
 				}
+				jugador.setDireccion(2);
+				jugador.cambiarImagenActual(2);
 				break;
 		}
 	}
@@ -165,7 +165,6 @@ public class Logica {
 		int columna= eliminado.getColumna();
 		
 		jugador.aumentarPuntos(eliminado.getPuntos());
-		//System.out.println(jugador.getPuntos());
 		
 		mapa.getCelda(fila, columna).setTanque(null);
 		eliminado.setCelda(null);
@@ -191,6 +190,8 @@ public class Logica {
 	
 	public void finalizarJuego(){
 		//HACER
+		System.out.println("Finalizo Juego");
+		//Terminate de los hilos en ejec. 
 	}
 	
 	public void jugadorDispara(){
@@ -202,6 +203,8 @@ public class Logica {
 	public void respawnearJugador(){
 		Celda celda = mapa.getCelda(mapa.cantidadFilas()-1, mapa.cantidadColumnas()/2-2);
 		celda.setTanque(jugador);
+		jugador.setCelda(celda);
+		jugador.cambiarImagenActual(0);
 		gui.add(jugador.getImagenActual()); 
 	}
 //Consultas

@@ -19,10 +19,11 @@ public class InteligenciaEnemigo {
 		
 	}
 	
-	public void moverse(Enemigo enemigo){
+	public boolean moverse(Enemigo enemigo){
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 
 		int direccion=enemigo.getDireccion();
+		boolean seMovio=true; 
 
 		if(!puedoMover(direccion,i,j)){ 
 			boolean cumple=false; int corte=0;
@@ -32,35 +33,29 @@ public class InteligenciaEnemigo {
 				cumple = puedoMover(direccion,i,j); 
 				corte++; 
 			}
+			seMovio=false;
 		}
 		else{
 			switch(enemigo.getDireccion()){
-				case 3:
-					{
+				case 3:{
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j-1));
-					enemigo.cambiarImagenActual(3);
 				    break; 
 				    }
-				case 2: 
-					{
+				case 2: {
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j+1));
-					enemigo.cambiarImagenActual(2);
 					break; 
 				    }
-				case 1: 
-					{
+				case 1: {
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i+1, j));
-					enemigo.cambiarImagenActual(1);
 					break; 
 					}
-				case 0: 
-					{
+				case 0: {
 					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i-1, j));
-					enemigo.cambiarImagenActual(0);
 					break; 
 					}
 				}
 		}
+		return seMovio;
 	}
 	
 	/*

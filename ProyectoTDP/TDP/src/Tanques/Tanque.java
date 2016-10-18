@@ -10,6 +10,8 @@ public abstract class Tanque extends ObjetoConImagen {
 	protected int golpesRecibidos; 
 	protected int disparosRealizados;
 	protected int direccion;
+	protected int x;
+	protected int y; 
 	
 	//Constructor
 	
@@ -18,9 +20,34 @@ public abstract class Tanque extends ObjetoConImagen {
 		direccion = direc;
 		golpesRecibidos=0;
 		disparosRealizados = 0;
+		x = celda.getColumna()*tamaño;
+		y = celda.getFila()*tamaño; 
 	}
 	
 	//Comandos
+	
+	protected void moverseGraficamente(){
+		switch(direccion){
+			case 0:{//Arriba
+				y-=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+			case 1:{//Abajo
+				y+=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+			case 2:{//Derecha
+				x+=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+			case 3:{//Izquierda
+				x-=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+		}
+		imagenActual.setIcon(imagenes[direccion]);
+		imagenActual.setBounds(x,y,tamaño, tamaño);	
+	}
 	
 	public abstract void actuar(PowerUp poder);
 	

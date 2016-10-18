@@ -44,7 +44,67 @@ public class Disparo extends ObjetoConImagen{
 	}
 	
 	public void avanzar(Mapa mapa, List<Disparo> disparos){
-		
+
+		Celda nueva = proximaCelda(mapa,disparos); 
+				
+		if(nueva!=null){
+			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
+				auxiliar(nueva,disparos); 
+			}
+			else{
+				//Ver lo de la pared de acero.
+				if(nueva.getObstaculo()!=null){ 
+					nueva.getObstaculo().recibirGolpe();
+					destruirse(disparos);
+				}
+				else{
+//					auxiliar(nueva,disparos); 
+					if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
+						destruirse(disparos);
+					}
+					else {
+						concretarMovimientoDisparo(nueva); 
+					}
+				}
+			}
+		}
+	}
+	
+	/*
+	 * Setea el disparo en la nueva celda. 
+	 */
+	
+	private void concretarMovimientoDisparo(Celda nueva){
+		nueva.setBala(this);
+		celda=nueva;
+		cambiarImagenActual(direccion);
+	}
+	
+	/*
+	 * aux
+	 */
+	private void auxiliar(Celda nueva, List<Disparo> disparos){
+		if(nueva.getBala()==null){
+			if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
+				destruirse(disparos);
+			}
+			else {
+				concretarMovimientoDisparo(nueva); 
+			}
+		}
+		else{ //Colisión de dos disparos. 
+			System.out.println("Colision entre disparos");
+			nueva.getBala().destruirse(disparos); 
+			destruirse(disparos); 
+		}
+	}
+	
+	/*
+	 * Busca la celda contigua. 
+	 * Si está en los límites del mapa destruye el disparo y retorna nulo. 
+	 */
+	
+	private Celda proximaCelda(Mapa mapa, List<Disparo> disparos){
 		int fila = celda.getFila(); 
 		int columna = celda.getColumna(); 
 		Celda nueva = null; 
@@ -64,7 +124,7 @@ public class Disparo extends ObjetoConImagen{
 				if(columna+1<mapa.cantidadColumnas())
 					nueva = mapa.getCelda(fila, columna+1); 
 				else {
-					destruirse(disparos); 
+					destruirse(disparos);
 				}
 				break; 
 		    }
@@ -73,7 +133,7 @@ public class Disparo extends ObjetoConImagen{
 				if(fila+1<mapa.cantidadFilas())
 					nueva = mapa.getCelda(fila+1, columna); 
 				else {
-					destruirse(disparos);  
+					destruirse(disparos); 
 				}
 				break; 
 			}
@@ -88,45 +148,7 @@ public class Disparo extends ObjetoConImagen{
 			}
 		}
 		
-		if(nueva!=null){
-			
-			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
-				if(nueva.getBala()==null){
-					if(nueva.getTanque()==null){
-						nueva.setBala(this); 
-						setCelda(nueva);
-						cambiarImagenActual(direccion);
-					}
-					else{
-						//No avanza a la otra celda
-						if(getEmisor().dispareTanque(nueva.getTanque()))
-							destruirse(disparos);
-						else {
-							nueva.setBala(this);
-							celda=nueva;
-							cambiarImagenActual(direccion);
-						}
-							
-					}
-				}
-				else{
-					nueva.getBala().destruirse(disparos); 
-					destruirse(disparos);
-				}
-			}
-			else{
-				//Ver lo de la pared de acero. 
-				if(nueva.getObstaculo()!=null){
-					nueva.getObstaculo().recibirGolpe();
-					destruirse(disparos);
-				}
-				else{
-					nueva.setBala(this);
-					celda=nueva;
-					cambiarImagenActual(direccion);
-				}
-			}
-		}
+		return nueva; 
 	}
 	
 	//Consultas

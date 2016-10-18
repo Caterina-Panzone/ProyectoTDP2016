@@ -15,6 +15,7 @@ public class Enemigo extends Tanque{
 	protected int puntos;
 	protected InteligenciaEnemigo inteligencia; 
 	protected List<Enemigo> enemigos; 
+	protected int lock; 
 	
 	//Constructor
 	
@@ -26,6 +27,7 @@ public class Enemigo extends Tanque{
 		velocidadMovimiento = vm; 
 		this.puntos= puntos;
 		this.inteligencia = inteligencia; 
+		lock = 0;
 	}
 	
 	//Comandos
@@ -35,11 +37,38 @@ public class Enemigo extends Tanque{
 	}
 	
 	public void moverse(){
-		inteligencia.moverse(this); 
+		boolean nuevaDireccion=true; 
+		
+		//Si el tanque dejó de moverse.
+		
+		if(lock<=0){
+			nuevaDireccion = inteligencia.moverse(this); 
+			lock = tamaño/(velocidadMovimiento*2);  	
+		}
+		
+		//Si la direccion que tiene el tanque es válida se mueve. 
+		
+		if(nuevaDireccion){
+			//Posiciona el tanque en la fila y columna final del movimiento. 
+			if(lock==1){
+				x = celda.getColumna()*tamaño;
+				y = celda.getFila()*tamaño; 
+				cambiarImagenActual(direccion);  
+			}
+			else {
+				//Genera el movimiento continuo del tanque con posiciones, dependiendo de la velocidad de cada tanque. 
+				moverseGraficamente();
+			}
+			lock--;
+		}else{
+			//Se utiliza para volver a buscar una direccion en la inteligencia del tanque. 
+			lock=0; 
+		}
 	}
 	
 	public boolean recibirGolpe(Jugador tanque){
-		golpesRecibidos++;
+		golpesRecibidos++; 
+		
 		if(resistencia<=golpesRecibidos){
 			enemigos.remove(this);
 			celda.setTanque(null);

@@ -30,7 +30,7 @@ public class ControladorEnemigos extends Thread{
 						logica.añadirDisparo(disparo);
 					}
 				}
-				Thread.sleep(400);
+				Thread.sleep(110);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

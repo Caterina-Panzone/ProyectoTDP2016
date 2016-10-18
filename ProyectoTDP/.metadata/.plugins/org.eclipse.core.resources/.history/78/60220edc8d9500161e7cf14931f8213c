@@ -103,6 +103,58 @@ public class Disparo extends ObjetoConImagen{
 		}
 	}
 	
+	/*
+	 * Busca la celda contigua. 
+	 * Si está en los límites del mapa destruye el disparo y retorna nulo. 
+	 */
+	
+	private Celda proximaCelda(Mapa mapa, List<Disparo> disparos){
+		int fila = celda.getFila(); 
+		int columna = celda.getColumna(); 
+		Celda nueva = null; 
+		
+		switch(direccion){
+			case 3:
+			{
+				if(columna-1>=0)
+					nueva = mapa.getCelda(fila, columna-1); 
+				else {
+					destruirse(disparos); 
+				}
+			    break; 
+		    }
+		case 2: 
+			{
+				if(columna+1<mapa.cantidadColumnas())
+					nueva = mapa.getCelda(fila, columna+1); 
+				else {
+					destruirse(disparos);
+				}
+				break; 
+		    }
+		case 1: 
+			{
+				if(fila+1<mapa.cantidadFilas())
+					nueva = mapa.getCelda(fila+1, columna); 
+				else {
+					destruirse(disparos); 
+				}
+				break; 
+			}
+		case 0: 
+			{
+				if(fila-1>=0)
+					nueva = mapa.getCelda(fila-1, columna); 
+				else {
+					destruirse(disparos); 
+				}
+				break; 
+			}
+		}
+		
+		return nueva; 
+	}
+	
 	//Consultas
 	
 	public Tanque getEmisor(){

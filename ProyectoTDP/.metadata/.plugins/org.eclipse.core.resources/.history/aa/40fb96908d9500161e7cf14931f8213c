@@ -95,7 +95,6 @@ public class Mapa {
 	
 	/*
 	 * Retorna la celda contigua dependiendo de la direcion. 
-	 * Si está en los límites del mapa retorna nulo. 
 	 */
 	
 	public Celda getCeldaSiguiente(Celda celda,int direccion){

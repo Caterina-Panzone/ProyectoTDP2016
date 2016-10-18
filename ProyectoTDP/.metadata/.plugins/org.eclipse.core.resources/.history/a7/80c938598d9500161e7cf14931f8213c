@@ -93,42 +93,6 @@ public class Mapa {
 		return matriz[fila][columna]; 
 	}
 	
-	/*
-	 * Retorna la celda contigua dependiendo de la direcion. 
-	 * Si está en los límites del mapa retorna nulo. 
-	 */
-	
-	public Celda getCeldaSiguiente(Celda celda,int direccion){
-		int fila = celda.getFila(); 
-		int columna = celda.getColumna(); 
-		Celda nueva = null; 
-		
-		switch(direccion){
-			case 3:{
-				if(columna-1>=0)
-					nueva = getCelda(fila, columna-1); 
-			    break; 
-		    }
-		case 2:{
-				if(columna+1<cantidadColumnas())
-					nueva = getCelda(fila, columna+1); 
-				break; 
-		    }
-		case 1: {
-				if(fila+1<cantidadFilas())
-					nueva = getCelda(fila+1, columna); 
-				break; 
-			}
-		case 0: {
-				if(fila-1>=0)
-					nueva = getCelda(fila-1, columna); 
-				break; 
-			}
-		}
-		
-		return nueva; 
-	}
-	
 	public int cantidadFilas(){
 		return matriz.length; 
 	}

@@ -45,6 +45,9 @@ public class Logica {
 	//Comandos 
 	
 	public void añadirDisparo(Disparo disparo){
+//		System.out.println("POSICION disp! fila"+disparo.getFila()+" columna "+disparo.getColumna());
+//		System.out.println("Direccion disparo -> "+disparo.getDireccion());
+//		System.out.println("add disparos"+disparos.size());
 		disparos.add(disparo);
 		gui.add(disparo.getImagenActual());
 	}
@@ -115,7 +118,7 @@ public class Logica {
 		enemigos.add(enemigo);
 		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 	
-		
+		/*
 		celda = mapa.getCelda(0, 0);
 		enemigo = new DePoder(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
@@ -136,7 +139,7 @@ public class Logica {
 		enemigos.add(enemigo);
 		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 
-		
+		*/
 		controladorEnemigos.start(); 
 		controladorDisparos.start();
 	}

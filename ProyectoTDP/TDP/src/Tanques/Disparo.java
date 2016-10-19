@@ -16,6 +16,8 @@ public class Disparo extends ObjetoConImagen{
 	
 	public Disparo(Tanque emisor, int dir, Celda celda){
 		super(32,celda);
+		
+		celda.setBala(this); 
 		this.emisor=emisor;
 		direccion=dir;
 		
@@ -30,17 +32,15 @@ public class Disparo extends ObjetoConImagen{
 	//Comandos 
 	
 	public void destruirse(List<Disparo> disparos){
-		cambiarImagenActual(direccion);
-		emisor.eliminarDisparo();
-		emisor=null;
-		celda.setBala(null);
-		celda=null;
 		disparos.remove(this);
+		celda.setBala(null);
+		cambiarImagenActual(direccion);
 		ponerImagenVacia();
-	}
-	
-	public void setCelda(Celda celda){
-		this.celda = celda;  
+		emisor.eliminarDisparo(); 
+		//System.out.println("DESTRUCCION BALA! fila "+celda.getFila()+" columna "+celda.getColumna());
+		celda=null;		
+		emisor=null;
+		System.out.println("Tamaño disparos:: "+disparos.size());
 	}
 	
 	public void avanzar(Mapa mapa, List<Disparo> disparos){
@@ -48,30 +48,35 @@ public class Disparo extends ObjetoConImagen{
 		Celda nueva = mapa.getCeldaSiguiente(celda, direccion); 
 				
 		if(nueva!=null){
+			System.out.println("AVANCE DISPARO! fila "+nueva.getFila()+" columna "+nueva.getColumna());
 			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
+				System.out.println("objeto");
 				auxiliar(nueva,disparos); 
 			}
 			else{
 				//Ver lo de la pared de acero.
 				if(nueva.getObstaculo()!=null){ 
+					System.out.println("pared de acero");
 					nueva.getObstaculo().recibirGolpe();
 					destruirse(disparos);
 				}
 				else{
-//					auxiliar(nueva,disparos); 
-					if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
-						destruirse(disparos);
-					}
-					else {
-						concretarMovimientoDisparo(nueva); 
-					}
+					System.out.println("obstaculo null");
+					auxiliar(nueva,disparos); 
+//					if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
+//						destruirse(disparos);
+//					}
+//					else {
+//						concretarMovimientoDisparo(nueva); 
+//					}
 				}
 			}
 		}
 		else{
+			System.out.println("outbound DISPARO! fila "+celda.getFila()+" columna "+celda.getColumna());
 			destruirse(disparos); 
 		}
-			
+		System.out.println("AVANZAR SIZE:: "+disparos.size());	
 	}
 	
 	/*
@@ -79,8 +84,8 @@ public class Disparo extends ObjetoConImagen{
 	 */
 	
 	private void concretarMovimientoDisparo(Celda nueva){
-		nueva.setBala(this);
 		celda=nueva;
+		celda.setBala(this);
 		cambiarImagenActual(direccion);
 	}
 	
@@ -90,6 +95,7 @@ public class Disparo extends ObjetoConImagen{
 	private void auxiliar(Celda nueva, List<Disparo> disparos){
 		if(nueva.getBala()==null){
 			if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
+				System.out.println("DESTRUIR DISPARO UNICO:: "+this.getColumna()+" "+this.getFila()); 
 				destruirse(disparos);
 			}
 			else {
@@ -97,9 +103,14 @@ public class Disparo extends ObjetoConImagen{
 			}
 		}
 		else{ //Colisión de dos disparos. 
+			
+			System.out.println("----------"+this.getColumna()+" "+this.getFila()); 
+			System.out.println("COLISION DISPARO! fila "+nueva.getFila()+" columna "+nueva.getColumna());
+			System.out.println("----------"+nueva.getBala().getColumna()+" "+nueva.getBala().getFila());
 			System.out.println("Colision entre disparos");
-			//nueva.getBala().destruirse(disparos); 
-			destruirse(disparos); 
+			nueva.getBala().destruirse(disparos); 
+			destruirse(disparos);
+			System.out.println("----------"); 
 		}
 	}
 	

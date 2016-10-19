@@ -1,0 +1,121 @@
+package Tanques;
+
+import java.util.List;
+
+import javax.swing.ImageIcon;
+import Juego.*;
+
+public class Disparo extends ObjetoConImagen{
+
+	//Atributos
+	
+	protected Tanque emisor;
+	protected int direccion;
+	
+	//Constructor
+	
+	public Disparo(Tanque emisor, int dir, Celda celda){
+		super(32,celda);
+		celda.setBala(this); 
+		this.emisor=emisor;
+		direccion=dir;
+		
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaA.png"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaB.png"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaD.png"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaI.png"));
+		
+		cambiarImagenActual(direccion);
+	}
+	
+	//Comandos 
+	
+	public void destruirse(List<Disparo> disparos){
+		cambiarImagenActual(direccion);
+		celda.setBala(null);
+		//celda=null;
+		ponerImagenVacia();
+		disparos.remove(this);
+		System.out.println("disparos"+disparos.size());
+		emisor.eliminarDisparo();
+		//emisor=null;
+	}
+	
+//	public void setCelda(Celda celda){
+//		this.celda = celda;  
+//	}
+	
+	public void avanzar(Mapa mapa, List<Disparo> disparos){
+
+		Celda nueva = mapa.getCeldaSiguiente(celda, direccion); 
+				
+		if(nueva!=null){
+			if(nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanDisparos()){
+				System.out.println("objeto");
+				auxiliar(nueva,disparos); 
+			}
+			else{
+				//Ver lo de la pared de acero.
+				if(nueva.getObstaculo()!=null){ 
+					nueva.getObstaculo().recibirGolpe();
+					destruirse(disparos);
+				}
+				else{
+					System.out.println("entre balas");
+					auxiliar(nueva,disparos); 
+//					if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
+//						destruirse(disparos);
+//					}
+//					else {
+//						concretarMovimientoDisparo(nueva); 
+//					}
+				}
+			}
+		}
+		else{
+			destruirse(disparos); 
+		}
+			
+	}
+	
+	/*
+	 * Setea el disparo en la nueva celda. 
+	 */
+	
+	private void concretarMovimientoDisparo(Celda nueva){
+		nueva.setBala(this);
+		celda=nueva;
+		cambiarImagenActual(direccion);
+	}
+	
+	/*
+	 * aux
+	 */
+	private void auxiliar(Celda nueva, List<Disparo> disparos){
+		if(nueva.getBala()==null){
+			if(nueva.getTanque()!= null && getEmisor().dispareTanque(nueva.getTanque())){ 
+				destruirse(disparos);
+			}
+			else {
+				concretarMovimientoDisparo(nueva); 
+				System.out.println("DISPARO!!!!! fila"+celda.getFila()+" columna "+celda.getColumna());
+			}
+		}
+		else{ //Colisión de dos disparos. 
+			System.out.println("Tanque==emisor -> "+(nueva.getTanque()==emisor));
+			System.out.println("Colision entre disparos");
+			nueva.getBala().destruirse(disparos); 
+			destruirse(disparos); 
+		}
+	}
+	
+	//Consultas
+	
+	public Tanque getEmisor(){
+		return emisor; 
+	}
+	
+	public int getDireccion(){
+		return direccion; 
+	}
+}

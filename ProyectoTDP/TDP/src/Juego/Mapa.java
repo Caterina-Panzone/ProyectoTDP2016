@@ -101,25 +101,26 @@ public class Mapa {
 	public Celda getCeldaSiguiente(Celda celda,int direccion){
 		int fila = celda.getFila(); 
 		int columna = celda.getColumna(); 
+	
 		Celda nueva = null; 
 		
 		switch(direccion){
-			case 3:{
+			case 3:{//Izquierda
 				if(columna-1>=0)
 					nueva = getCelda(fila, columna-1); 
 			    break; 
 		    }
-		case 2:{
+		case 2:{//Derecha
 				if(columna+1<cantidadColumnas())
 					nueva = getCelda(fila, columna+1); 
 				break; 
 		    }
-		case 1: {
+		case 1: {//Abajo
 				if(fila+1<cantidadFilas())
 					nueva = getCelda(fila+1, columna); 
 				break; 
 			}
-		case 0: {
+		case 0: {//Arriba
 				if(fila-1>=0)
 					nueva = getCelda(fila-1, columna); 
 				break; 

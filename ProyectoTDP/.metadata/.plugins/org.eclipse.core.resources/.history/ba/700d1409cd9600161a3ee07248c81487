@@ -15,12 +15,11 @@ public class InteligenciaEnemigo {
 	
 	//Comandos
 	
-	public Celda moverse(Enemigo enemigo){
-		
+	public boolean moverse(Enemigo enemigo){
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 
 		int direccion=enemigo.getDireccion();
-		Celda proximaCelda=null; 
+		boolean seMovio=true; 
 
 		if(!puedoMover(direccion,i,j)){ 
 			boolean cumple=false; int corte=0;
@@ -30,40 +29,30 @@ public class InteligenciaEnemigo {
 				cumple = puedoMover(direccion,i,j); 
 				corte++; 
 			}
+			seMovio=false;
 		}
 		else{
 			switch(enemigo.getDireccion()){
 				case 3:{
-					proximaCelda = mapa.getCelda(i, j-1);
-					proximaCelda.bloquear();
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j-1));
 				    break; 
 				    }
 				case 2: {
-					proximaCelda = mapa.getCelda(i, j+1);
-					proximaCelda.bloquear();
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i, j+1));
 					break; 
 				    }
 				case 1: {
-					proximaCelda = mapa.getCelda(i+1, j);
-					proximaCelda.bloquear();
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i+1, j));
 					break; 
 					}
 				case 0: {
-					proximaCelda = mapa.getCelda(i-1, j);
-					proximaCelda.bloquear();
+					mapa.concretarMovimientoTanque(mapa.getCelda(i, j), mapa.getCelda(i-1, j));
 					break; 
 					}
 				}
 		}
-		return proximaCelda;
+		return seMovio;
 	}
-	
-	public void concretarMovimiento(Enemigo enemigo, Celda proximaCelda){
-		int i = enemigo.getFila(); 
-		int j = enemigo.getColumna(); 
-
-		mapa.concretarMovimientoTanque(mapa.getCelda(i, j), proximaCelda);
-	}	
 	
 	/*
 	 * METODOS PRIVADOS

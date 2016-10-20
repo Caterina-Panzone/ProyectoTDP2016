@@ -84,9 +84,6 @@ public class Mapa {
 		vieja.setTanque(null);
 		tanque.setCelda(nueva);
 		
-		vieja.desbloquear(); 
-		nueva.bloquear(); 
-		
 		tanque.actuar(nueva.getPower());
 	}
 	

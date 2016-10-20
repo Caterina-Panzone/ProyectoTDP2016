@@ -16,15 +16,12 @@ public class Enemigo extends Tanque{
 	protected InteligenciaEnemigo inteligencia; 
 	protected List<Enemigo> enemigos; 
 	protected Celda nuevaCelda; 
-	protected Celda viejaCelda; 
 	protected int lock; 
 	
 	//Constructor
 	
 	public Enemigo(int vm, int vd, int resis, int direc, Celda celda, int puntos, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 		super(direc, celda);
-		viejaCelda=celda;
-		viejaCelda.bloquear(); 
 		nuevaCelda=null; 
 		this.enemigos = enemigos; 
 		resistencia = resis; 
@@ -41,7 +38,7 @@ public class Enemigo extends Tanque{
 		
 	}
 	
-	public void moverse(){	
+	public void moverse(){		
 		//Si el tanque dejó de moverse.
 		
 		if(lock<=0){
@@ -57,14 +54,10 @@ public class Enemigo extends Tanque{
 				x = celda.getColumna()*tamaño;
 				y = celda.getFila()*tamaño; 
 				cambiarImagenActual(direccion);  
-				viejaCelda.desbloquear(); 
-				viejaCelda = celda;
-				nuevaCelda = null; 
 			}
 			else {
-				if(lock == (tamaño/(velocidadMovimiento*2))/2){ 
+				if(lock == (tamaño/(velocidadMovimiento*2))/2){
 					inteligencia.concretarMovimiento(this, nuevaCelda);
-					viejaCelda.bloquear();
 				}
 				//Genera el movimiento continuo del tanque con posiciones, dependiendo de la velocidad de cada tanque. 
 				moverseGraficamente();
@@ -72,7 +65,6 @@ public class Enemigo extends Tanque{
 			lock--;
 		}else{
 			//Se utiliza para volver a buscar una direccion en la inteligencia del tanque. 
-			nuevaCelda = null; 
 			lock=0; 
 		}
 	}
@@ -83,11 +75,6 @@ public class Enemigo extends Tanque{
 		if(resistencia<=golpesRecibidos){
 			celda.setTanque(null);
 			enemigos.remove(this);
-			celda.desbloquear(); 
-			if(nuevaCelda!=null){
-				nuevaCelda.desbloquear(); 
-				nuevaCelda = null; 
-			}
 			celda = null; 
 			ponerImagenVacia();
 		}

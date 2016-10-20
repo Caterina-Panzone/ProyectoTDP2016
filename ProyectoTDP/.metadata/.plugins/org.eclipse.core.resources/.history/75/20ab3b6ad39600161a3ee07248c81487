@@ -20,7 +20,6 @@ public class Jugador extends Tanque {
 	
 	public Jugador(Celda celda,Logica logica){
 		super(0,celda);
-		celda.bloquear(); 
 		
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));
@@ -71,7 +70,6 @@ public class Jugador extends Tanque {
 		}
 		if(nivel.getResistencia()<=golpesRecibidos){
 			celda.setTanque(null);
-			celda.desbloquear(); 
 			celda = null; 
 			ponerImagenVacia();
 			vidas--;

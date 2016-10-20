@@ -60,7 +60,7 @@ public class Celda {
 	}
 	
 	public boolean permitidoAvanzarTanque(){
-		return ((obstaculo==null && !bloqueada) || (obstaculo!=null && obstaculo.atraviesanTanques() && tanque==null && !bloqueada));
+		return (((obstaculo==null && !bloqueada) || (obstaculo.atraviesanTanques()) && tanque==null && !bloqueada));
 	}
 	
 	public Obstaculo getObstaculo(){

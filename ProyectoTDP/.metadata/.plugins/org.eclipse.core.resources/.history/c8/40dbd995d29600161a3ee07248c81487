@@ -61,9 +61,11 @@ public class InteligenciaEnemigo {
 	public void concretarMovimiento(Enemigo enemigo, Celda proximaCelda){
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 
-
+		System.out.println("VIEJA "+mapa.getCelda(i, j)+" NUEVA "+proximaCelda);
 		mapa.concretarMovimientoTanque(mapa.getCelda(i, j), proximaCelda);
-	}	
+		proximaCelda.desbloquear(); 
+	}
+	
 	
 	/*
 	 * METODOS PRIVADOS

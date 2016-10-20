@@ -30,6 +30,7 @@ public class ControladorEnemigos extends Thread{
 					if(disparo!=null){
 						logica.añadirDisparo(disparo);
 					}
+					System.out.println("CONTROLADOR ENEMIGOS "+ enemigos.get(i));
 					enemigos.get(i).moverse();
 				}
 				Thread.sleep(180);

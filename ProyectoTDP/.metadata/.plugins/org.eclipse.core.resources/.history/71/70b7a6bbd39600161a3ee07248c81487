@@ -24,7 +24,6 @@ public class Enemigo extends Tanque{
 	public Enemigo(int vm, int vd, int resis, int direc, Celda celda, int puntos, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 		super(direc, celda);
 		viejaCelda=celda;
-		viejaCelda.bloquear(); 
 		nuevaCelda=null; 
 		this.enemigos = enemigos; 
 		resistencia = resis; 
@@ -83,11 +82,6 @@ public class Enemigo extends Tanque{
 		if(resistencia<=golpesRecibidos){
 			celda.setTanque(null);
 			enemigos.remove(this);
-			celda.desbloquear(); 
-			if(nuevaCelda!=null){
-				nuevaCelda.desbloquear(); 
-				nuevaCelda = null; 
-			}
 			celda = null; 
 			ponerImagenVacia();
 		}

@@ -35,22 +35,22 @@ public class InteligenciaEnemigo {
 			switch(enemigo.getDireccion()){
 				case 3:{
 					proximaCelda = mapa.getCelda(i, j-1);
-					proximaCelda.bloquear();
+					proximaCelda.desbloquear();
 				    break; 
 				    }
 				case 2: {
 					proximaCelda = mapa.getCelda(i, j+1);
-					proximaCelda.bloquear();
+					proximaCelda.desbloquear();
 					break; 
 				    }
 				case 1: {
 					proximaCelda = mapa.getCelda(i+1, j);
-					proximaCelda.bloquear();
+					proximaCelda.desbloquear();
 					break; 
 					}
 				case 0: {
 					proximaCelda = mapa.getCelda(i-1, j);
-					proximaCelda.bloquear();
+					proximaCelda.desbloquear();
 					break; 
 					}
 				}
@@ -61,9 +61,11 @@ public class InteligenciaEnemigo {
 	public void concretarMovimiento(Enemigo enemigo, Celda proximaCelda){
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 
-
+		
 		mapa.concretarMovimientoTanque(mapa.getCelda(i, j), proximaCelda);
-	}	
+		proximaCelda.desbloquear(); 
+	}
+	
 	
 	/*
 	 * METODOS PRIVADOS

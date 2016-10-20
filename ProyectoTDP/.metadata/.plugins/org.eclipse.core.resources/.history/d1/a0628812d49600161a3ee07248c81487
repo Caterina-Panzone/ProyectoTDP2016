@@ -71,7 +71,6 @@ public class Jugador extends Tanque {
 		}
 		if(nivel.getResistencia()<=golpesRecibidos){
 			celda.setTanque(null);
-			celda.desbloquear(); 
 			celda = null; 
 			ponerImagenVacia();
 			vidas--;

@@ -17,10 +17,6 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	}
 	
 	//Comandos
-	/**
-	 * 
-	 * @return Si le pego al aguila retorna verdadero, sino retorna falso. 
-	 */
 	
 	public abstract void recibirGolpe(); 
 	

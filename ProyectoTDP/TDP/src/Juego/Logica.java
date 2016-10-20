@@ -6,9 +6,6 @@ import java.awt.event.KeyEvent;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-
-import Obstaculos.Obstaculo;
 
 public class Logica {
 	
@@ -45,9 +42,6 @@ public class Logica {
 	//Comandos 
 	
 	public void añadirDisparo(Disparo disparo){
-//		System.out.println("POSICION disp! fila"+disparo.getFila()+" columna "+disparo.getColumna());
-//		System.out.println("Direccion disparo -> "+disparo.getDireccion());
-//		System.out.println("add disparos"+disparos.size());
 		disparos.add(disparo);
 		gui.add(disparo.getImagenActual());
 	}
@@ -118,7 +112,7 @@ public class Logica {
 		enemigos.add(enemigo);
 		enemigo.setDireccion(1);
 		gui.add(enemigo.getImagenActual()); 	
-		/*
+		
 		celda = mapa.getCelda(0, 0);
 		enemigo = new DePoder(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
@@ -130,16 +124,16 @@ public class Logica {
 		enemigo = new Blindado(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
 		enemigos.add(enemigo);
-		enemigo.setDireccion(1);
+		enemigo.setDireccion(3);
 		gui.add(enemigo.getImagenActual()); 
 		
 		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2);
 		enemigo = new Rapido(celda, inteligencia,enemigos); 
 		celda.setTanque(enemigo);
 		enemigos.add(enemigo);
-		enemigo.setDireccion(1);
+		enemigo.setDireccion(2);
 		gui.add(enemigo.getImagenActual()); 
-		*/
+		
 		controladorEnemigos.start(); 
 		controladorDisparos.start();
 	}
@@ -175,32 +169,20 @@ public class Logica {
 		gui.remove(eliminado.getImagenActual());
 	}
 	
-	public void romperPared(){
-		
-		Random random= new Random();
-		boolean rompi=false;
-		do{
-			Celda celda= mapa.getCelda(random.nextInt(mapa.cantidadFilas()),random.nextInt(mapa.cantidadColumnas()));
-			Obstaculo pared= celda.getObstaculo();
-			if(pared!=null){
-	           for(int i=0; i<4; i++){
-	        	  pared.recibirGolpe();
-	           }
-	           rompi=true;
-			}
-		}while(!rompi);
-	}
-	
 	public void finalizarJuego(){
 		//HACER
 		System.out.println("Finalizo Juego");
-		//Terminate de los hilos en ejec. 
+		
+		controladorEnemigos.terminate(); 
+		controladorDisparos.terminate(); 
+		
+		gui.setInstrucciones(); 
 	}
 	
 	public void jugadorDispara(){
-		Disparo nuevo= jugador.disparar();
-		if(nuevo!=null)
-			añadirDisparo(nuevo);
+		Disparo disparo = jugador.disparar(mapa);
+		if (disparo!= null)
+			añadirDisparo(disparo); 
 	}
 	
 	public void respawnearJugador(){
@@ -210,7 +192,8 @@ public class Logica {
 		jugador.cambiarImagenActual(0);
 		gui.add(jugador.getImagenActual()); 
 	}
-//Consultas
+	
+	//Consultas
 	
 	public List<Disparo> getListaDisparos(){
 		return disparos;

@@ -77,14 +77,24 @@ public class GUI extends JFrame{
 		logica.cambiarNivelJugador();
 	}
 	
-	protected void mover(KeyEvent key){
-		
-		//si key es F entonces llamo a disparar
-		// sino :
-		
+	protected void mover(KeyEvent key){	
 		logica.moverJugador(key.getKeyCode());
 		this.repaint();
 	}
 	
-
+	/*
+	 * REINICIA EL JUEGO. 
+	 */
+	
+	public void setInstrucciones(){
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.BLACK);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		logica = new Logica(this);
+		
+		this.repaint(); 
+	}
 }

@@ -15,10 +15,6 @@ public class InteligenciaEnemigo {
 	
 	//Comandos
 	
-//	public void disparar(Enemigo enemigo){
-//		
-//	}
-	
 	public boolean moverse(Enemigo enemigo){
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 

@@ -20,17 +20,17 @@ public class ControladorEnemigos extends Thread{
 	
 	public void run() {
 		ejecutar = true; 
-		Disparo disparo;
 		while(ejecutar){
 			try {
+				Disparo disparo; 
 				for(int i=0; i<enemigos.size(); i++){
-					disparo=enemigos.get(i).disparar();
-					enemigos.get(i).moverse(); 
+					disparo = enemigos.get(i).disparar(logica.getMapa()); 
 					if(disparo!=null){
 						logica.añadirDisparo(disparo);
 					}
+					enemigos.get(i).moverse();
 				}
-				Thread.sleep(300);
+				Thread.sleep(180);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

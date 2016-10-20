@@ -94,7 +94,6 @@ public class Jugador extends Tanque {
 	
 	
 	/**
-	 * 
 	 * @return Retorna falso si no tiene mas vidas, sino retorna verdadero. 
 	 */
 	

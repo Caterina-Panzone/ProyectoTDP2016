@@ -27,9 +27,7 @@ public class ControladorDisparos extends Thread{
 		while(ejecutar){
 			try {
 				for(int i=0; i<disparos.size(); i++){
-					System.out.println("SIZE DISPAROS:: "+disparos.size());
-					System.out.println("CONTROLADOR DISPAROS:: i "+i+" fila "+disparos.get(i).getFila()+" columna "+disparos.get(i).getColumna());
-					disparos.get(i).avanzar(mapa, disparos);  
+					disparos.get(i).avanzar(disparos);  
 				}
 				Thread.sleep(150);
 			} catch (InterruptedException e) {

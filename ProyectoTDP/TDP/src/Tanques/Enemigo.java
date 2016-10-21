@@ -84,6 +84,7 @@ public class Enemigo extends Tanque{
 			celda.setTanque(null);
 			enemigos.remove(this);
 			celda.desbloquear(); 
+			viejaCelda.desbloquear(); 
 			if(nuevaCelda!=null){
 				nuevaCelda.desbloquear(); 
 				nuevaCelda = null; 

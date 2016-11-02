@@ -5,7 +5,7 @@ import Juego.*;
 import java.util.List;
 import Poderes.PowerUp;
 
-public class Enemigo extends Tanque{
+public abstract class Enemigo extends Tanque{
 
 	//Atributos
 	
@@ -99,7 +99,7 @@ public class Enemigo extends Tanque{
 		Disparo disparo = null; 
 		if(espera<=0){
 			disparo = super.disparar(logica); 
-			espera = 8; 
+			espera = getEsperaPersonal(); 
 		}else{
 			espera--; 
 		}
@@ -115,6 +115,8 @@ public class Enemigo extends Tanque{
 	}
 	
 	//Consultas
+	
+	public abstract int getEsperaPersonal();
 	
 	public int getPuntos(){
 		return puntos;

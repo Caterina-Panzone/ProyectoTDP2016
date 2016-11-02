@@ -139,7 +139,8 @@ public class Logica {
 	}
 	
 	//ELIMINAR DESPUES DE GENERAR ENEMIGOS. 
-	public void generarEnemigo(){
+	
+/*	public void generarEnemigo(){
 		
 		if(enemigos.size()>4){
 			eliminarEnemigo();
@@ -155,8 +156,8 @@ public class Logica {
 			}
 		}
 	}
-	
-	public void eliminarEnemigo(){
+*/
+/*	public void eliminarEnemigo(){
 		Enemigo eliminado=enemigos.get(0);
 		int fila= eliminado.getFila();
 		int columna= eliminado.getColumna();
@@ -168,6 +169,7 @@ public class Logica {
 		enemigos.remove(eliminado);
 		gui.remove(eliminado.getImagenActual());
 	}
+*/
 	
 	public void finalizarJuego(){
 		//HACER
@@ -186,6 +188,10 @@ public class Logica {
 	}
 	
 	public void respawnearJugador(){
+		
+		//VER QUE PASA SI EN LA CELDA DONDE RESPAWNEO HAY UN ENEMIGO
+		
+		
 		Celda celda = mapa.getCelda(mapa.cantidadFilas()-1, mapa.cantidadColumnas()/2-2);
 		celda.setTanque(jugador);
 		jugador.setCelda(celda);

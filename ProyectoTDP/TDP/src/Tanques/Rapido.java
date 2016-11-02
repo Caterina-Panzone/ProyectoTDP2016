@@ -18,4 +18,8 @@ import Juego.*;
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoIzquierda.png"));
 		cambiarImagenActual(3);
     }
+
+	public int getEsperaPersonal() {
+		return 8;
+	}
   }

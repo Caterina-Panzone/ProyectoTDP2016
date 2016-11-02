@@ -17,4 +17,8 @@ import Juego.*;
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BasicoIzquierda.png"));
 		cambiarImagenActual(3);
     }
+
+	public int getEsperaPersonal() {
+		return 2;
+	}
   }

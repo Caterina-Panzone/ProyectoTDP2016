@@ -38,15 +38,16 @@ public class GUI extends JFrame{
 	public GUI() {
 		addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent arg0) {
-				if (arg0.getKeyCode()==KeyEvent.VK_G){
-					eliminarEnemigo();
-				}
-				else{
-					if(arg0.getKeyCode()==KeyEvent.VK_SPACE){
+					if(arg0.getKeyCode()==KeyEvent.VK_SPACE)
+					{
 					  jugadorDispara();	
-					} if (arg0.getKeyCode()==KeyEvent.VK_N){
+					} 
+					else {
+						if (arg0.getKeyCode()==KeyEvent.VK_N)
+						{
 						cambiarNivelJugador(); 
-					}else{
+						}
+						else{
 					      mover(arg0);
 						}
 		}}});
@@ -66,11 +67,6 @@ public class GUI extends JFrame{
 	
 	protected void jugadorDispara(){
 		logica.jugadorDispara();
-	}
-	
-	protected void eliminarEnemigo(){
-		logica.eliminarEnemigo();
-		this.repaint();
 	}
 	
 	protected void cambiarNivelJugador(){

@@ -47,7 +47,7 @@ public class Logica {
 	}
 	
 	private void generarNuevoMapa(){
-//		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui);
+		//mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui,this);
 		mapa = new Mapa("nivel"+nivelMapa+".txt",gui,this); 		
 	}
 	
@@ -180,7 +180,7 @@ public class Logica {
 	}
 	
 	public void jugadorDispara(){
-		Disparo disparo = jugador.disparar(mapa);
+		Disparo disparo = jugador.disparar(this);
 		if (disparo!= null)
 			añadirDisparo(disparo); 
 	}

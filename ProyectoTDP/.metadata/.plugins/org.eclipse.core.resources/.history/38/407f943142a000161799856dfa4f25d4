@@ -1,0 +1,43 @@
+package Tanques;
+
+import Juego.*; 
+
+public abstract class ObjetoDesplazable extends ObjetoConImagen{
+	protected int x;
+	protected int y; 
+
+	public ObjetoDesplazable(int tamaño, Celda celda) {
+		super(tamaño, celda);
+		x = celda.getColumna()*tamaño;
+		y = celda.getFila()*tamaño; 
+	}
+	
+	//Comandos
+	
+	protected void moverseGraficamente(){
+		switch(getDireccion()){
+			case 0:{//Arriba
+				y-=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+			case 1:{//Abajo
+				y+=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+			case 2:{//Derecha
+				x+=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+			case 3:{//Izquierda
+				x-=(getVelocidadMovimiento()*2); 
+				break; 
+			}
+		}
+		imagenActual.setIcon(imagenes[getDireccion()]);
+		imagenActual.setBounds(x,y,tamaño, tamaño);	
+	}
+	
+	public abstract int getVelocidadMovimiento(); 
+	
+	public abstract int getDireccion();
+}

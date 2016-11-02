@@ -5,22 +5,24 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import Juego.*;
 
-public class Disparo extends ObjetoConImagen{
+public class Disparo extends ObjetoDesplazable{
 
 	//Atributos
 	
 	protected Tanque emisor;
 	protected int direccion;
 	protected Mapa mapa; 
+	protected List<Disparo> disparos; 
 	
 	
 	//Constructor
 	
-	public Disparo(Tanque emisor, int dir, Celda celda, Mapa mapa){
-		super(32,celda);
+	public Disparo(Tanque emisor, int dir, Celda celda, Logica logica){
+		super(32,celda,4);
 		
 		celda.setBala(this); 
-		this.mapa = mapa; 
+		this.mapa = logica.getMapa();
+		disparos = logica.getListaDisparos();		
 		this.emisor=emisor;
 		direccion=dir;
 		
@@ -41,11 +43,12 @@ public class Disparo extends ObjetoConImagen{
 		emisor.eliminarDisparo(); 
 		celda=null;		
 		emisor=null;
+		lock = 0; 
 		disparos.remove(this);
 	}
 	
-	public void avanzar(List<Disparo> disparos){
-
+	private void avanzar(){
+		
 		Celda nueva = mapa.getCeldaSiguiente(celda, direccion); 
 		
 		if(nueva!=null){
@@ -107,6 +110,35 @@ public class Disparo extends ObjetoConImagen{
 		}
 	}
 	
+	public void moverse(){	
+		//Si el disparo dejó de moverse.
+		
+		if(lock<=0){
+			lock = tamaño/(getVelocidadMovimiento()*aumento);  	
+		}
+		//Posiciona el disparo en la fila y columna final del movimiento. 
+		if(lock==1) {
+			if((lock == (tamaño/(getVelocidadMovimiento()*aumento))/2)){
+				avanzar(); 
+			}
+			if(lock!=0){
+				x = celda.getColumna()*tamaño;
+				y = celda.getFila()*tamaño; 
+				cambiarImagenActual(direccion);  
+			}
+		}
+		else {
+			if(lock == (tamaño/(getVelocidadMovimiento()*aumento))/2){ 
+				avanzar();
+			}
+			//Genera el movimiento continuo del tanque con posiciones, dependiendo de la velocidad de cada tanque. 
+			if(lock!=0){
+				moverseGraficamente();
+			}
+		}
+		lock--;
+	}
+	
 	/*
 	 * Setea el disparo en la nueva celda. 
 	 */
@@ -126,5 +158,9 @@ public class Disparo extends ObjetoConImagen{
 	
 	public int getDireccion(){
 		return direccion; 
+	}
+	
+	public int getVelocidadMovimiento(){
+		return emisor.getVelocidadDisparo();
 	}
 }

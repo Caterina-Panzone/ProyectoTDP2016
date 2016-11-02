@@ -140,4 +140,10 @@ public class Jugador extends Tanque {
 	public int cantMaximaDisparos(){
 		return nivel.getDisparosSimultaneos(); 
 	}
+
+	@Override
+	public void moverse() {
+		// IMPLEMENTAR
+		
+	}
 }

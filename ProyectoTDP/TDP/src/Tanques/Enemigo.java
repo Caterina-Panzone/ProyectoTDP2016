@@ -17,7 +17,7 @@ public class Enemigo extends Tanque{
 	protected List<Enemigo> enemigos; 
 	protected Celda nuevaCelda; 
 	protected Celda viejaCelda; 
-	protected int lock; 
+	protected int espera; 
 	
 	//Constructor
 	
@@ -32,7 +32,7 @@ public class Enemigo extends Tanque{
 		velocidadMovimiento = vm; 
 		this.puntos= puntos;
 		this.inteligencia = inteligencia; 
-		lock = 0;
+		espera = 0; 
 	}
 	
 	//Comandos
@@ -62,7 +62,7 @@ public class Enemigo extends Tanque{
 				nuevaCelda = null; 
 			}
 			else {
-				if(lock == (tamaño/(velocidadMovimiento*2))/2){ 
+				if(lock == (tamaño/(velocidadMovimiento*aumento))/2){ 
 					inteligencia.concretarMovimiento(this, nuevaCelda);
 					viejaCelda.bloquear();
 				}
@@ -93,6 +93,17 @@ public class Enemigo extends Tanque{
 			ponerImagenVacia();
 		}
 		return true; 
+	}
+	
+	public Disparo disparar (Logica logica){
+		Disparo disparo = null; 
+		if(espera<=0){
+			disparo = super.disparar(logica); 
+			espera = 8; 
+		}else{
+			espera--; 
+		}
+		return disparo; 
 	}
 	
 	public boolean recibirGolpe(Enemigo tanque){

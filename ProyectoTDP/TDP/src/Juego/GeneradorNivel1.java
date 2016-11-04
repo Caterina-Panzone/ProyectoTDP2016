@@ -1,8 +1,5 @@
 package Juego;
 
-
-import Poderes.PowerUp;
-
 public class GeneradorNivel1 extends Generador {
 
 	public GeneradorNivel1(Logica logica){

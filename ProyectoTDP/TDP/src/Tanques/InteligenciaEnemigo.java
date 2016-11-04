@@ -7,10 +7,12 @@ import Juego.*;
 public class InteligenciaEnemigo {
 	//Atributos
 	protected Mapa mapa; 
+	protected Logica logica;
 	
 	//Constructor
-	public InteligenciaEnemigo(Mapa mapa){
-		this.mapa = mapa; 
+	public InteligenciaEnemigo(Logica logica){
+		this.logica= logica;
+		mapa = logica.getMapa(); 
 	}
 	
 	//Comandos
@@ -102,5 +104,9 @@ public class InteligenciaEnemigo {
 		}while(direccion==enemigo.getDireccion()); 
 		
 		enemigo.setDireccion(direccion); 
+	}
+	
+	public void aumentarDestruidosJugador(){
+		logica.aumentarDestruidosJugador();
 	}
 }

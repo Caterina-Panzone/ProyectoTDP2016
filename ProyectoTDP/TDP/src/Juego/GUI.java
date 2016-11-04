@@ -58,7 +58,7 @@ public class GUI extends JFrame{
 		setBounds(100, 100, 430, 490);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setBackground(Color.RED);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		

@@ -13,12 +13,14 @@ public abstract class Generador extends Thread {
 	protected Mapa mapa;
 	protected List<Enemigo> enemigos;
 	protected Celda proximaCeldaSpawneo;
+	protected InteligenciaEnemigo inteligencia; //Es para evitar tener 4 objetos distintos
 	
 	protected Generador(Logica logica){
 		this.logica=logica;
 		mapa=logica.getMapa();
 		enemigos=logica.getListaEnemigos();
 		proximaCeldaSpawneo=mapa.getCelda(0, mapa.cantidadColumnas()-1);
+		inteligencia= new InteligenciaEnemigo(logica);
 	}
 	
 	private Celda getProximaCelda(){
@@ -45,9 +47,6 @@ public abstract class Generador extends Thread {
 				if(enemigos.size()<4){
 					generarEnemigo();
 				}
-				if(logica.necesitoPowerUp()){
-					generarPowerUp();
-				}
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -66,18 +65,18 @@ public abstract class Generador extends Thread {
 		}
 		
 		if(perteneceRapido(n)){
-			nuevo= new Rapido(proximaCeldaSpawneo, new InteligenciaEnemigo(mapa), enemigos);
+			nuevo= new Rapido(proximaCeldaSpawneo, inteligencia, enemigos);
 		}
 		else{
 			if(perteneceDePoder(n)){
-				nuevo= new DePoder(proximaCeldaSpawneo, new InteligenciaEnemigo(mapa), enemigos);
+				nuevo= new DePoder(proximaCeldaSpawneo, inteligencia, enemigos);
 			}
 			else{
 				if(perteneceBlindado(n)){
-					nuevo= new Blindado(proximaCeldaSpawneo, new InteligenciaEnemigo(mapa), enemigos);
+					nuevo= new Blindado(proximaCeldaSpawneo, inteligencia, enemigos);
 				}
 				else{ //pertenece a basico
-					nuevo= new Basico(proximaCeldaSpawneo, new InteligenciaEnemigo(mapa), enemigos);
+					nuevo= new Basico(proximaCeldaSpawneo, inteligencia, enemigos);
 				}
 			}
 		}
@@ -93,7 +92,7 @@ public abstract class Generador extends Thread {
 	
 	public abstract boolean perteneceBlindado(int n);
 
-	public void generarPowerUp(){
+	public PowerUp generarPowerUp(){
 		
 		//ver que pasa si ya habia un powerup en la celda
 		
@@ -104,8 +103,9 @@ public abstract class Generador extends Thread {
 		Celda celda= mapa.getCelda(fila, columna);
 		
 		PowerUp nuevo= new Granada(celda,enemigos, this);
+		//PowerUp nuevo= new Casco(celda);
 		celda.setPower(nuevo);
-		logica.añadirPoderEnGui(nuevo);
+		return nuevo;
 		
 	}
 

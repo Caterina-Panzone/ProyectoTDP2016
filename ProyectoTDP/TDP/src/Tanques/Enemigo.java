@@ -97,6 +97,7 @@ public abstract class Enemigo extends Tanque{
 		}
 		celda = null; 
 		ponerImagenVacia();
+		inteligencia.aumentarDestruidosJugador();
 	}
 	
 	public Disparo disparar (Logica logica){

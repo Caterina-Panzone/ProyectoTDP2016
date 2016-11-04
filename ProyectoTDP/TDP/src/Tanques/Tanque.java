@@ -17,7 +17,7 @@ public abstract class Tanque extends ObjetoDesplazable {
 	//Constructor
 	
 	public Tanque(Celda celda){
-		super(32,celda,1);
+		super(celda,1);
 		Random rnd = new Random();
 		direccion = rnd.nextInt(4);
 		golpesRecibidos=0;

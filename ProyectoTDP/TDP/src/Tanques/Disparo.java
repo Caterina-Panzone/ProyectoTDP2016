@@ -18,7 +18,7 @@ public class Disparo extends ObjetoDesplazable{
 	//Constructor
 	
 	public Disparo(Tanque emisor, int dir, Celda celda, Logica logica){
-		super(32,celda,2);
+		super(celda,2);
 		
 		celda.setBala(this); 
 		this.mapa = logica.getMapa();

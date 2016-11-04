@@ -14,9 +14,9 @@ public abstract class ObjetoConImagen{
 	
 	//Constructor
 	
-	public ObjetoConImagen(int tamaño, Celda celda){
+	public ObjetoConImagen(Celda celda){
 		this.celda = celda; 
-		this.tamaño=tamaño;
+		this.tamaño=32;
 		imagenes= new Icon[4];
 		imagenActual= new JLabel();
 		imagenActual.setBounds(celda.getColumna(),celda.getFila(),tamaño,tamaño);
@@ -31,6 +31,7 @@ public abstract class ObjetoConImagen{
 	public void cambiarImagenActual(int indice){
 		imagenActual.setIcon(imagenes[indice]);
 		imagenActual.setBounds(celda.getColumna()*tamaño,celda.getFila()*tamaño,tamaño, tamaño);
+		imagenActual.setOpaque(false);
 	}
 	
 	public void setCelda(Celda celda){

@@ -8,8 +8,8 @@ public abstract class ObjetoDesplazable extends ObjetoConImagen{
 	protected int lock; 
 	protected int aumento; 
 
-	public ObjetoDesplazable(int tamaño, Celda celda, int aumento) {
-		super(tamaño, celda);
+	public ObjetoDesplazable(Celda celda, int aumento) {
+		super(celda);
 		this.aumento = aumento; 
 		x = celda.getColumna()*tamaño;
 		y = celda.getFila()*tamaño; 

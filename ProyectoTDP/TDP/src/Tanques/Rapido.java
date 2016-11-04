@@ -20,6 +20,6 @@ import Juego.*;
     }
 
 	public int getEsperaPersonal() {
-		return 8;
+		return 12;
 	}
   }

@@ -1,0 +1,43 @@
+package Juego;
+import Tanques.*;
+
+import java.util.List;
+import java.util.Random;
+
+import Poderes.*;
+
+public abstract class Generador {
+
+	public Enemigo generarEnemigo(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos) {
+		Enemigo nuevo;
+		int n;
+		Random rnd = new Random();
+		n = rnd.nextInt(20);
+		if(perteneceRapido(n)){
+			nuevo= new Rapido(celda, inteligencia, enemigos);
+		}
+		else{
+			if(perteneceDePoder(n)){
+				nuevo= new DePoder(celda, inteligencia, enemigos);
+			}
+			else{
+				if(perteneceBlindado(n)){
+					nuevo= new Blindado(celda, inteligencia, enemigos);
+				}
+				else{ //pertenece a basico
+					nuevo= new Basico(celda, inteligencia, enemigos);
+				}
+			}
+		}
+		return nuevo;
+	}
+	
+	public abstract boolean perteneceRapido(int n);
+	
+	public abstract boolean perteneceDePoder(int n);
+	
+	public abstract boolean perteneceBlindado(int n);
+
+	public abstract PowerUp generarPowerUp();
+
+}

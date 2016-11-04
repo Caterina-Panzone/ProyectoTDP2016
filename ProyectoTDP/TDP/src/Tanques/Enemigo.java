@@ -21,8 +21,8 @@ public abstract class Enemigo extends Tanque{
 	
 	//Constructor
 	
-	public Enemigo(int vm, int vd, int resis, int direc, Celda celda, int puntos, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
-		super(direc, celda);
+	public Enemigo(int vm, int vd, int resis,Celda celda, int puntos, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
+		super(celda);
 		viejaCelda=celda;
 		viejaCelda.bloquear(); 
 		nuevaCelda=null; 
@@ -46,7 +46,7 @@ public abstract class Enemigo extends Tanque{
 		
 		if(lock<=0){
 			nuevaCelda = inteligencia.moverse(this); 
-			lock = tamaño/(velocidadMovimiento*2);  	
+			lock = tamaño/(velocidadMovimiento*aumento);  	
 		}
 		
 		//Si la direccion que tiene el tanque es válida se mueve. 

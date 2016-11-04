@@ -29,7 +29,7 @@ public class ControladorDisparos extends Thread{
 				for(int i=0; i<disparos.size(); i++){
 					disparos.get(i).moverse();  
 				}
-				Thread.sleep(100);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

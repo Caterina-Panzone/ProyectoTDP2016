@@ -1,0 +1,11 @@
+package Juego;
+import Tanques.*;
+import Poderes.*;
+
+public abstract class Generador {
+
+	public abstract Enemigo generarEnemigo();
+	
+	public abstract PowerUp generarPowerUp();
+	
+}

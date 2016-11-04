@@ -32,7 +32,7 @@ public class ControladorEnemigos extends Thread{
 					}
 					enemigos.get(i).moverse();
 				}
-				Thread.sleep(180);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

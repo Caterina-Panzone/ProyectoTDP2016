@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
+import Poderes.PowerUp;
+
 public class Logica {
 
 	//Atributos 
@@ -139,6 +141,14 @@ public class Logica {
 		if(jugador.getEnemigosDestruidos()>=16){
 			generador.terminate();
 		}
+	}
+	
+	public boolean necesitoPowerUp(){
+		return (jugador.getEnemigosDestruidos()%4==0)&&(jugador.getEnemigosDestruidos()!=0);
+	}
+	
+	public void añadirPoderEnGui(PowerUp poder){
+		gui.add(poder.getImagenActual());
 	}
 	
 	//Consultas

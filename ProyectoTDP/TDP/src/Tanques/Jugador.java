@@ -52,6 +52,20 @@ public class Jugador extends Tanque {
 	
 	public void setInvulnerabildiad(boolean estado){
 		invulnerabilidad = estado;
+		if(estado==true){
+			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableArriba.png"));
+			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableAbajo.png"));
+			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableDerecha.png"));
+			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableIzquierda.png"));
+			cambiarImagenActual(direccion);
+		}
+		else{
+			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
+			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));
+			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorDerecha.png"));
+			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorIzquierda.png"));
+			cambiarImagenActual(direccion);
+		}
 	}
 	
 	public void aumentarPuntos(int puntos){

@@ -1,19 +1,12 @@
 package Juego;
 
-import java.util.List;
 
 import Poderes.PowerUp;
-import Tanques.Enemigo;
 
 public class GeneradorNivel1 extends Generador {
 
 	public GeneradorNivel1(Logica logica){
 		super(logica);
-	}
-
-	public PowerUp generarPowerUp() {
-		//HAY QUE HACERLOOOOOOOOOOOO
-		return null;
 	}
 
 	public boolean perteneceRapido(int n) {

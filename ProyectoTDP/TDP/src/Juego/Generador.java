@@ -45,6 +45,9 @@ public abstract class Generador extends Thread {
 				if(enemigos.size()<4){
 					generarEnemigo();
 				}
+				if(logica.necesitoPowerUp()){
+					generarPowerUp();
+				}
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -81,16 +84,7 @@ public abstract class Generador extends Thread {
 		proximaCeldaSpawneo.setTanque(nuevo);
 		enemigos.add(nuevo);
 		logica.añadirEnemigoEnGui(nuevo);
-		
-//		celda = mapa.getCelda(0, 0);
-//		enemigo = new DePoder(celda, inteligencia,enemigos); 
-//		celda.setTanque(enemigo);
-//		enemigos.add(enemigo);
-//		enemigo.setDireccion(1);
-//		gui.add(enemigo.getImagenActual()); 
-//
-		
-		
+			
 	}
 	
 	public abstract boolean perteneceRapido(int n);
@@ -99,6 +93,20 @@ public abstract class Generador extends Thread {
 	
 	public abstract boolean perteneceBlindado(int n);
 
-	public abstract PowerUp generarPowerUp();
+	public void generarPowerUp(){
+		
+		//ver que pasa si ya habia un powerup en la celda
+		
+		int fila, columna;
+		Random rnd = new Random();
+		fila = rnd.nextInt(mapa.cantidadFilas());
+		columna= rnd.nextInt(mapa.cantidadColumnas());
+		Celda celda= mapa.getCelda(fila, columna);
+		
+		PowerUp nuevo= new Granada(celda,enemigos, this);
+		celda.setPower(nuevo);
+		logica.añadirPoderEnGui(nuevo);
+		
+	}
 
 }

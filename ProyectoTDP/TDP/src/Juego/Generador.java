@@ -100,10 +100,12 @@ public abstract class Generador extends Thread {
 		Random rnd = new Random();
 		fila = rnd.nextInt(mapa.cantidadFilas());
 		columna= rnd.nextInt(mapa.cantidadColumnas());
+		//Celda celda = mapa.getCelda(11,0); 
 		Celda celda= mapa.getCelda(fila, columna);
 		
-		PowerUp nuevo= new Granada(celda,enemigos, this);
+		//PowerUp nuevo= new Granada(celda,enemigos);
 		//PowerUp nuevo= new Casco(celda);
+		PowerUp nuevo = new Pala(celda, mapa); 
 		celda.setPower(nuevo);
 		return nuevo;
 		

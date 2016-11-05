@@ -23,13 +23,12 @@ public class Jugador extends Tanque {
 		celda.bloquear(); 
 		setDireccion(0);
 		
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorDerecha.png"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorIzquierda.png"));
-		cambiarImagenActual(0);
-		
 		vidas = 4;
+		
+		setearImagenes();
+		
+		cambiarImagenActual(0);
+	
 		nivel = new Nivel1();
 		puntos = 0;
 		enemigosDestruidos = 0;
@@ -37,6 +36,14 @@ public class Jugador extends Tanque {
 		
 		this.logica=logica;
 
+	}
+	
+	private void setearImagenes(){
+		int jugador=((vidas%3)+1);
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Arriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Abajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Derecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Izquierda.gif"));
 	}
 	
 	//Comando
@@ -53,17 +60,15 @@ public class Jugador extends Tanque {
 	public void setInvulnerabildiad(boolean estado){
 		invulnerabilidad = estado;
 		if(estado==true){
-			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableArriba.png"));
-			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableAbajo.png"));
-			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableDerecha.png"));
-			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorInvulnerableIzquierda.png"));
+			int jugador= ((vidas%3)+1);
+			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableArriba.gif"));
+			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableAbajo.gif"));
+			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableDerecha.gif"));
+			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableIzquierda.gif"));
 			cambiarImagenActual(direccion);
 		}
 		else{
-			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorArriba.png"));
-			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorAbajo.png"));
-			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorDerecha.png"));
-			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/JugadorIzquierda.png"));
+			setearImagenes();
 			cambiarImagenActual(direccion);
 		}
 	}
@@ -95,6 +100,7 @@ public class Jugador extends Tanque {
 			}
 			else{
 				nivel=new Nivel1();
+				setearImagenes();
 				logica.respawnearJugador();
 			}
 		}
@@ -113,14 +119,6 @@ public class Jugador extends Tanque {
 	/**
 	 * @return Retorna falso si no tiene mas vidas, sino retorna verdadero. 
 	 */
-	
-	public boolean revivir(){
-		vidas--; 
-		if(vidas<=0)
-			return false;
-		nivel = new Nivel1(); 
-		return true; 
-	}
 	
 	public void aumentarEnemigosDestruidos(){
 		enemigosDestruidos++;

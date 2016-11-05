@@ -12,7 +12,7 @@ public class Aguila extends Obstaculo{
 		this.logica = logica; 
 		
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/F.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/AguilaMuerta.png"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Fdead.png"));
 		cambiarImagenActual(0); 
 	}
 	

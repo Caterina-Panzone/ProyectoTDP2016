@@ -17,7 +17,4 @@ public class GeneradorNivel1 extends Generador {
 	public boolean perteneceBlindado(int n) {
 		return (n>=16)&&(n<=20);
 	}
-
-	
-	
 }

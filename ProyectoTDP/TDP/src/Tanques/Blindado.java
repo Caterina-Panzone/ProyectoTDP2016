@@ -12,10 +12,10 @@ import Juego.*;
 	  
     public Blindado(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 	    super(1,2,4,celda, 400, inteligencia,enemigos);
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoArriba.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoAbajo.png"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoDerecha.png"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoIzquierda.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoIzquierda.gif"));
 		cambiarImagenActual(direccion);
     }
 

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.KeyAdapter;
@@ -55,10 +56,10 @@ public class GUI extends JFrame{
 		getContentPane().setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 430, 490);
+		setBounds(100, 100, 645, 715);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.RED);
+		contentPane.setBackground(Color.GREEN);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -92,5 +93,13 @@ public class GUI extends JFrame{
 		logica = new Logica(this);
 		
 		this.repaint(); 
+	}
+	
+	public void traerFrenteDisparo(JLabel imagen){
+		contentPane.setComponentZOrder(imagen,2);
+	}
+	
+	public void traerFrentePower(JLabel imagen){
+		contentPane.setComponentZOrder(imagen,1); 
 	}
 }

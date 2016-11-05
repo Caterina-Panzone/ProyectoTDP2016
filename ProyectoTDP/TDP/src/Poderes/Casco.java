@@ -11,7 +11,7 @@ public class Casco extends PowerUp{
 	
 	public Casco(Celda celda){
 		super(celda); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Casco.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Casco.gif"));
 		cambiarImagenActual(0);
 	}
 

@@ -133,6 +133,19 @@ public class Mapa {
 		return nueva; 
 	}
 	
+	public void protegerAguila(){
+		int columna = cantidadColumnas()/2-1; 
+		int fila = cantidadFilas(); 
+		
+		matriz[fila][columna].setObstaculo(new Acero(matriz[fila][columna])); 
+		matriz[fila][columna+2].setObstaculo(new Acero(matriz[fila][columna]));
+		
+		fila--; 
+		for(int i=0; i<3; i++){
+			matriz[fila][columna+i].setObstaculo(new Acero(matriz[fila][columna])); 
+		}
+	}
+	
 	public int cantidadFilas(){
 		return matriz.length; 
 	}

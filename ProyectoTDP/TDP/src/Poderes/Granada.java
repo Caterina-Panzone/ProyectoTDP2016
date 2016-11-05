@@ -10,24 +10,20 @@ import Tanques.*;
 public class Granada extends PowerUp{
 	
 	protected List<Enemigo> enemigos;
-	protected Generador generador;
 	
 	//Constructor
 	
-	public Granada(Celda celda, List<Enemigo> enemigos, Generador generador){
+	public Granada(Celda celda, List<Enemigo> enemigos){
 		super(celda); 
 		this.enemigos= enemigos;
-		this.generador=generador;
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Granada.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Granada.gif"));
 		cambiarImagenActual(0);
 	}
 	
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
-		//generador.terminate();
 		while(!enemigos.isEmpty()){
 			enemigos.get(0).morirme();
 		}
-		//generador.run();
 	}
 }

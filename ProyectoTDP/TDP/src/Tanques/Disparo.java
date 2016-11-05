@@ -26,10 +26,10 @@ public class Disparo extends ObjetoDesplazable{
 		this.emisor=emisor;
 		direccion=dir;
 		
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaA.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaB.png"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaD.png"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaI.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaIzquierda.gif"));
 
 		cambiarImagenActual(direccion);
 	}

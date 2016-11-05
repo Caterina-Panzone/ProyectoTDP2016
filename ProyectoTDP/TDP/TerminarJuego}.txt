@@ -1,0 +1,7 @@
+- HACER LOS POWER UP
+- TIMER PARA LOS POWER
+- MOSTRAR LAS VIDAS, NIVEL Y PUNTAJE DE JUGADOR POR PANTALLA 
+- FINALIZAR JUEGO.
+- Generador no pregunte siempre. 
+- Solo el jugador nivel cuatro pueda romper el acero. 
+Stephie tiene que hacer a Ed, Edd y Eddie con el casquito.  

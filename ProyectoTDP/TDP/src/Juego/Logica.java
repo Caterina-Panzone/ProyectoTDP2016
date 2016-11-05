@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JLabel;
+
 public class Logica {
 
 	//Atributos 
@@ -49,6 +51,7 @@ public class Logica {
 	public void añadirDisparo(Disparo disparo){
 		disparos.add(disparo);
 		gui.add(disparo.getImagenActual());
+		gui.traerFrenteDisparo(disparo.getImagenActual()); 
 	}
 
 	private void generarNuevoMapa(){
@@ -59,16 +62,16 @@ public class Logica {
 
 	public void cambiarNivelJugador(){
 		jugador.aumentarNivel(); 
-
-		// Muestra por pantalla los atributos de Jugador modificados. 
-
-		System.out.println("---------------------------------");
-		System.out.println("Nuevo nivel: ");
-		System.out.println(); 
-		System.out.println("Resistencia: "+jugador.getResistencia()); 
-		System.out.println("Velocidad Movimiento: "+jugador.getVelocidadMovimiento()); 
-		System.out.println("Velocidad Disparo: "+jugador.getVelocidadDisparo()); 
-		System.out.println("Disparos Simultaneos: "+jugador.cantMaximaDisparos()); 
+//
+//		// Muestra por pantalla los atributos de Jugador modificados. 
+//
+//		System.out.println("---------------------------------");
+//		System.out.println("Nuevo nivel: ");
+//		System.out.println(); 
+//		System.out.println("Resistencia: "+jugador.getResistencia()); 
+//		System.out.println("Velocidad Movimiento: "+jugador.getVelocidadMovimiento()); 
+//		System.out.println("Velocidad Disparo: "+jugador.getVelocidadDisparo()); 
+//		System.out.println("Disparos Simultaneos: "+jugador.cantMaximaDisparos()); 
 	}
 
 	public void moverJugador(int dir){
@@ -123,7 +126,9 @@ public class Logica {
 	}
 	
 	private void generarPowerUp(){
-		gui.add(generador.generarPowerUp().getImagenActual());
+		JLabel imagenPower = generador.generarPowerUp().getImagenActual(); 
+		gui.add(imagenPower);
+		gui.traerFrentePower(imagenPower); 
 	}
 	
 	public void aumentarDestruidosJugador(){

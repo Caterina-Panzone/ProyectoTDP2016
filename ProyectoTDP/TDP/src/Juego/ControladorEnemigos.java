@@ -23,8 +23,6 @@ public class ControladorEnemigos extends Thread{
 		while(ejecutar){
 			try {
 				Disparo disparo; 
-				//Si la cantidad de enemigos es menor que 4 entonces
-				//
 				for(int i=0; i<enemigos.size(); i++){
 					disparo = enemigos.get(i).disparar(logica); 
 					if(disparo!=null){

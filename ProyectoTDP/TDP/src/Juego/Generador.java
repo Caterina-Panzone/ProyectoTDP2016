@@ -6,9 +6,7 @@ import java.util.Random;
 
 import Poderes.*;
 
-public abstract class Generador extends Thread {
-
-	private volatile boolean ejecutar; 
+public abstract class Generador{
 	protected Logica logica;
 	protected Mapa mapa;
 	protected List<Enemigo> enemigos;
@@ -25,36 +23,24 @@ public abstract class Generador extends Thread {
 	
 	private Celda getProximaCelda(){
 		if(proximaCeldaSpawneo.getColumna()==0){
-			return mapa.getCelda(0, mapa.cantidadColumnas()/2);
+			return mapa.getCelda(0, mapa.cantidadColumnas()/3);
 		}
 		else{
-			if(proximaCeldaSpawneo.getColumna()==mapa.cantidadColumnas()/2){
-				return mapa.getCelda(0,mapa.cantidadColumnas()-1);
+			if(proximaCeldaSpawneo.getColumna()==mapa.cantidadColumnas()/3){
+				return mapa.getCelda(0,mapa.cantidadColumnas()/3 * 2);
 			}
 			else{
-				return mapa.getCelda(0,0);
-			}
-		}
-	}
-	
-	public void terminate(){
-		ejecutar = false; 
-	}
-	public void run() {
-		ejecutar = true; 
-		while(ejecutar){
-			try {
-				if(enemigos.size()<4){
-					generarEnemigo();
+				if(proximaCeldaSpawneo.getColumna()==mapa.cantidadColumnas()/3*2){
+					return mapa.getCelda(0, mapa.cantidadColumnas()-1);
 				}
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				else {
+					return mapa.getCelda(0,0);
+				}
 			}
 		}
 	}
 	
-	private void generarEnemigo() {
+	public void generarEnemigo(){
 		Enemigo nuevo;
 		int n;
 		Random rnd = new Random();
@@ -104,8 +90,10 @@ public abstract class Generador extends Thread {
 		Celda celda= mapa.getCelda(fila, columna);
 		
 		//PowerUp nuevo= new Granada(celda,enemigos);
-		//PowerUp nuevo= new Casco(celda);
-		PowerUp nuevo = new Pala(celda, mapa); 
+		PowerUp nuevo= new Casco(celda);
+		//PowerUp nuevo = new TimerPower(celda, logica.getControladorEnemigos()); 
+		//PowerUp nuevo = new Pala(celda, logica); 
+		//PowerUp nuevo = new TanquePower(celda, logica); 
 		celda.setPower(nuevo);
 		return nuevo;
 		

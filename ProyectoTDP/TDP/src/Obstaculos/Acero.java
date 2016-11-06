@@ -3,6 +3,7 @@ package Obstaculos;
 import javax.swing.ImageIcon;
 
 import Juego.Celda;
+import Tanques.*; 
 
 public class Acero extends Obstaculo{
 	//Atributos
@@ -23,6 +24,10 @@ public class Acero extends Obstaculo{
 	}
 	
 	//Comandos
+	
+	public void recibirGolpe(Tanque tanque){
+		tanque.romperAcero(this); 
+	}
 	
 	public void recibirGolpe(){
 		golpesRecibidos++; 

@@ -2,6 +2,7 @@ package Tanques;
 
 import Juego.*;
 import Niveles.*;
+import Obstaculos.Acero;
 import Poderes.PowerUp;
 import javax.swing.ImageIcon;
 
@@ -57,14 +58,14 @@ public class Jugador extends Tanque {
 		enemigosDestruidos = 0;
 	}
 	
-	public void setInvulnerabildiad(boolean estado){
+	public void setInvulnerabilidad(boolean estado){
 		invulnerabilidad = estado;
 		if(estado==true){
 			int jugador= ((vidas%3)+1);
-			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableArriba.gif"));
-			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableAbajo.gif"));
-			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableDerecha.gif"));
-			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerableIzquierda.gif"));
+			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadArriba.gif"));
+			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadAbajo.gif"));
+			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadDerecha.gif"));
+			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadIzquierda.gif"));
 			cambiarImagenActual(direccion);
 		}
 		else{
@@ -116,9 +117,9 @@ public class Jugador extends Tanque {
 	}
 	
 	
-	/**
-	 * @return Retorna falso si no tiene mas vidas, sino retorna verdadero. 
-	 */
+	public void romperAcero(Acero acero){
+		nivel.romperAcero(acero); 
+	}
 	
 	public void aumentarEnemigosDestruidos(){
 		enemigosDestruidos++;

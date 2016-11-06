@@ -1,5 +1,7 @@
 package Niveles;
 
+import Obstaculos.Acero;
+
 public class Nivel4 extends Nivel{
 	
 	//Constructor 
@@ -15,5 +17,9 @@ public class Nivel4 extends Nivel{
 	
 	public Nivel siguienteNivel(){
 		return this;
+	}
+	
+	public void romperAcero(Acero acero){
+		acero.recibirGolpe(); 
 	}
 }

@@ -1,6 +1,7 @@
 package Juego;
 
 import Tanques.*;
+import Obstaculos.*;
 
 import java.awt.event.KeyEvent;
 
@@ -39,8 +40,11 @@ public class Logica {
 		controladorEnemigos = new ControladorEnemigos(this);
 		disparos = new LinkedList<Disparo>(); 
 		controladorDisparos = new ControladorDisparos(this); 
+		
 		generador= new GeneradorNivel1(this);
-		generador.start();
+		for(int i=0; i<3; i++){
+			generador.generarEnemigo(); 
+		}
 		
 		controladorEnemigos.start();
 		controladorDisparos.start();
@@ -53,25 +57,19 @@ public class Logica {
 		gui.add(disparo.getImagenActual());
 		gui.traerFrenteDisparo(disparo.getImagenActual()); 
 	}
+	
+	public void añadirObstaculo(Obstaculo obstaculo){
+		gui.add(obstaculo.getImagenActual()); 
+	}
 
 	private void generarNuevoMapa(){
 		//mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui,this);
-		mapa = new Mapa("nivel"+nivelMapa+".txt",gui,this); 		
+		mapa = new Mapa("nivel"+nivelMapa+".txt",this); 		
 	}
 
 
-	public void cambiarNivelJugador(){
+	public void aumentarNivelJugador(){
 		jugador.aumentarNivel(); 
-//
-//		// Muestra por pantalla los atributos de Jugador modificados. 
-//
-//		System.out.println("---------------------------------");
-//		System.out.println("Nuevo nivel: ");
-//		System.out.println(); 
-//		System.out.println("Resistencia: "+jugador.getResistencia()); 
-//		System.out.println("Velocidad Movimiento: "+jugador.getVelocidadMovimiento()); 
-//		System.out.println("Velocidad Disparo: "+jugador.getVelocidadDisparo()); 
-//		System.out.println("Disparos Simultaneos: "+jugador.cantMaximaDisparos()); 
 	}
 
 	public void moverJugador(int dir){
@@ -133,9 +131,17 @@ public class Logica {
 	
 	public void aumentarDestruidosJugador(){
 		jugador.aumentarEnemigosDestruidos();
+		
+		if(jugador.getEnemigosDestruidos()<16){
+			generador.generarEnemigo(); 
+		}
 		if(jugador.getEnemigosDestruidos()%4==0){
 			generarPowerUp();
 		}
+	}
+	
+	public void aumentarVidaJugador(){
+		jugador.aumentarVida(); 
 	}
 
 	public void respawnearJugador(){
@@ -152,13 +158,13 @@ public class Logica {
 
 	public void añadirEnemigoEnGui(Enemigo enemigo){
 		gui.add(enemigo.getImagenActual());
-		if(jugador.getEnemigosDestruidos()>=16){
-			generador.terminate();
-		}
 	}
 	
 	//Consultas
-
+	public ControladorEnemigos getControladorEnemigos(){
+		return controladorEnemigos;
+	}
+	
 	public List<Disparo> getListaDisparos(){
 		return disparos;
 	}

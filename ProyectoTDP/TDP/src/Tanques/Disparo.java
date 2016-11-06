@@ -55,7 +55,7 @@ public class Disparo extends ObjetoDesplazable{
 			Tanque tanqueColision = nueva.getTanque(); 
 			if(nueva.getObstaculo()!=null && !nueva.getObstaculo().atraviesanDisparos()){
 				//Es ladrillo o acero. 
-				nueva.getObstaculo().recibirGolpe();
+				nueva.getObstaculo().recibirGolpe(emisor);
 				destruirse(disparos);
 			}else{
 				if(nueva.getObstaculo()==null || nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanTanques()){

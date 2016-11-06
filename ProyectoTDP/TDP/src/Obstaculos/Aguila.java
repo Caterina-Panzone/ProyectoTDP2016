@@ -2,6 +2,7 @@ package Obstaculos;
 
 import javax.swing.ImageIcon;
 import Juego.*;
+import Tanques.Tanque;
 
 public class Aguila extends Obstaculo{
 	//Constructor
@@ -18,7 +19,7 @@ public class Aguila extends Obstaculo{
 	
 	//Comando
 	
-	public void recibirGolpe(){
+	public void recibirGolpe(Tanque tanque){
 		cambiarImagenActual(1);
 		logica.finalizarJuego(); 
 	}

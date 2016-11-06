@@ -1,8 +1,15 @@
 package Juego;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Graphics; 
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image; 
+import javax.swing.Icon;   
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,7 +21,8 @@ public class GUI extends JFrame{
 	//Atributos 
 	
 	private static final long serialVersionUID = 1L;
-	protected JPanel contentPane;
+	protected JPanelFondo contentPane;
+	protected JPanel contentJuego; 
 	protected Logica logica;
 	
 	/**
@@ -53,17 +61,27 @@ public class GUI extends JFrame{
 						}
 		}}});
 		
-		getContentPane().setLayout(null);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 645, 715);
-		contentPane = new JPanel();
+		contentPane = new JPanelFondo();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.GREEN);
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage(); 	
+		contentPane.setImage(img); 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		contentJuego = new JPanel(); 
+		contentJuego.setLayout(null);
+		contentJuego.setBounds(10, 10, 645, 715);
+		contentJuego.setOpaque(false);
+	
+		contentPane.add(contentJuego); 
+		
 		logica = new Logica(this);
+	}
+	
+	public Component add (Component comp){
+		return contentJuego.add(comp);
 	}
 	
 	protected void jugadorDispara(){
@@ -71,7 +89,7 @@ public class GUI extends JFrame{
 	}
 	
 	protected void cambiarNivelJugador(){
-		logica.cambiarNivelJugador();
+		logica.aumentarNivelJugador();
 	}
 	
 	protected void mover(KeyEvent key){	
@@ -84,9 +102,10 @@ public class GUI extends JFrame{
 	 */
 	
 	public void setInstrucciones(){
-		contentPane = new JPanel();
+		contentPane = new JPanelFondo();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.BLACK);
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage(); 	
+		contentPane.setImage(img); 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -96,10 +115,40 @@ public class GUI extends JFrame{
 	}
 	
 	public void traerFrenteDisparo(JLabel imagen){
-		contentPane.setComponentZOrder(imagen,2);
+		contentJuego.setComponentZOrder(imagen,3);
 	}
 	
 	public void traerFrentePower(JLabel imagen){
-		contentPane.setComponentZOrder(imagen,1); 
+		contentJuego.setComponentZOrder(imagen,1); 
+	}
+
+	public class JPanelFondo extends JPanel{ 
+		private static final long serialVersionUID = 1L;
+		private Image image = null; 
+		private Icon icon; 
+	
+		protected void paintComponent(Graphics g) { 
+			Graphics2D g2 =(Graphics2D) g; 
+			if(getImage()!=null){ 
+				g2.drawImage(getImage(), 0, 0, getWidth(), getHeight(), null); 
+			} 
+		} 
+	
+		public Image getImage() { 
+			return image; 
+		} 
+	
+		public void setImage(Image image) { 
+			this.image = image; 
+		} 
+	
+		public Icon getIcon() { 
+			return icon; 
+		} 
+	
+		public void setIcon(Icon icon){ 
+			this.icon=icon; 
+			setImage(((ImageIcon)icon).getImage()); 
+		} 
 	}
 }

@@ -4,4 +4,5 @@
 - FINALIZAR JUEGO.
 - Generador no pregunte siempre. 
 - Solo el jugador nivel cuatro pueda romper el acero. 
+- Los disparos del jugador no se tienen que morir entre si. 
 Stephie tiene que hacer a Ed, Edd y Eddie con el casquito.  

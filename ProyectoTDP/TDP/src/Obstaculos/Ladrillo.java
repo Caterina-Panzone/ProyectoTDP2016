@@ -2,7 +2,8 @@ package Obstaculos;
 
 import javax.swing.ImageIcon;
 
-import Juego.*; 
+import Juego.*;
+import Tanques.Tanque; 
 
 public class Ladrillo extends Obstaculo {
 	//Atributos
@@ -24,7 +25,7 @@ public class Ladrillo extends Obstaculo {
 	
 	//Comandos
 	
-	public void recibirGolpe(){
+	public void recibirGolpe(Tanque tanque){
 		golpesRecibidos++; 
 		if(golpesRecibidos>=4){
 			ponerImagenVacia();

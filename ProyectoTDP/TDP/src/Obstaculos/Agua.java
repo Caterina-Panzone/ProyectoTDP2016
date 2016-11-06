@@ -3,6 +3,7 @@ package Obstaculos;
 import javax.swing.ImageIcon;
 
 import Juego.Celda;
+import Tanques.Tanque;
 
 public class Agua extends Obstaculo{
 	
@@ -16,6 +17,6 @@ public class Agua extends Obstaculo{
 	
 	//Comandos
 	
-	public void recibirGolpe(){	}
+	public void recibirGolpe(Tanque tanque){	}
 
 }

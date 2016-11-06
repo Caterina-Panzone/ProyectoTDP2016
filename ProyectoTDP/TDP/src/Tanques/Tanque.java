@@ -4,6 +4,7 @@ import java.util.Random;
 
 import Juego.*;
 import Poderes.PowerUp;
+import Obstaculos.Acero;
 
 
 public abstract class Tanque extends ObjetoDesplazable {
@@ -49,11 +50,14 @@ public abstract class Tanque extends ObjetoDesplazable {
 	
 	public abstract boolean recibirGolpe(Enemigo tanque);
 	
+	public abstract boolean dispareTanque(Tanque tanque);
+	
 	public void setDireccion(int dir){
 		direccion=dir;
 	}
 	
-	public abstract boolean dispareTanque(Tanque tanque);
+	//Unicamente el jugador con nivel 4 rompe el acero. 
+	public void romperAcero(Acero acero){ }
 	
 	//Consultas
 	

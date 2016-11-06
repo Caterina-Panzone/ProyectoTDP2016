@@ -1,11 +1,16 @@
 package Poderes;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 import Juego.*;
 import Tanques.*; 
 
 public class Casco extends PowerUp{
+	protected Timer tiempo; 
 	
 	//Constructor
 	
@@ -17,8 +22,24 @@ public class Casco extends PowerUp{
 
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
-		tanque.setInvulnerabildiad(true);
-		//Tiene que tener un contador
+		tanque.setInvulnerabilidad(true);
+		
+		TimerClass timerC = new TimerClass(tanque);
+        tiempo = new Timer(10000,timerC);
+		tiempo.start(); 
 	}
 	
+	public class TimerClass implements ActionListener {
+		protected Jugador tanque; 
+		
+		public TimerClass(Jugador tanque){
+			this.tanque = tanque; 
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			tiempo.stop();
+			tanque.setInvulnerabilidad(false);
+			tiempo = null; 
+		}
+	}
 }

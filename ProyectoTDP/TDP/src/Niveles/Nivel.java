@@ -1,5 +1,7 @@
 package Niveles;
 
+import Obstaculos.Acero;
+
 public abstract class Nivel {
 	
 	//Atributos 
@@ -28,4 +30,6 @@ public abstract class Nivel {
 	}
 	
 	public abstract Nivel siguienteNivel(); 
+	
+	public void romperAcero(Acero acero){}
 }

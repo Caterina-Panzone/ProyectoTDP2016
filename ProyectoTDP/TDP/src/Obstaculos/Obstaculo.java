@@ -1,6 +1,7 @@
 package Obstaculos;
 
 import Juego.*;
+import Tanques.Tanque;
 
 public abstract class Obstaculo extends ObjetoConImagen {
 	//Atributos
@@ -18,7 +19,7 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	
 	//Comandos
 	
-	public abstract void recibirGolpe(); 
+	public abstract void recibirGolpe(Tanque tanque); 
 	
 	//Consultas
 	

@@ -13,7 +13,7 @@ public class Mapa {
 	
 	//Constructor
 	
-	public Mapa(String archivo, GUI gui, Logica logica){
+	public Mapa(String archivo, Logica logica){
 		BufferedReader br = null; 
 		try{
 			br = new BufferedReader(new FileReader(archivo));
@@ -61,7 +61,7 @@ public class Mapa {
 					celda.setObstaculo(obst); 
 					matriz[i][j]=celda; 
 					if (obst!=null){
-						gui.add(obst.getImagenActual());
+						logica.añadirObstaculo(obst);
 					}
 				}
 			}
@@ -133,16 +133,51 @@ public class Mapa {
 		return nueva; 
 	}
 	
-	public void protegerAguila(){
-		int columna = cantidadColumnas()/2-1; 
-		int fila = cantidadFilas(); 
+	public void protegerAguila(Logica logica){
+		int columna = (cantidadColumnas()-1)/2-1; 
+		int fila = cantidadFilas()-1; 
 		
-		matriz[fila][columna].setObstaculo(new Acero(matriz[fila][columna])); 
-		matriz[fila][columna+2].setObstaculo(new Acero(matriz[fila][columna]));
+		setearCeldaAcero(matriz[fila][columna],logica);
+		setearCeldaAcero(matriz[fila][columna+2],logica);
 		
 		fila--; 
 		for(int i=0; i<3; i++){
-			matriz[fila][columna+i].setObstaculo(new Acero(matriz[fila][columna])); 
+			setearCeldaAcero(matriz[fila][columna+i],logica);
+		}
+	}
+	
+	public void desprotegerAguila(Logica logica){
+		int columna = (cantidadColumnas()-1)/2-1; 
+		int fila = cantidadFilas()-1; 
+		
+		setearCeldaLadrillo(matriz[fila][columna],logica);
+		setearCeldaLadrillo(matriz[fila][columna+2],logica);
+		
+		fila--; 
+		for(int i=0; i<3; i++){
+			setearCeldaLadrillo(matriz[fila][columna+i],logica);
+		}
+	}
+	
+	private void setearCeldaAcero(Celda celda, Logica logica){
+		if(celda.getObstaculo()!=null){
+			celda.getObstaculo().setCelda(null);
+			celda.getObstaculo().ponerImagenVacia(); 
+			celda.setObstaculo(null); 
+		}
+		Obstaculo acero = new Acero(celda);
+		logica.añadirObstaculo(acero); 
+		celda.setObstaculo(acero);
+	}
+	
+	private void setearCeldaLadrillo(Celda celda, Logica logica){
+		if(celda.getObstaculo()!=null){
+			celda.getObstaculo().setCelda(null);
+			celda.getObstaculo().ponerImagenVacia(); 
+			celda.setObstaculo(null); 
+			Obstaculo acero = new Ladrillo(celda);
+			logica.añadirObstaculo(acero); 
+			celda.setObstaculo(acero);
 		}
 	}
 	

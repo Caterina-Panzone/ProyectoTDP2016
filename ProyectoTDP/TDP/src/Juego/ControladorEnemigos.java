@@ -18,6 +18,14 @@ public class ControladorEnemigos extends Thread{
 		ejecutar = false; 
 	}
 	
+	public void dormirme(int milisegs){
+		try {
+			sleep(milisegs); 
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void run() {
 		ejecutar = true; 
 		while(ejecutar){

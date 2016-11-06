@@ -3,6 +3,7 @@ package Obstaculos;
 import javax.swing.ImageIcon;
 
 import Juego.Celda;
+import Tanques.Tanque;
 
 public class Arbol extends Obstaculo{
 	
@@ -10,12 +11,12 @@ public class Arbol extends Obstaculo{
 	
 	public Arbol(Celda celda){
 		super(true, true, celda); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/F.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/B.png"));
 		cambiarImagenActual(0); 
 	}
 	
 	//Comandos
 	
-	public void recibirGolpe(){	}
+	public void recibirGolpe(Tanque tanque){	}
 
 }

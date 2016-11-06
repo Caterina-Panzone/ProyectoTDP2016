@@ -42,7 +42,7 @@ public class Logica {
 		controladorDisparos = new ControladorDisparos(this); 
 		
 		generador= new GeneradorNivel1(this);
-		for(int i=0; i<3; i++){
+		for(int i=0; i<4; i++){
 			generador.generarEnemigo(); 
 		}
 		
@@ -57,6 +57,10 @@ public class Logica {
 		gui.add(disparo.getImagenActual());
 		gui.traerFrenteDisparo(disparo.getImagenActual()); 
 	}
+	
+//	public void ubicarObstaculo(Obstaculo obst){
+//		gui.ubicarObstaculo(obst.getImagenActual()); 
+//	}
 	
 	public void añadirObstaculo(Obstaculo obstaculo){
 		gui.add(obstaculo.getImagenActual()); 

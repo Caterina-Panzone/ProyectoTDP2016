@@ -25,6 +25,7 @@ public class Mapa {
 			String actual,caracter;
 			Celda celda; 
 			Obstaculo obst = null; 
+//			boolean llevarAtras = false;
 			
 			for(int i=0; i<fila; i++){
 				actual = br.readLine(); 
@@ -47,6 +48,7 @@ public class Mapa {
 						}
 						case "H":{
 							obst = new Agua(celda); 
+//							llevarAtras = true; 
 							break; 
 						}
 						case "F":{
@@ -62,6 +64,8 @@ public class Mapa {
 					matriz[i][j]=celda; 
 					if (obst!=null){
 						logica.añadirObstaculo(obst);
+//						if(llevarAtras)
+//							logica.ubicarObstaculo(obst);
 					}
 				}
 			}

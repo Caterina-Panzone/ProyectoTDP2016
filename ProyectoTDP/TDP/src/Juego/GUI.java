@@ -5,8 +5,9 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Graphics; 
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image; 
+import java.awt.Image;
+
+import javax.swing.BorderFactory;
 import javax.swing.Icon;   
 
 import javax.swing.ImageIcon;
@@ -22,6 +23,7 @@ public class GUI extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	protected JPanelFondo contentPane;
+	protected JPanel contentPuntaje; 
 	protected JPanel contentJuego; 
 	protected Logica logica;
 	
@@ -61,8 +63,9 @@ public class GUI extends JFrame{
 						}
 		}}});
 		
+		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1213, 756);
+		setBounds(100, 100, 1216, 706);
 		contentPane = new JPanelFondo();
 		Image img = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage(); 	
 		contentPane.setImage(img); 
@@ -71,10 +74,25 @@ public class GUI extends JFrame{
 		
 		contentJuego = new JPanel(); 
 		contentJuego.setLayout(null);
-		contentJuego.setBounds(0, 0, 1213, 756);
+		contentJuego.setBounds(100, 0, 1116, 706);
 		contentJuego.setOpaque(false);
+		
+//		ImageIcon imgVacia = new ImageIcon(getClass().getResource("/Imagenes/hola.png"));
+//		JLabel hola = new JLabel(imgVacia); 
+//		JLabel hola2 = new JLabel(imgVacia); 
+//		contentJuego.add(hola);
+//		contentJuego.add(hola2); 
+//		contentJuego.setComponentZOrder(hola,0);
+//		contentJuego.setComponentZOrder(hola2,0);
+		
+		contentPuntaje = new JPanel(); 
+		contentPuntaje.setLayout(null); 
+		contentPuntaje.setOpaque(false);
+		contentPuntaje.setBounds(0,0,100,706);
+		contentPuntaje.setBorder(BorderFactory.createLineBorder(Color.black,3));
 	
 		contentPane.add(contentJuego); 
+		contentPane.add(contentPuntaje); 
 		
 		logica = new Logica(this);
 	}
@@ -113,12 +131,16 @@ public class GUI extends JFrame{
 		this.repaint(); 
 	}
 	
+//	public void ubicarObstaculo(JLabel imagen){
+//		contentJuego.setComponentZOrder(imagen,1);
+//	}
+	
 	public void traerFrenteDisparo(JLabel imagen){
-		contentJuego.setComponentZOrder(imagen,3);
+		contentJuego.setComponentZOrder(imagen,2);
 	}
 	
 	public void traerFrentePower(JLabel imagen){
-		contentJuego.setComponentZOrder(imagen,1); 
+		contentJuego.setComponentZOrder(imagen,0); 
 	}
 
 	public class JPanelFondo extends JPanel{ 

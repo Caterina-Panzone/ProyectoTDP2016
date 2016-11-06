@@ -1,11 +1,14 @@
 package Juego;
 
 import Tanques.*;
+import Obstaculos.*;
 
 import java.awt.event.KeyEvent;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.JLabel;
 
 public class Logica {
 
@@ -32,13 +35,19 @@ public class Logica {
 		jugador = new Jugador(celda, this);
 		celda.setTanque(jugador);
 		gui.add(jugador.getImagenActual()); 
-
+		
 		enemigos= new LinkedList<Enemigo>();
 		controladorEnemigos = new ControladorEnemigos(this);
 		disparos = new LinkedList<Disparo>(); 
 		controladorDisparos = new ControladorDisparos(this); 
-		generador= new GeneradorNivel1();
-		generarEnemigos();
+		
+		generador= new GeneradorNivel1(this);
+		for(int i=0; i<3; i++){
+			generador.generarEnemigo(); 
+		}
+		
+		controladorEnemigos.start();
+		controladorDisparos.start();
 	}
 
 	//Comandos 
@@ -46,26 +55,21 @@ public class Logica {
 	public void añadirDisparo(Disparo disparo){
 		disparos.add(disparo);
 		gui.add(disparo.getImagenActual());
+		gui.traerFrenteDisparo(disparo.getImagenActual()); 
+	}
+	
+	public void añadirObstaculo(Obstaculo obstaculo){
+		gui.add(obstaculo.getImagenActual()); 
 	}
 
 	private void generarNuevoMapa(){
 		//mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui,this);
-		mapa = new Mapa("nivel"+nivelMapa+".txt",gui,this); 		
+		mapa = new Mapa("nivel"+nivelMapa+".txt",this); 		
 	}
 
 
-	public void cambiarNivelJugador(){
+	public void aumentarNivelJugador(){
 		jugador.aumentarNivel(); 
-
-		// Muestra por pantalla los atributos de Jugador modificados. 
-
-		System.out.println("---------------------------------");
-		System.out.println("Nuevo nivel: ");
-		System.out.println(); 
-		System.out.println("Resistencia: "+jugador.getResistencia()); 
-		System.out.println("Velocidad Movimiento: "+jugador.getVelocidadMovimiento()); 
-		System.out.println("Velocidad Disparo: "+jugador.getVelocidadDisparo()); 
-		System.out.println("Disparos Simultaneos: "+jugador.cantMaximaDisparos()); 
 	}
 
 	public void moverJugador(int dir){
@@ -102,88 +106,7 @@ public class Logica {
 			break;
 		}
 	}
-
-	public void generarEnemigos(){
-		InteligenciaEnemigo inteligencia = new InteligenciaEnemigo(mapa);
-		Celda celda= mapa.getCelda(0, mapa.cantidadColumnas()-1);
-		Enemigo enemigo;  
-
-		while(enemigos.size()<4){
-			if(celda.getTanque()==null){
-				enemigo= generador.generarEnemigo(celda, inteligencia, enemigos);
-				enemigos.add(enemigo);
-				gui.add(enemigo.getImagenActual());
-				System.out.println(""+enemigo);
-			}
-			if(!enemigos.isEmpty()){
-				controladorEnemigos.start(); 
-				controladorDisparos.start();
-			}
-		}
-
-
-//		celda = mapa.getCelda(0, mapa.cantidadColumnas()-1);
-//		enemigo = new Basico(celda, inteligencia,enemigos); 
-//		celda.setTanque(enemigo);
-//		enemigos.add(enemigo);
-//		enemigo.setDireccion(1);
-//		gui.add(enemigo.getImagenActual()); 	
-//
-//		celda = mapa.getCelda(0, 0);
-//		enemigo = new DePoder(celda, inteligencia,enemigos); 
-//		celda.setTanque(enemigo);
-//		enemigos.add(enemigo);
-//		enemigo.setDireccion(1);
-//		gui.add(enemigo.getImagenActual()); 
-//
-//		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2 -1);
-//		enemigo = new Blindado(celda, inteligencia,enemigos); 
-//		celda.setTanque(enemigo);
-//		enemigos.add(enemigo);
-//		enemigo.setDireccion(3);
-//		gui.add(enemigo.getImagenActual()); 
-//
-//		celda = mapa.getCelda(0, mapa.cantidadColumnas()/2);
-//		enemigo = new Rapido(celda, inteligencia,enemigos); 
-//		celda.setTanque(enemigo);
-//		enemigos.add(enemigo);
-//		enemigo.setDireccion(2);
-//		gui.add(enemigo.getImagenActual()); 
-	}
-
-	//ELIMINAR DESPUES DE GENERAR ENEMIGOS. 
-
-	/*	public void generarEnemigo(){
-
-		if(enemigos.size()>4){
-			eliminarEnemigo();
-		}
-		else{
-			Celda celda= mapa.getCelda(0, mapa.cantidadColumnas()-1);
-			InteligenciaEnemigo inteligencia = new InteligenciaEnemigo(mapa);
-			if(celda.getTanque()==null){
-				Enemigo enemigo= new Basico(celda, inteligencia, enemigos);
-				celda.setTanque(enemigo);
-				enemigos.add(enemigo);
-				gui.add(enemigo.getImagenActual());
-			}
-		}
-	}
-	 */
-	/*	public void eliminarEnemigo(){
-		Enemigo eliminado=enemigos.get(0);
-		int fila= eliminado.getFila();
-		int columna= eliminado.getColumna();
-
-		jugador.aumentarPuntos(eliminado.getPuntos());
-
-		mapa.getCelda(fila, columna).setTanque(null);
-		eliminado.setCelda(null);
-		enemigos.remove(eliminado);
-		gui.remove(eliminado.getImagenActual());
-	}
-	 */
-
+	
 	public void finalizarJuego(){
 		//HACER
 		System.out.println("Finalizo Juego");
@@ -199,6 +122,27 @@ public class Logica {
 		if (disparo!= null)
 			añadirDisparo(disparo); 
 	}
+	
+	private void generarPowerUp(){
+		JLabel imagenPower = generador.generarPowerUp().getImagenActual(); 
+		gui.add(imagenPower);
+		gui.traerFrentePower(imagenPower); 
+	}
+	
+	public void aumentarDestruidosJugador(){
+		jugador.aumentarEnemigosDestruidos();
+		
+		if(jugador.getEnemigosDestruidos()<16){
+			generador.generarEnemigo(); 
+		}
+		if(jugador.getEnemigosDestruidos()%4==0){
+			generarPowerUp();
+		}
+	}
+	
+	public void aumentarVidaJugador(){
+		jugador.aumentarVida(); 
+	}
 
 	public void respawnearJugador(){
 
@@ -212,8 +156,15 @@ public class Logica {
 		gui.add(jugador.getImagenActual()); 
 	}
 
+	public void añadirEnemigoEnGui(Enemigo enemigo){
+		gui.add(enemigo.getImagenActual());
+	}
+	
 	//Consultas
-
+	public ControladorEnemigos getControladorEnemigos(){
+		return controladorEnemigos;
+	}
+	
 	public List<Disparo> getListaDisparos(){
 		return disparos;
 	}

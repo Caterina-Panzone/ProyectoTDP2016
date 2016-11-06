@@ -11,7 +11,7 @@ public class Arbol extends Obstaculo{
 	
 	public Arbol(Celda celda){
 		super(true, true, celda); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/B.gif"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/B.png"));
 		cambiarImagenActual(0); 
 	}
 	

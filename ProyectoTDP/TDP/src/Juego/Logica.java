@@ -153,6 +153,7 @@ public class Logica {
 		celda.setTanque(jugador);
 		jugador.setCelda(celda);
 		jugador.cambiarImagenActual(0);
+		jugador.setDireccion(0);
 		gui.add(jugador.getImagenActual()); 
 	}
 

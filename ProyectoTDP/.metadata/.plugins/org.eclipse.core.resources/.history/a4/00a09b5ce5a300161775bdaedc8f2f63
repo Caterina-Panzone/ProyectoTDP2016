@@ -62,7 +62,7 @@ public class GUI extends JFrame{
 		}}});
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1213, 756);
+		setBounds(100, 100, 1296, 816);
 		contentPane = new JPanelFondo();
 		Image img = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage(); 	
 		contentPane.setImage(img); 
@@ -71,7 +71,7 @@ public class GUI extends JFrame{
 		
 		contentJuego = new JPanel(); 
 		contentJuego.setLayout(null);
-		contentJuego.setBounds(0, 0, 1213, 756);
+		contentJuego.setBounds(0, 0, 1296, 816);
 		contentJuego.setOpaque(false);
 	
 		contentPane.add(contentJuego); 

@@ -35,6 +35,9 @@ public class Logica {
 		jugador = new Jugador(celda, this);
 		celda.setTanque(jugador);
 		gui.add(jugador.getImagenActual()); 
+		gui.setVida(jugador.getVidas());
+		gui.setPuntaje(jugador.getPuntos());
+		gui.setNivel(nivelMapa);
 		
 		enemigos= new LinkedList<Enemigo>();
 		controladorEnemigos = new ControladorEnemigos(this);
@@ -133,11 +136,19 @@ public class Logica {
 		gui.traerFrentePower(imagenPower); 
 	}
 	
-	public void aumentarDestruidosJugador(){
-		jugador.aumentarEnemigosDestruidos();
+	public void aumentarDestruidosJugador(int puntos){
+		jugador.aumentarEnemigosDestruidos(puntos); 
+		gui.aumentarEnemigosDestruidos(jugador.getEnemigosDestruidos());
+		gui.setPuntaje(jugador.getPuntos());
 		
 		if(jugador.getEnemigosDestruidos()<16){
 			generador.generarEnemigo(); 
+		}else{
+			if(enemigos.isEmpty()){
+				//HAY QUE CAMBIAR EL MAPA 
+				nivelMapa++;
+				gui.setNivel(nivelMapa);
+			}
 		}
 		if(jugador.getEnemigosDestruidos()%4==0){
 			generarPowerUp();
@@ -163,6 +174,10 @@ public class Logica {
 
 	public void añadirEnemigoEnGui(Enemigo enemigo){
 		gui.add(enemigo.getImagenActual());
+	}
+	
+	public void resetearVida(int vidas){
+		gui.setVida(vidas);
 	}
 	
 	//Consultas

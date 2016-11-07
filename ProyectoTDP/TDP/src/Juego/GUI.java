@@ -3,8 +3,10 @@ package Juego;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics; 
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
@@ -23,6 +25,8 @@ public class GUI extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	protected JPanelFondo contentPane;
+	protected JLabel vida,nivel,puntaje, enemigos;
+	protected JLabel muertos[];
 	protected JPanel contentPuntaje; 
 	protected JPanel contentJuego; 
 	protected Logica logica;
@@ -85,11 +89,7 @@ public class GUI extends JFrame{
 //		contentJuego.setComponentZOrder(hola,0);
 //		contentJuego.setComponentZOrder(hola2,0);
 		
-		contentPuntaje = new JPanel(); 
-		contentPuntaje.setLayout(null); 
-		contentPuntaje.setOpaque(false);
-		contentPuntaje.setBounds(0,0,100,706);
-		contentPuntaje.setBorder(BorderFactory.createLineBorder(Color.black,3));
+		crearPanelPuntaje(); 
 	
 		contentPane.add(contentJuego); 
 		contentPane.add(contentPuntaje); 
@@ -114,6 +114,49 @@ public class GUI extends JFrame{
 		this.repaint();
 	}
 	
+	protected void crearPanelPuntaje(){
+		contentPuntaje = new JPanel(); 
+		contentPuntaje.setLayout(null); 
+		contentPuntaje.setOpaque(false);
+		contentPuntaje.setBounds(0,0,100,675);
+		contentPuntaje.setBorder(BorderFactory.createLineBorder(Color.black,3));
+	
+		nivel = new JLabel();
+		nivel.setBounds(0,0,100,100);
+		nivel.setHorizontalAlignment(JLabel.CENTER);
+		
+		puntaje = new JLabel(); 
+		puntaje.setBounds(0,100,100,80);
+		puntaje.setHorizontalAlignment(JLabel.CENTER);
+		puntaje.setVerticalTextPosition(JLabel.CENTER);
+		puntaje.setFont(new Font("Arial",1,15));
+		
+		ImageIcon img = new ImageIcon(getClass().getResource("/Imagenes/Vida.png"));
+		vida = new JLabel(img);
+		vida.setBounds(0,200,100,80);
+		vida.setHorizontalAlignment(JLabel.CENTER);
+		vida.setVerticalTextPosition(JLabel.CENTER);
+		vida.setFont(new Font("Arial",1,22));
+		
+		enemigos = new JLabel(); 
+		enemigos.setBounds(0,300,100,350);
+		enemigos.setLayout(new GridLayout(8,2));
+		muertos = new JLabel[16]; 
+		
+		for(int i=0; i<16; i++){
+			muertos[i] = new JLabel();
+			muertos[i].setHorizontalAlignment(JLabel.CENTER);
+			muertos[i].setVerticalTextPosition(JLabel.CENTER);
+			muertos[i].setIcon(new ImageIcon(getClass().getResource("/Imagenes/calabera.png")));
+			enemigos.add(muertos[i]);
+		}
+		
+		contentPuntaje.add(nivel);
+		contentPuntaje.add(puntaje);
+		contentPuntaje.add(vida); 	
+		contentPuntaje.add(enemigos);
+	}
+	
 	/*
 	 * REINICIA EL JUEGO. 
 	 */
@@ -134,6 +177,25 @@ public class GUI extends JFrame{
 //	public void ubicarObstaculo(JLabel imagen){
 //		contentJuego.setComponentZOrder(imagen,1);
 //	}
+	
+	public void setNivel(int nivel){
+		ImageIcon img = new ImageIcon(getClass().getResource("/Imagenes/Nivel"+nivel+".png"));
+		this.nivel.setIcon(img); 
+	}
+	
+	public void setVida(int vida){
+		this.vida.setText(" "+vida); 
+	}
+	
+	public void setPuntaje(int puntaje){
+		this.puntaje.setText(" "+puntaje+" ");
+	}
+	
+	public void aumentarEnemigosDestruidos(int i){
+		if(i<=16){
+			muertos[16-i].setIcon(null); 
+		}
+	}
 	
 	public void traerFrenteDisparo(JLabel imagen){
 		contentJuego.setComponentZOrder(imagen,2);

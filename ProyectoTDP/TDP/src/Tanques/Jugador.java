@@ -74,7 +74,7 @@ public class Jugador extends Tanque {
 		}
 	}
 	
-	public void aumentarPuntos(int puntos){
+	protected void aumentarPuntos(int puntos){
 		this.puntos += puntos;
 	}
 	
@@ -96,6 +96,7 @@ public class Jugador extends Tanque {
 			celda = null; 
 			ponerImagenVacia();
 			vidas--;
+			logica.resetearVida(vidas);
 			if(vidas<=0){
 				logica.finalizarJuego();
 			}
@@ -121,8 +122,9 @@ public class Jugador extends Tanque {
 		nivel.romperAcero(acero); 
 	}
 	
-	public void aumentarEnemigosDestruidos(){
+	public void aumentarEnemigosDestruidos(int puntos){
 		enemigosDestruidos++;
+		aumentarPuntos(puntos); 
 	}
 	
 	//Consultas

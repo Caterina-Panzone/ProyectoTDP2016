@@ -106,7 +106,7 @@ public class InteligenciaEnemigo {
 		enemigo.setDireccion(direccion); 
 	}
 	
-	public void aumentarDestruidosJugador(){
-		logica.aumentarDestruidosJugador();
+	public void aumentarDestruidosJugador(int puntos){
+		logica.aumentarDestruidosJugador(puntos);
 	}
 }

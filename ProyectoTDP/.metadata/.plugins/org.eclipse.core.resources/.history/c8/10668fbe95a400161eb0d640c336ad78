@@ -1,0 +1,25 @@
+package Tanques;
+
+import java.util.List;
+
+import javax.swing.ImageIcon;
+
+import Juego.*;
+
+  public class Basico extends Enemigo{
+  
+	//Constructor
+    public Basico(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
+	    super(1,1,1,celda, 100, inteligencia,enemigos);
+	    String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoIzquierda.gif"));
+		cambiarImagenActual(direccion);
+    }
+
+	public int getEsperaPersonal() {
+		return 2;
+	}
+  }

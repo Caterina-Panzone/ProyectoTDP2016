@@ -16,8 +16,11 @@ public class Granada extends PowerUp{
 	public Granada(Celda celda, List<Enemigo> enemigos){
 		super(celda); 
 		this.enemigos= enemigos;
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Granada.gif"));
-		cambiarImagenActual(0);
+	}
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"Granada.gif"));
 	}
 	
 	public void actuar(Jugador tanque) {

@@ -29,6 +29,7 @@ public class Logica {
 	public Logica(GUI gui){
 		this.gui=gui; 
 		nivelMapa=1; 
+		elegirTematica(); 
 		generarNuevoMapa(); 
 
 		Celda celda = mapa.getCelda(mapa.cantidadFilas()-1, mapa.cantidadColumnas()/2-2);
@@ -54,6 +55,10 @@ public class Logica {
 	}
 
 	//Comandos 
+	
+	private void elegirTematica(){
+		Tematica.setTematica("Coraje");
+	}
 
 	public void añadirDisparo(Disparo disparo){
 		disparos.add(disparo);

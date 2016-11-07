@@ -12,11 +12,14 @@ import Juego.*;
 	  
     public Blindado(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 	    super(1,2,4,celda, 400, inteligencia,enemigos);
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoArriba.gif"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoAbajo.gif"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoDerecha.gif"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BlindadoIzquierda.gif"));
-		cambiarImagenActual(direccion);
+    }
+    
+    public void setearImagenes(){
+    	String tematica = Tematica.getTematica(); 
+    	imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BlindadoArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BlindadoAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BlindadoDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BlindadoIzquierda.gif"));
     }
 
 	public int getEsperaPersonal() {

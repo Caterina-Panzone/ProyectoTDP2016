@@ -13,8 +13,11 @@ public class TanquePower extends PowerUp{
 	public TanquePower(Celda celda, Logica logica){
 		super(celda); 
 		this.logica = logica; 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Vida.gif"));
-		cambiarImagenActual(0);
+	}
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Vida.gif"));
 	}
 
 	public void actuar(Jugador tanque) {

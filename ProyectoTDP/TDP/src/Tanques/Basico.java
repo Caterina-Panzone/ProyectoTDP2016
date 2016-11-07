@@ -11,11 +11,14 @@ import Juego.*;
 	//Constructor
     public Basico(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 	    super(1,1,1,celda, 100, inteligencia,enemigos);
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BasicoArriba.gif"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BasicoAbajo.gif"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BasicoDerecha.gif"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BasicoIzquierda.gif"));
-		cambiarImagenActual(direccion);
+    }
+    
+    public void setearImagenes(){
+    	String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BasicoIzquierda.gif"));
     }
 
 	public int getEsperaPersonal() {

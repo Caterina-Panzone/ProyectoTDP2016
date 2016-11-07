@@ -16,8 +16,11 @@ public class Casco extends PowerUp{
 	
 	public Casco(Celda celda){
 		super(celda); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Casco.gif"));
-		cambiarImagenActual(0);
+	}
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Casco.gif"));
 	}
 
 	public void actuar(Jugador tanque) {
@@ -29,7 +32,7 @@ public class Casco extends PowerUp{
 		tiempo.start(); 
 	}
 	
-	public class TimerClass implements ActionListener {
+	private class TimerClass implements ActionListener {
 		protected Jugador tanque; 
 		
 		public TimerClass(Jugador tanque){

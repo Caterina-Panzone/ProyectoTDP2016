@@ -7,6 +7,7 @@ public abstract class PowerUp extends ObjetoConImagen {
 	//Constructor
 	public PowerUp(Celda celda){
 		super(celda); 
+		cambiarImagenActual(0);
 	}
 	
 	//Comandos

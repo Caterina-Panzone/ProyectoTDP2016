@@ -12,11 +12,14 @@ import Juego.*;
 	  
     public Rapido(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 	    super(3,2,1,celda, 200, inteligencia,enemigos);
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoArriba.gif"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoAbajo.gif"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoDerecha.gif"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/RapidoIzquierda.gif"));
-		cambiarImagenActual(direccion);
+    }
+    
+    public void setearImagenes(){
+    	String tematica = Tematica.getTematica();
+    	imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/RapidoArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/RapidoAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/RapidoDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/RapidoIzquierda.gif"));
     }
 
 	public int getEsperaPersonal() {

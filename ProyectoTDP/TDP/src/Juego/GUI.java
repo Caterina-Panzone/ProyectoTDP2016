@@ -71,8 +71,6 @@ public class GUI extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1216, 706);
 		contentPane = new JPanelFondo();
-		Image img = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage(); 	
-		contentPane.setImage(img); 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -95,6 +93,9 @@ public class GUI extends JFrame{
 		contentPane.add(contentPuntaje); 
 		
 		logica = new Logica(this);
+		
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+Tematica.getTematica()+"/Fondo.png")).getImage(); 	
+		contentPane.setImage(img); 
 	}
 	
 	public Component add (Component comp){
@@ -164,7 +165,8 @@ public class GUI extends JFrame{
 	public void setInstrucciones(){
 		contentPane = new JPanelFondo();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		Image img = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage(); 	
+		String tematica = Tematica.getTematica(); 
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+tematica+"/Fondo.png")).getImage(); 	
 		contentPane.setImage(img); 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

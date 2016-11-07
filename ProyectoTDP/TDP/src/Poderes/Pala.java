@@ -18,8 +18,11 @@ public class Pala extends PowerUp{
 	public Pala(Celda celda, Logica logica){
 		super(celda); 
 		this.logica = logica; 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Pala.gif"));
-		cambiarImagenActual(0);
+	}
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"Pala.gif"));
 	}
 
 	public void actuar(Jugador tanque) {
@@ -30,7 +33,7 @@ public class Pala extends PowerUp{
 		tiempo.start(); 
 	}
 	
-	public class TimerClass implements ActionListener {		
+	private class TimerClass implements ActionListener {		
 		public void actionPerformed(ActionEvent e) {
 			tiempo.stop();
 			logica.getMapa().desprotegerAguila(logica); 

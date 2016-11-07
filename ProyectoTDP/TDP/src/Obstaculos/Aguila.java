@@ -11,13 +11,15 @@ public class Aguila extends Obstaculo{
 	public Aguila(Celda celda,Logica logica){
 		super(false, false, celda); 
 		this.logica = logica; 
-		
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/F.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Fdead.png"));
-		cambiarImagenActual(0); 
 	}
 	
 	//Comando
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/F.png"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Fdead.png"));
+	}
 	
 	public void recibirGolpe(Tanque tanque){
 		cambiarImagenActual(1);

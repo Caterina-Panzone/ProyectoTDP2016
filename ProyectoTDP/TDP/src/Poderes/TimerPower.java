@@ -18,11 +18,14 @@ public class TimerPower extends PowerUp{
 	public TimerPower(Celda celda, ControladorEnemigos controlador){
 		super(celda); 
 		this.controlador = controlador; 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Timer.gif"));
-		cambiarImagenActual(0);
 		
 //		TimerClass timerC = new TimerClass();
 //        tiempo = new Timer(10000,timerC);
+	}
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"Timer.gif"));
 	}
 
 	public void actuar(Jugador tanque) {
@@ -32,7 +35,7 @@ public class TimerPower extends PowerUp{
 		controlador.dormirme(5000);
 	}
 	
-//	public class TimerClass implements ActionListener {
+//	private class TimerClass implements ActionListener {
 //		public void actionPerformed(ActionEvent e) {
 //			System.out.println("Finaliza Timer");
 //			tiempo.stop();

@@ -19,22 +19,23 @@ public class Disparo extends ObjetoDesplazable{
 	
 	public Disparo(Tanque emisor, int dir, Celda celda, Logica logica){
 		super(celda,2);
-		
 		celda.setBala(this); 
 		this.mapa = logica.getMapa();
 		disparos = logica.getListaDisparos();		
 		this.emisor=emisor;
 		direccion=dir;
-		
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaArriba.gif"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaAbajo.gif"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaDerecha.gif"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/BalaIzquierda.gif"));
-
 		cambiarImagenActual(direccion);
 	}
 	
 	//Comandos 
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BalaArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BalaAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BalaDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BalaIzquierda.gif"));
+	}
 	
 	public void destruirse(List<Disparo> disparos){
 		cambiarImagenActual(direccion);

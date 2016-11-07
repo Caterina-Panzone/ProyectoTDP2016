@@ -3,6 +3,8 @@ package Tanques;
 import Juego.*;
 
 import java.util.List;
+import java.util.Random;
+
 import Poderes.PowerUp;
 
 public abstract class Enemigo extends Tanque{
@@ -33,12 +35,15 @@ public abstract class Enemigo extends Tanque{
 		this.puntos= puntos;
 		this.inteligencia = inteligencia; 
 		espera = 0; 
+		Random rnd = new Random();
+		direccion = rnd.nextInt(4);
+		cambiarImagenActual(direccion);
 	}
 	
 	//Comandos
 	
 	public void actuar(PowerUp poder){
-		
+
 	}
 	
 	public void moverse(){	

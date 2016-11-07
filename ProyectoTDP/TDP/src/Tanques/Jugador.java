@@ -23,28 +23,29 @@ public class Jugador extends Tanque {
 		super(celda);
 		celda.bloquear(); 
 		setDireccion(0);
-		
 		vidas = 4;
-		
-		setearImagenes();
-		
-		cambiarImagenActual(0);
-	
 		nivel = new Nivel1();
 		puntos = 0;
 		enemigosDestruidos = 0;
 		invulnerabilidad = false;
-		
-		this.logica=logica;
-
+		this.logica=logica; 
+		setearImagenes(); 
+		cambiarImagenActual(0);
 	}
 	
-	private void setearImagenes(){
-		int jugador=((vidas%3)+1);
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Arriba.gif"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Abajo.gif"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Derecha.gif"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"Izquierda.gif"));
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		int jugador = 1; 
+		
+		System.out.println(tematica=="EdEdd&Eddy");
+		if(tematica == "EdEdd&Eddy"){
+			jugador=((vidas%3)+1);
+		}
+		
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Arriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Abajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Derecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Izquierda.gif"));
 	}
 	
 	//Comando
@@ -59,13 +60,17 @@ public class Jugador extends Tanque {
 	}
 	
 	public void setInvulnerabilidad(boolean estado){
+		String tematica = Tematica.getTematica(); 
 		invulnerabilidad = estado;
 		if(estado==true){
-			int jugador= ((vidas%3)+1);
-			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadArriba.gif"));
-			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadAbajo.gif"));
-			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadDerecha.gif"));
-			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/Jugador"+jugador+"InvulnerabilidadIzquierda.gif"));
+			int jugador = 1; 
+			if(tematica == "EdEdd&Eddy"){
+				jugador=((vidas%3)+1);
+			}
+			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadArriba.gif"));
+			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadAbajo.gif"));
+			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadDerecha.gif"));
+			imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadIzquierda.gif"));
 			cambiarImagenActual(direccion);
 		}
 		else{

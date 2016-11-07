@@ -15,15 +15,17 @@ public class Ladrillo extends Obstaculo {
 	public Ladrillo(Celda celda){
 		super(false, false, celda); 
 		golpesRecibidos=0;
-		
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/L1.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/L2.png"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/L3.png"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/L4.png"));
-		cambiarImagenActual(0); 
 	}
 	
 	//Comandos
+	
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L1.png"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L2.png"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L3.png"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L4.png"));
+	}
 	
 	public void recibirGolpe(Tanque tanque){
 		golpesRecibidos++; 

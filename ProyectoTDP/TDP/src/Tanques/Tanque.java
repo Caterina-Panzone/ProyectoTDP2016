@@ -1,7 +1,5 @@
 package Tanques;
 
-import java.util.Random;
-
 import Juego.*;
 import Poderes.PowerUp;
 import Obstaculos.Acero;
@@ -19,8 +17,6 @@ public abstract class Tanque extends ObjetoDesplazable {
 	
 	public Tanque(Celda celda){
 		super(celda,1);
-		Random rnd = new Random();
-		direccion = rnd.nextInt(4);
 		golpesRecibidos=0;
 		disparosRealizados = 0;
 	}

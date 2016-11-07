@@ -12,11 +12,14 @@ import Juego.*;
 	  
     public DePoder(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
 	    super(2,3,1,celda, 300, inteligencia, enemigos);
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/PoderArriba.gif"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/PoderAbajo.gif"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/PoderDerecha.gif"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/PoderIzquierda.gif"));
-		cambiarImagenActual(direccion);
+    }
+    
+    public void setearImagenes(){
+    	String tematica = Tematica.getTematica(); 
+    	imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/PoderArriba.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/PoderAbajo.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/PoderDerecha.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/PoderIzquierda.gif"));
     }
 
 	public int getEsperaPersonal() {

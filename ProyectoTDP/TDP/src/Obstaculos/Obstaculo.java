@@ -15,6 +15,7 @@ public abstract class Obstaculo extends ObjetoConImagen {
 		super(celda); 
 		atraviesanDisparos = ad;
 		atraviesanTanques = at;
+		cambiarImagenActual(0); 
 	}
 	
 	//Comandos

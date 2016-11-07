@@ -5,6 +5,7 @@
 - Los disparos del jugador no se tienen que morir entre si. 
 - Los disparos tienen que ir por abajo del arbol. 
 - Cambiar el mapa cuando los enemigos destruidos sean una lista vacia. {En aumentarDestruidosJugador()}
+-Poner la musica. 
 
 PREGUNTAS:
 

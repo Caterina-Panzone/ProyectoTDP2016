@@ -31,7 +31,8 @@ public class ControladorDisparos extends Thread{
 				}
 				Thread.sleep(30);
 			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
+				e.printStackTrace();
+				//Thread.currentThread().interrupt();
 			}
 		}
 	}

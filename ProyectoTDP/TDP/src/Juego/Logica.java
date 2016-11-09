@@ -23,13 +23,11 @@ public class Logica {
 	protected ControladorEnemigos controladorEnemigos;
 	protected ControladorDisparos controladorDisparos;
 	protected Generador generador;
-	protected boolean finalizoJuego; 
 
 	// Constructor
 
 	public Logica(GUI gui) {
 		this.gui = gui;
-		finalizoJuego=false; 
 		nivelMapa = 1;
 		elegirTematica();
 		generarNuevoMapa();
@@ -81,8 +79,7 @@ public class Logica {
 	}
 
 	private void generarNuevoMapa() {
-		// mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),gui,this);
-		mapa = new Mapa("nivel" + nivelMapa + ".txt", this);
+		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),this);
 	}
 
 	public void aumentarNivelJugador() {
@@ -134,29 +131,36 @@ public class Logica {
 		// eliminar la lista de enemigos y disparos. 
 		
 		System.out.println("Finalizo Juego");
-		
-		finalizoJuego = true; 
-		
-		controladorEnemigos.dormir(true); 
-		
-		while(!disparos.isEmpty()){
-			disparos.remove(disparos.size()-1); 
-		}
-		
-		while(!enemigos.isEmpty()){
-			enemigos.remove(enemigos.size()-1); 
-		}
+			
+//		controladorEnemigos.dormir(true); 
+//		
+//		while(!disparos.isEmpty()){
+//			System.out.println("Elimino disparo:: "+(disparos.size()-1));
+//			disparos.remove(disparos.size()-1); 
+//		}
+//		
+//		while(!enemigos.isEmpty()){
+//			System.out.println("Elimino enemigos:: "+(enemigos.size()-1));
+//			enemigos.remove(enemigos.size()-1); 
+//		}
 		
 		controladorEnemigos.terminate();
+		System.out.println("Termine controlador enemigos");
 		controladorDisparos.terminate();
-		controladorEnemigos.interrupt(); 
-		controladorDisparos.interrupt(); 
+		System.out.println("Termine controlador disparos");
+		
+//		controladorEnemigos.interrupt(); 
+//		System.out.println("Interrumpi enemigos");
+//		controladorDisparos.interrupt(); 
+//		System.out.println("Interrumpi disparos");
 		
 //		System.out.println(controladorEnemigos.isAlive());
 //		System.out.println(controladorDisparos.isAlive());
 		
-		controladorDisparos = null; 
 		controladorEnemigos = null; 
+		System.out.println("Puse nulo controladorEnemigos");
+		controladorDisparos = null; 
+		System.out.println("Puse nulo controladorDisparos");
 
 		gui.gameOver();
 	}
@@ -178,7 +182,7 @@ public class Logica {
 		gui.aumentarEnemigosDestruidos(jugador.getEnemigosDestruidos());
 		gui.setPuntaje(jugador.getPuntos());
 
-		if (jugador.getEnemigosDestruidos() < 16 && !finalizoJuego) {
+		if (jugador.getEnemigosDestruidos() < 16) {
 			generador.generarEnemigo();
 		} else {
 			if (enemigos.isEmpty()) {

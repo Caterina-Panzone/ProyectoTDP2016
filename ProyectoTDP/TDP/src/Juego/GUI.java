@@ -154,7 +154,7 @@ public class GUI extends JFrame{
 	}
 	
 	/*
-	 * REINICIA EL JUEGO. 
+	 * REINICIA EL JUEGO. Nadie lo llama.  
 	 */
 	
 	public void setInstrucciones(){
@@ -177,16 +177,22 @@ public class GUI extends JFrame{
 	
 	public void gameOver(){
 		logica = null; 
+		
+		contentPane.removeAll(); 
+//		this.remove(contentPane);
+		
 		contentPuntaje = null; 
 		contentJuego = null; 
 		contentArboles = null; 
 		contentAgua = null; 
-		contentPane = new JPanelFondo();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		Image img = new ImageIcon(getClass().getResource("/Imagenes/GameOver.png")).getImage();
-		contentPane.setLayout(null);
-		contentPane.setImage(img); 
-		setContentPane(contentPane);
+		
+//		contentPane = new JPanelFondo();
+//		setContentPane(contentPane);
+//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/GameOver.png")).getImage(); 		
+		contentPane.setImage(img);
+//		contentPane.setLayout(null);
+		
 		this.repaint(); 
 	}
 	
@@ -204,8 +210,8 @@ public class GUI extends JFrame{
 	}
 	
 	public Component add (Component comp){
-		//Component componente = contentJuego.add(comp); 
-		//contentJuego.setComponentZOrder(componente,0);
+//		Component componente = contentJuego.add(comp); 
+//		contentJuego.setComponentZOrder(componente,0);
 		return contentJuego.add(comp); 
 	}
 	

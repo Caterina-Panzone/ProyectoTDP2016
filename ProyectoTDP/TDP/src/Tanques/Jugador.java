@@ -195,8 +195,6 @@ public class Jugador extends Tanque implements Runnable{
 		lock = tamaño/(getVelocidadMovimiento()*aumento); 
 		t = new Thread(this); 
 		t.start(); 
-		
-		//logica.getMapa().concretarMovimientoTanque(celda,nueva);
 	}
 	
 	public void run() {	

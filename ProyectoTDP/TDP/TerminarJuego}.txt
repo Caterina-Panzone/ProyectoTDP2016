@@ -3,13 +3,14 @@
 - Los disparos del jugador no se tienen que morir entre si. 
 - Los disparos tienen que ir por abajo del arbol. 
 - Cambiar el nivel y el mapa cuando los enemigos destruidos sean una lista vacia. {En aumentarDestruidosJugador()}
--Poner la musica. 
+- Poner la musica. 
 - Cuando hay un enemigo en el lugar del jugador ocurre un error. Arreglarlo. 
 
 PREGUNTAS:
 
 - Esta mal poner un boolean para ver en que capa ponemos los obstaculos. {No nos salio, preguntar como se hace}
-- Preguntar clase estatica y tematica 
-- TIMER PARA EL POWER no anda (se paran los thread) - Hice un boolean dormir, no se si esta bien. 
-- Jugador no debe realizar disparos tan seguidos. 
+- Como hacemos para que el jugador no pueda realizar disparos tan seguidos y se eliminen entre si. 
+- Logica:: finalizarJuego() => Es necesario eliminar los elementos de cada lista? No se que hace el interrumpir pero si lo hacemos lanza un error. Dejamos unicamente el terminate(), poniendo luego las referencias nulas. 
+  GUI:: gameOver() => Si cambio el orden de las operaciones el fondo del contentPane es gris. 
+
 

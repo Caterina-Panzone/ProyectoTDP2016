@@ -38,7 +38,7 @@ public class ControladorEnemigos extends Thread{
 					}
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
-					 Thread.currentThread().interrupt();
+					e.printStackTrace();
 				}
 			}
 		}

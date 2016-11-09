@@ -10,21 +10,29 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;   
-
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+
+import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 public class GUI extends JFrame{
 	//Atributos 
 	
 	private static final long serialVersionUID = 1L;
 	protected JPanelFondo contentPane;
+	protected Timer timerFinJuego; 
 	protected JLabel vida,nivel,puntaje, enemigos;
 	protected JLabel muertos[];
 	protected JPanel contentPuntaje; 
@@ -53,32 +61,78 @@ public class GUI extends JFrame{
 	 * Create the frame.
 	 */
 	public GUI() {
-		addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent arg0) {
-				if(logica!=null){
-					if(arg0.getKeyCode()==KeyEvent.VK_SPACE)
-					{
-					  jugadorDispara();	
-					} 
-					else {
-						if (arg0.getKeyCode()==KeyEvent.VK_N)
-						{
-						cambiarNivelJugador(); 
-						}
-						else{
-					      mover(arg0);
-						}
-					}}
-				}
-		});
-		
+		addKeyListener(new OyenteTeclado()); 
+		setFocusable(true);
+	    setFocusTraversalKeysEnabled(false);
+	    
 		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1216, 706);
+		setBounds(0, 0, 1216, 706);
 		contentPane = new JPanelFondo();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		TimerClass tc = new TimerClass(); 
+		timerFinJuego = new Timer(5000,tc); 
+		
+		crearMenu(); 
+	}
+	
+	protected void crearMenu(){
+		JPanel menu = new JPanel(); 
+		menu.setBounds(0, 0, 1216, 706);
+		menu.setOpaque(false);
+		menu.setLayout(null); 
+		
+		JPanel BotonesJuego = new JPanel(); 
+		BotonesJuego.setBounds(0, 450, 1216, 100);
+		BotonesJuego.setOpaque(false); 
+		BotonesJuego.setLayout(new GridLayout(0,3));
+		
+		OyenteJugar oyJug = new OyenteJugar(); 
+		JButton jugar = new JButton("Jugar");
+		jugar.addMouseListener(oyJug); 
+		caracterizarBoton(jugar);
+		
+		OyenteControles oyControles = new OyenteControles(); 
+		JButton controles = new JButton("Controles");
+		controles.addMouseListener(oyControles); 
+		caracterizarBoton(controles);
+		
+		OyenteSalir oySalir = new OyenteSalir(this); 
+		JButton salir = new JButton("Salir");
+		salir.addMouseListener(oySalir); 
+		caracterizarBoton(salir);
+		
+		BotonesJuego.add(jugar); 
+		BotonesJuego.add(controles); 
+		BotonesJuego.add(salir); 
+		
+		menu.add(BotonesJuego); 
+		
+		Image inicio = new ImageIcon(getClass().getResource("/Imagenes/Inicio.png")).getImage();
+		contentPane.setImage(inicio);
+		contentPane.add(menu); 
+		
+		this.repaint(); 
+	}
+	
+	private void caracterizarBoton(JButton boton){
+		boton.setOpaque(true);
+		boton.setHorizontalAlignment(JLabel.CENTER);
+		boton.setVerticalTextPosition(JLabel.CENTER);
+		boton.setFont(new Font("Arial",1,26));
+		boton.setForeground(Color.LIGHT_GRAY);
+		hacerBotonMonotono(boton); 
+	}
+	
+	private void hacerBotonMonotono(JButton boton) {
+		boton.setBorderPainted(false);
+		boton.setFocusPainted(false);
+		boton.setContentAreaFilled(false);
+	}
+	
+	protected void inicializarPanelesJuego(){		
 		contentJuego = new JPanel(); 
 		contentJuego.setLayout(null);
 		contentJuego.setBounds(100, 0, 1116, 706);
@@ -97,17 +151,16 @@ public class GUI extends JFrame{
 		crearPanelPuntaje(); 
 		
 		contentPane.add(contentArboles);
-		contentPane.setComponentZOrder(contentArboles, 0);
 		contentPane.add(contentJuego); 
-		contentPane.setComponentZOrder(contentJuego, 1);
 		contentPane.add(contentAgua);
-		contentPane.setComponentZOrder(contentAgua, 2);
 		contentPane.add(contentPuntaje); 
 		
 		logica = new Logica(this);
 		
 		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+Tematica.getTematica()+"/Fondo.png")).getImage(); 	
 		contentPane.setImage(img); 
+		
+		this.repaint(); 
 	}
 	
 	protected void crearPanelPuntaje(){
@@ -153,31 +206,24 @@ public class GUI extends JFrame{
 		contentPuntaje.add(enemigos);
 	}
 	
-	/*
-	 * REINICIA EL JUEGO. Nadie lo llama.  
-	 */
-	
-	public void setInstrucciones(){
-		contentPane = new JPanelFondo();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		String tematica = Tematica.getTematica(); 
-		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+tematica+"/Fondo.png")).getImage(); 	
-		contentPane.setImage(img); 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		logica = new Logica(this);
-		
-		this.repaint(); 
-	}
-	
-	/*
-	 * GAME OVER
-	 */
-	
 	public void gameOver(){
 		logica = null; 
+		String puntos = puntaje.getText(); 
+				
+		JLabel score = new JLabel();
+		score.setBounds(0,550,1216, 40);
+		score.setForeground(Color.WHITE);
+		score.setHorizontalAlignment(JLabel.CENTER);
+		score.setFont(new Font("Arial",1,22));
+		ImageIcon imagen = new ImageIcon(getClass().getResource("/Imagenes/"+Tematica.getTematica()+"/Jugador1Derecha.gif"));
+		score.setIcon(imagen);
+		score.setText(puntos);
 		
+		JPanel GameOver = new JPanel();
+		GameOver.setOpaque(false);
+		GameOver.setBounds(0, 0, 1216, 706);
+		GameOver.add(score);
+				
 		contentPane.removeAll(); 
 //		this.remove(contentPane);
 		
@@ -193,7 +239,12 @@ public class GUI extends JFrame{
 		contentPane.setImage(img);
 //		contentPane.setLayout(null);
 		
+		contentPane.add(GameOver); 
+		
 		this.repaint(); 
+		
+		timerFinJuego.start(); 
+		
 	}
 	
 	protected void jugadorDispara(){
@@ -251,10 +302,9 @@ public class GUI extends JFrame{
 		}
 	}
 
-	public class JPanelFondo extends JPanel{ 
+	private class JPanelFondo extends JPanel{ 
 		private static final long serialVersionUID = 1L;
 		private Image image = null; 
-		private Icon icon; 
 	
 		protected void paintComponent(Graphics g) { 
 			Graphics2D g2 =(Graphics2D) g; 
@@ -270,14 +320,73 @@ public class GUI extends JFrame{
 		public void setImage(Image image) { 
 			this.image = image; 
 		} 
+	}
 	
-		public Icon getIcon() { 
-			return icon; 
-		} 
+	private class TimerClass implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			timerFinJuego.stop();
+			contentPane.removeAll(); 
+			crearMenu(); 
+		}
+	}
 	
-		public void setIcon(Icon icon){ 
-			this.icon=icon; 
-			setImage(((ImageIcon)icon).getImage()); 
-		} 
+	private class OyenteJugar extends MouseAdapter{
+		public void mouseClicked(MouseEvent arg0){
+			contentPane.removeAll(); 
+			inicializarPanelesJuego(); 
+		}
+	}
+	
+	private class OyenteControles extends MouseAdapter{
+		public void mouseClicked(MouseEvent arg0){
+			JFrame controles = new JFrame("Controles");
+			controles.setSize(700, 400);
+			controles.setLayout(null);
+			controles.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			controles.setVisible(true);
+			controles.setResizable(false);
+			
+			JPanelFondo contentPane = new JPanelFondo();
+			contentPane.setImage(new ImageIcon(this.getClass().getResource("/Imagenes/Instrucciones.png")).getImage());
+			contentPane.setLayout(null);
+			contentPane.setSize(700, 400);
+			controles.setContentPane(contentPane);
+			
+			OyenteSalir oySalir = new OyenteSalir(controles); 
+			JButton botonAtras = new JButton("Atrás");
+			botonAtras.addMouseListener(oySalir); 
+			botonAtras.setBounds(50,300,150,30); 
+			caracterizarBoton(botonAtras);
+
+			contentPane.add(botonAtras);
+		}
+	}
+	
+	private class OyenteSalir extends MouseAdapter{
+		protected JFrame gui; 
+		
+		public OyenteSalir(JFrame gui){
+			this.gui = gui; 
+		}
+		
+		public void mouseClicked(MouseEvent arg0){
+			gui.dispatchEvent(new WindowEvent(gui, WindowEvent.WINDOW_CLOSING));
+		}
+	}
+	
+	private class OyenteTeclado extends KeyAdapter{
+		public void keyPressed(KeyEvent arg0) {
+			if(logica!=null){
+				if(arg0.getKeyCode()==KeyEvent.VK_SPACE){
+					jugadorDispara();	
+				} else {
+					if (arg0.getKeyCode()==KeyEvent.VK_N){
+						cambiarNivelJugador(); 
+					}else{
+						mover(arg0);
+					}
+				}
+			}
+		}
 	}
 }

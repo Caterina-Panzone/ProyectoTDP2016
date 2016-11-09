@@ -37,7 +37,6 @@ public class TimerPower extends PowerUp{
 	
 	private class TimerClass implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Finaliza Timer");
 			tiempo.stop();
 			controlador.dormir(false);
 		}

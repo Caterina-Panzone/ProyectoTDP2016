@@ -27,6 +27,9 @@ import java.awt.event.WindowEvent;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+import java.util.List;
+import Obstaculos.*;
+
 public class GUI extends JFrame{
 	//Atributos 
 	
@@ -266,12 +269,10 @@ public class GUI extends JFrame{
 		return contentJuego.add(comp); 
 	}
 	
-	public void ubicarAgua(JLabel imagen){
-		contentAgua.add(imagen); 
-	}
-	
-	public void ubicarArbol(JLabel imagen){
-		contentArboles.add(imagen);
+	public void ubicarBosque(List<Obstaculo> bosque){
+		for(int i=0; i<bosque.size(); i++){
+			contentJuego.add(bosque.get(i).getImagenActual(),0);		
+		}
 	}
 	
 	public void ubicarPower(JLabel imagen){
@@ -280,7 +281,8 @@ public class GUI extends JFrame{
 	}
 	
 	public void traerFrenteDisparo(JLabel imagen){
-		contentJuego.setComponentZOrder(imagen,0);
+		contentJuego.setComponentZOrder(imagen,logica.getcantidadBosques()+1);
+		//actualizar cant bosques con los power up
 	}
 	
 	public void setNivel(int nivel){

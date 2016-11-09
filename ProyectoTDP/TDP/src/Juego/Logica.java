@@ -23,6 +23,8 @@ public class Logica {
 	protected ControladorEnemigos controladorEnemigos;
 	protected ControladorDisparos controladorDisparos;
 	protected Generador generador;
+	
+	protected int cantidadBosques;
 
 	// Constructor
 
@@ -66,12 +68,9 @@ public class Logica {
 		gui.traerFrenteDisparo(disparo.getImagenActual());
 	}
 
-	public void ubicarArbol(JLabel imagen) {
-		gui.ubicarArbol(imagen);
-	}
 	
-	public void ubicarAgua(JLabel imagen){
-		gui.ubicarAgua(imagen);
+	public void añadirBosque(List<Obstaculo> bosque){
+		gui.ubicarBosque(bosque);
 	}
 
 	public void añadirObstaculo(Obstaculo obstaculo) {
@@ -219,6 +218,10 @@ public class Logica {
 	public void resetearVida(int vidas) {
 		gui.setVida(vidas);
 	}
+	
+	public void setCantidadBosques(int cant){
+		cantidadBosques=cant;
+	}
 
 	// Consultas
 	public ControladorEnemigos getControladorEnemigos() {
@@ -235,5 +238,9 @@ public class Logica {
 
 	public Mapa getMapa() {
 		return mapa;
+	}
+	
+	public int getcantidadBosques(){
+		return cantidadBosques;
 	}
 }

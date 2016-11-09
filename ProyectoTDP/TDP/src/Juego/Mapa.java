@@ -2,7 +2,10 @@ package Juego;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException; 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+
 import Obstaculos.*;
 import Tanques.*; 
 
@@ -19,13 +22,14 @@ public class Mapa {
 			br = new BufferedReader(new FileReader(archivo));
 			int fila = Integer.parseInt(br.readLine()); 
 			int columna = Integer.parseInt(br.readLine());
+			List<Obstaculo> bosque= new LinkedList<Obstaculo>();
 			
 			matriz = new Celda[fila][columna];
 			String [] arr = new String[fila];
 			String actual,caracter;
 			Celda celda; 
 			Obstaculo obst = null; 
-			boolean llevarAdelante = false, llevarAtras = false;
+			boolean añadirBosque = false;
 			
 			for(int i=0; i<fila; i++){
 				actual = br.readLine(); 
@@ -44,12 +48,12 @@ public class Mapa {
 						}
 						case "B":{
 							obst = new Arbol(celda); 
-							llevarAdelante=true; 
+							bosque.add(obst);
+							añadirBosque=true;
 							break; 
 						}
 						case "H":{
 							obst = new Agua(celda); 
-							llevarAtras = true; 
 							break; 
 						}
 						case "F":{
@@ -63,18 +67,18 @@ public class Mapa {
 					}
 					celda.setObstaculo(obst); 
 					matriz[i][j]=celda; 
-					if (obst!=null){
-						if(llevarAdelante)
-							logica.ubicarArbol(obst.getImagenActual());
-						else {
-							if(llevarAtras)
-								logica.ubicarAgua(obst.getImagenActual());
-							else 
-								logica.añadirObstaculo(obst);
-						}
+					if (obst!=null  && !añadirBosque){
+						logica.añadirObstaculo(obst);
+					}
+					else{
+						añadirBosque=false;
 					}
 				}
 			}
+			
+			logica.añadirBosque(bosque);
+			logica.setCantidadBosques(bosque.size());
+			
 		}catch(IOException e){
 			e.printStackTrace();
 		}finally{

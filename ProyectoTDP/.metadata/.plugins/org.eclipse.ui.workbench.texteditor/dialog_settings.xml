@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="finaliz" key="selection"/>
+		<item value="añadir" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="añadir"/>
 			<item value="finaliz"/>
 			<item value="setIns"/>
 			<item value="e.stack"/>
@@ -15,7 +16,6 @@
 			<item value="&#x09;&#x09;emisor.eliminarDisparo(); "/>
 			<item value="emisor"/>
 			<item value="finalizarJuego"/>
-			<item value="mov"/>
 		</list>
 		<list key="replacehistory">
 		</list>

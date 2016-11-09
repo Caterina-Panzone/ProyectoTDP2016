@@ -10,11 +10,13 @@ import Obstaculos.*;
 import Tanques.*; 
 
 public class Mapa {
-	//Atributos 
-	
 	protected Celda[][] matriz;
 	
-	//Constructor
+	/**
+	 * Constructor de la clase Mapa. 
+	 * @param archivo Archivo de donde se cargará el mapa. 
+	 * @param logica Referencia a la logica principal. 
+	 */
 	
 	public Mapa(String archivo, Logica logica){
 		BufferedReader br = null; 
@@ -90,31 +92,47 @@ public class Mapa {
 			}
 		}
 	}
-	//Comandos 
 	
-	public void concretarMovimientoTanque(Celda vieja, Celda nueva){
+	/**
+	 * Mueve el tanque de la celda vieja a la celda nueva. 
+	 * Se asume que en la celda vieja hay un tanque cargado. 
+	 * @param vieja Celda donde esta posicionado el tanque.
+	 * @param nueva Celda donde se posicionará el tanque, desvinculandose de la anterior. 
+	 */
+	
+	public void concretarMovimientoTanque(Tanque tanque, Celda vieja, Celda nueva){
 		// PUEDE DAR EL ERROR DE OBJETO CON IMAGEN NULL. 
+		//DA ERROR PORQUE EL TANQUE ES NULO. 
 		
-		Tanque tanque = vieja.getTanque();
+		//Tanque tanque = vieja.getTanque();
+		System.out.println(tanque); 
 		vieja.setTanque(null);
 		nueva.setTanque(tanque);
 		tanque.setCelda(nueva);
 		
-//		vieja.desbloquear(); 
-//		nueva.bloquear(); 
+		vieja.bloquear(); 
+		nueva.desbloquear(); 
 		
 		tanque.actuar(nueva.getPower());
 	}
 	
-	//Consultas
+	/**
+	 * Devuelve la celda que se encuentra en la fila y columna del mapa. 
+	 * @param fila Posicion logica horizontal de la celda buscada. 
+	 * @param columna Posicion logica vertical de la celda buscada. 
+	 * @return Celda delimitada por fila y columna. 
+	 */
 	
 	public Celda getCelda(int fila, int columna){
 		return matriz[fila][columna]; 
 	}
 	
-	/*
+	/**
 	 * Retorna la celda contigua dependiendo de la direcion. 
 	 * Si está en los límites del mapa retorna nulo. 
+	 * @param celda Celda de la cual se parte para buscar su contigua. 
+	 * @param direccion Direccion a la que se desea mover. 
+	 * @return Celda contigua a la celda pasada por parametro en la direccion dada. 
 	 */
 	
 	public Celda getCeldaSiguiente(Celda celda,int direccion){
@@ -149,6 +167,12 @@ public class Mapa {
 		return nueva; 
 	}
 	
+	/**
+	 * Establece una pared de acero al redededor de la base, repara todo el 
+	 * daño de las paredes de la misma. 
+	 * @param logica Referencia a la logica principal. 
+	 */
+	
 	public void protegerAguila(Logica logica){
 		int columna = (cantidadColumnas()-1)/2-1; 
 		int fila = cantidadFilas()-1; 
@@ -161,6 +185,29 @@ public class Mapa {
 			setearCeldaAcero(matriz[fila][columna+i],logica);
 		}
 	}
+	
+	/**
+	 * Metodo Auxiliar::
+	 * Ubica un acero en la celda pasada por parametro. 
+	 * @param celda Celda a la cual se le desea posicionar acero. 
+	 * @param logica Referencia a la logica principal. 
+	 */
+	
+	private void setearCeldaAcero(Celda celda, Logica logica){
+		if(celda.getObstaculo()!=null){
+			celda.getObstaculo().setCelda(null);
+			celda.getObstaculo().ponerImagenVacia(); 
+			celda.setObstaculo(null); 
+		}
+		Obstaculo acero = new Acero(celda);
+		logica.añadirObstaculo(acero); 
+		celda.setObstaculo(acero);
+	}
+	
+	/**
+	 * Convierte las paredes de acero que rodean a la base en paredes de ladrillo. 
+	 * @param logica Referencia a la logica principal. 
+	 */
 	
 	public void desprotegerAguila(Logica logica){
 		int columna = (cantidadColumnas()-1)/2-1; 
@@ -175,16 +222,13 @@ public class Mapa {
 		}
 	}
 	
-	private void setearCeldaAcero(Celda celda, Logica logica){
-		if(celda.getObstaculo()!=null){
-			celda.getObstaculo().setCelda(null);
-			celda.getObstaculo().ponerImagenVacia(); 
-			celda.setObstaculo(null); 
-		}
-		Obstaculo acero = new Acero(celda);
-		logica.añadirObstaculo(acero); 
-		celda.setObstaculo(acero);
-	}
+	/**
+	 * Metodo Auxiliar::
+	 * Establece un ladrillo en la celda pasada por parametro, si y solo si 
+	 * habia un obstaculo en dicha celda. Caso contrario, no realiza cambio alguno. 
+	 * @param celda Celda a la cual se le desea posicionar un ladrillo. 
+	 * @param logica Referencia a la logica principal. 
+	 */
 	
 	private void setearCeldaLadrillo(Celda celda, Logica logica){
 		if(celda.getObstaculo()!=null){
@@ -197,9 +241,18 @@ public class Mapa {
 		}
 	}
 	
+	/**
+	 * Devuelve la cantidad de filas que tiene el mapa. 
+	 * @return Cantidad de filas que posee el mapa. 
+	 */
 	public int cantidadFilas(){
 		return matriz.length; 
 	}
+	
+	/**
+	 * Devuelve la cantidad de columnas que tiene el mapa.
+	 * @return Cantidad de columnas que posee el mapa. 
+	 */
 	
 	public int cantidadColumnas(){
 		return matriz[0].length; 

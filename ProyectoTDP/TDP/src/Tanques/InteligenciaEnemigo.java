@@ -64,7 +64,7 @@ public class InteligenciaEnemigo {
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 
 
-		mapa.concretarMovimientoTanque(mapa.getCelda(i, j), proximaCelda);
+		mapa.concretarMovimientoTanque(enemigo, mapa.getCelda(i, j), proximaCelda);
 	}	
 	
 	/*

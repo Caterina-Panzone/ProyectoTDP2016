@@ -15,7 +15,7 @@ public class Jugador extends Tanque implements Runnable{
 	protected int enemigosDestruidos;
 	protected boolean invulnerabilidad;
 	protected Logica logica;
-	protected int jugador = 3; 
+	protected int jugador; 
 	protected Thread t; 
 	protected Celda nueva; 
 
@@ -24,6 +24,7 @@ public class Jugador extends Tanque implements Runnable{
 	
 	public Jugador(Celda celda,Logica logica){
 		super(celda);
+		jugador = 1; 
 		celda.bloquear(); 
 		setDireccion(0);
 		vidas = 4;
@@ -38,7 +39,6 @@ public class Jugador extends Tanque implements Runnable{
 	
 	public void setearImagenes(){
 		String tematica = Tematica.getTematica();
-		
 		if(tematica == "EdEdd&Eddy"){
 			switch(jugador){
 				case 0:{
@@ -59,7 +59,11 @@ public class Jugador extends Tanque implements Runnable{
 				}
 			}
 		}
-		
+		setImagenes(); 
+	}
+	
+	private void setImagenes(){
+		String tematica = Tematica.getTematica();
 		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Arriba.gif"));
 		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Abajo.gif"));
 		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"Derecha.gif"));
@@ -81,10 +85,6 @@ public class Jugador extends Tanque implements Runnable{
 		String tematica = Tematica.getTematica(); 
 		invulnerabilidad = estado;
 		if(estado==true){
-			int jugador = 1; 
-			if(tematica == "EdEdd&Eddy"){
-				jugador=((vidas%3)+1);
-			}
 			imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadArriba.gif"));
 			imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadAbajo.gif"));
 			imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Jugador"+jugador+"InvulnerabilidadDerecha.gif"));
@@ -92,7 +92,7 @@ public class Jugador extends Tanque implements Runnable{
 			cambiarImagenActual(direccion);
 		}
 		else{
-			setearImagenes();
+			setImagenes();
 			cambiarImagenActual(direccion);
 		}
 	}
@@ -209,9 +209,9 @@ public class Jugador extends Tanque implements Runnable{
 					cambiarImagenActual(direccion);  
 				} else {
 					if(i==(tamaño/(getVelocidadMovimiento()*aumento))/2){ 
-						logica.getMapa().concretarMovimientoTanque(celda, nueva);
-						vieja.bloquear();
-						celda.desbloquear(); 
+						logica.getMapa().concretarMovimientoTanque(this,celda, nueva);
+//						vieja.bloquear();
+//						celda.desbloquear(); 
 					}
 				}
 				moverseGraficamente(); 

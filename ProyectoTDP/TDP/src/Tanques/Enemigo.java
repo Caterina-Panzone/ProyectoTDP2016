@@ -4,13 +4,9 @@ import Juego.*;
 
 import java.util.List;
 import java.util.Random;
-
 import Poderes.PowerUp;
 
 public abstract class Enemigo extends Tanque{
-
-	//Atributos
-	
 	protected int velocidadMovimiento;
 	protected int velocidadDisparo;
 	protected int resistencia;
@@ -42,9 +38,7 @@ public abstract class Enemigo extends Tanque{
 	
 	//Comandos
 	
-	public void actuar(PowerUp poder){
-
-	}
+	public void actuar(PowerUp poder){}
 	
 	public void moverse(){	
 		//Si el tanque dejó de moverse.
@@ -69,7 +63,7 @@ public abstract class Enemigo extends Tanque{
 			else {
 				if(lock == (tamaño/(velocidadMovimiento*aumento))/2){ 
 					inteligencia.concretarMovimiento(this, nuevaCelda);
-					viejaCelda.bloquear();
+//					viejaCelda.bloquear();
 				}
 				//Genera el movimiento continuo del tanque con posiciones, dependiendo de la velocidad de cada tanque. 
 				moverseGraficamente();

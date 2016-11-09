@@ -44,6 +44,4 @@ public abstract class ObjetoDesplazable extends ObjetoConImagen{
 	public abstract int getVelocidadMovimiento(); 
 	
 	public abstract int getDireccion();
-	
-	public abstract void moverse(); 
 }

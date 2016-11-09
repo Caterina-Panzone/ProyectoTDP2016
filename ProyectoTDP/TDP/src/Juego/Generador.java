@@ -86,7 +86,7 @@ public abstract class Generador{
 		Random rnd = new Random();
 		fila = rnd.nextInt(mapa.cantidadFilas());
 		columna= rnd.nextInt(mapa.cantidadColumnas());
-		//Celda celda = mapa.getCelda(11,0); 
+		//Celda celda = mapa.getCelda(1,6); 
 		Celda celda= mapa.getCelda(fila, columna);
 		
 		//PowerUp nuevo= new Granada(celda,enemigos);

@@ -1,7 +1,7 @@
 package Poderes;
 
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -18,28 +18,28 @@ public class TimerPower extends PowerUp{
 	public TimerPower(Celda celda, ControladorEnemigos controlador){
 		super(celda); 
 		this.controlador = controlador; 
-		
-//		TimerClass timerC = new TimerClass();
-//        tiempo = new Timer(10000,timerC);
+			
+		TimerClass timerC = new TimerClass();
+		tiempo = new Timer(5000,timerC); 
 	}
 	
 	public void setearImagenes(){
 		String tematica = Tematica.getTematica(); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"Timer.gif"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Timer.gif"));
 	}
 
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
-//		controlador.terminate(); 
-//      tiempo.start();
-		controlador.dormirme(5000);
+		controlador.dormir(true);
+		tiempo.start(); 
+		
 	}
 	
-//	private class TimerClass implements ActionListener {
-//		public void actionPerformed(ActionEvent e) {
-//			System.out.println("Finaliza Timer");
-//			tiempo.stop();
-//			controlador.run();
-//		}
-//	}
+	private class TimerClass implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Finaliza Timer");
+			tiempo.stop();
+			controlador.dormir(false);
+		}
+	}
 }

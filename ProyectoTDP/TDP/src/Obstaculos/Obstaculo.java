@@ -14,7 +14,7 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	public Obstaculo(boolean ad, boolean at,Celda celda){
 		super(celda); 
 		atraviesanDisparos = ad;
-		atraviesanTanques = at;
+		atraviesanTanques = at; 
 		cambiarImagenActual(0); 
 	}
 	

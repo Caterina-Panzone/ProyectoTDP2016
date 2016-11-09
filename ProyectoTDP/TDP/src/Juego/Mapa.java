@@ -25,7 +25,7 @@ public class Mapa {
 			String actual,caracter;
 			Celda celda; 
 			Obstaculo obst = null; 
-//			boolean llevarAtras = false;
+			boolean llevarAdelante = false, llevarAtras = false;
 			
 			for(int i=0; i<fila; i++){
 				actual = br.readLine(); 
@@ -44,11 +44,12 @@ public class Mapa {
 						}
 						case "B":{
 							obst = new Arbol(celda); 
+							llevarAdelante=true; 
 							break; 
 						}
 						case "H":{
 							obst = new Agua(celda); 
-//							llevarAtras = true; 
+							llevarAtras = true; 
 							break; 
 						}
 						case "F":{
@@ -63,9 +64,14 @@ public class Mapa {
 					celda.setObstaculo(obst); 
 					matriz[i][j]=celda; 
 					if (obst!=null){
-						logica.añadirObstaculo(obst);
-//						if(llevarAtras)
-//							logica.ubicarObstaculo(obst);
+						if(llevarAdelante)
+							logica.ubicarArbol(obst.getImagenActual());
+						else {
+							if(llevarAtras)
+								logica.ubicarAgua(obst.getImagenActual());
+							else 
+								logica.añadirObstaculo(obst);
+						}
 					}
 				}
 			}
@@ -83,13 +89,15 @@ public class Mapa {
 	//Comandos 
 	
 	public void concretarMovimientoTanque(Celda vieja, Celda nueva){
+		// PUEDE DAR EL ERROR DE OBJETO CON IMAGEN NULL. 
+		
 		Tanque tanque = vieja.getTanque();
-		nueva.setTanque(tanque);
 		vieja.setTanque(null);
+		nueva.setTanque(tanque);
 		tanque.setCelda(nueva);
 		
-		vieja.desbloquear(); 
-		nueva.bloquear(); 
+//		vieja.desbloquear(); 
+//		nueva.bloquear(); 
 		
 		tanque.actuar(nueva.getPower());
 	}

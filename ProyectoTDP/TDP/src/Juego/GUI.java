@@ -29,6 +29,8 @@ public class GUI extends JFrame{
 	protected JLabel muertos[];
 	protected JPanel contentPuntaje; 
 	protected JPanel contentJuego; 
+	protected JPanel contentArboles; 
+	protected JPanel contentAgua; 
 	protected Logica logica;
 	
 	/**
@@ -53,6 +55,7 @@ public class GUI extends JFrame{
 	public GUI() {
 		addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent arg0) {
+				if(logica!=null){
 					if(arg0.getKeyCode()==KeyEvent.VK_SPACE)
 					{
 					  jugadorDispara();	
@@ -65,7 +68,9 @@ public class GUI extends JFrame{
 						else{
 					      mover(arg0);
 						}
-		}}});
+					}}
+				}
+		});
 		
 		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,40 +84,30 @@ public class GUI extends JFrame{
 		contentJuego.setBounds(100, 0, 1116, 706);
 		contentJuego.setOpaque(false);
 		
-//		ImageIcon imgVacia = new ImageIcon(getClass().getResource("/Imagenes/hola.png"));
-//		JLabel hola = new JLabel(imgVacia); 
-//		JLabel hola2 = new JLabel(imgVacia); 
-//		contentJuego.add(hola);
-//		contentJuego.add(hola2); 
-//		contentJuego.setComponentZOrder(hola,0);
-//		contentJuego.setComponentZOrder(hola2,0);
+		contentArboles = new JPanel();
+		contentArboles.setLayout(null);
+		contentArboles.setBounds(100, 0, 1116, 706);
+		contentArboles.setOpaque(false);
+		
+		contentAgua = new JPanel();
+		contentAgua.setLayout(null);
+		contentAgua.setBounds(100, 0, 1116, 706);
+		contentAgua.setOpaque(false);
 		
 		crearPanelPuntaje(); 
-	
+		
+		contentPane.add(contentArboles);
+		contentPane.setComponentZOrder(contentArboles, 0);
 		contentPane.add(contentJuego); 
+		contentPane.setComponentZOrder(contentJuego, 1);
+		contentPane.add(contentAgua);
+		contentPane.setComponentZOrder(contentAgua, 2);
 		contentPane.add(contentPuntaje); 
 		
 		logica = new Logica(this);
 		
 		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+Tematica.getTematica()+"/Fondo.png")).getImage(); 	
 		contentPane.setImage(img); 
-	}
-	
-	public Component add (Component comp){
-		return contentJuego.add(comp);
-	}
-	
-	protected void jugadorDispara(){
-		logica.jugadorDispara();
-	}
-	
-	protected void cambiarNivelJugador(){
-		logica.aumentarNivelJugador();
-	}
-	
-	protected void mover(KeyEvent key){	
-		logica.moverJugador(key.getKeyCode());
-		this.repaint();
 	}
 	
 	protected void crearPanelPuntaje(){
@@ -176,9 +171,60 @@ public class GUI extends JFrame{
 		this.repaint(); 
 	}
 	
-//	public void ubicarObstaculo(JLabel imagen){
-//		contentJuego.setComponentZOrder(imagen,1);
-//	}
+	/*
+	 * GAME OVER
+	 */
+	
+	public void gameOver(){
+		logica = null; 
+		contentPuntaje = null; 
+		contentJuego = null; 
+		contentArboles = null; 
+		contentAgua = null; 
+		contentPane = new JPanelFondo();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/GameOver.png")).getImage();
+		contentPane.setLayout(null);
+		contentPane.setImage(img); 
+		setContentPane(contentPane);
+		this.repaint(); 
+	}
+	
+	protected void jugadorDispara(){
+		logica.jugadorDispara();
+	}
+	
+	protected void cambiarNivelJugador(){
+		logica.aumentarNivelJugador();
+	}
+	
+	protected void mover(KeyEvent key){	
+		logica.moverJugador(key.getKeyCode());
+		this.repaint();
+	}
+	
+	public Component add (Component comp){
+		//Component componente = contentJuego.add(comp); 
+		//contentJuego.setComponentZOrder(componente,0);
+		return contentJuego.add(comp); 
+	}
+	
+	public void ubicarAgua(JLabel imagen){
+		contentAgua.add(imagen); 
+	}
+	
+	public void ubicarArbol(JLabel imagen){
+		contentArboles.add(imagen);
+	}
+	
+	public void ubicarPower(JLabel imagen){
+		contentArboles.add(imagen); 
+		contentArboles.setComponentZOrder(imagen, 0);
+	}
+	
+	public void traerFrenteDisparo(JLabel imagen){
+		contentJuego.setComponentZOrder(imagen,0);
+	}
 	
 	public void setNivel(int nivel){
 		ImageIcon img = new ImageIcon(getClass().getResource("/Imagenes/Nivel"+nivel+".png"));
@@ -197,14 +243,6 @@ public class GUI extends JFrame{
 		if(i<=16){
 			muertos[16-i].setIcon(null); 
 		}
-	}
-	
-	public void traerFrenteDisparo(JLabel imagen){
-		contentJuego.setComponentZOrder(imagen,2);
-	}
-	
-	public void traerFrentePower(JLabel imagen){
-		contentJuego.setComponentZOrder(imagen,0); 
 	}
 
 	public class JPanelFondo extends JPanel{ 

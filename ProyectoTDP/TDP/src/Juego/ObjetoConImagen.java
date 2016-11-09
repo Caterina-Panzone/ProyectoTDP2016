@@ -20,7 +20,7 @@ public abstract class ObjetoConImagen{
 		imagenes= new Icon[4];
 		imagenActual= new JLabel();
 		imagenActual.setBounds(celda.getColumna(),celda.getFila(),tamaño,tamaño);
-		setearImagenes(); 
+		setearImagenes();
 	}
 	
 	//Comandos

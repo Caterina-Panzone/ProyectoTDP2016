@@ -20,13 +20,15 @@ public class Granada extends PowerUp{
 	
 	public void setearImagenes(){
 		String tematica = Tematica.getTematica(); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"Granada.gif"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Granada.gif"));
 	}
 	
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
-		while(!enemigos.isEmpty()){
+		int i = 0; 
+		while(!enemigos.isEmpty() && i<4){
 			enemigos.get(0).morirme();
+			i++; 
 		}
 	}
 }

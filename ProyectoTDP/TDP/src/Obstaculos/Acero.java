@@ -41,5 +41,9 @@ public class Acero extends Obstaculo{
 		}else
 			cambiarImagenActual(golpesRecibidos);
 	}
+	
+	public int indiceActual(){
+		return golpesRecibidos; 
+	}
 }
 

@@ -6,13 +6,10 @@ import Juego.*;
 import Tanques.*; 
 
 public class Estrella extends PowerUp{
-	protected Logica logica; 
-	
 	//Constructor
 	
-	public Estrella(Celda celda, Logica logica){
+	public Estrella(Celda celda){
 		super(celda); 
-		this.logica = logica; 
 	}
 	
 	public void setearImagenes(){
@@ -22,7 +19,7 @@ public class Estrella extends PowerUp{
 
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
-		logica.aumentarNivelJugador(); 
+		tanque.aumentarNivel();
 	}
 	
 }

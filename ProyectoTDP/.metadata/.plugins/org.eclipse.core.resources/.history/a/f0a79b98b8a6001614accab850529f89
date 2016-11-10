@@ -1,0 +1,25 @@
+package Poderes;
+
+import javax.swing.ImageIcon;
+
+import Juego.Celda;
+import Juego.Logica;
+import Juego.Tematica;
+import Tanques.Jugador;
+
+public class TematicaCoraje extends CambioTematica{
+	
+	public TematicaCoraje(Celda celda, Logica logica) {
+		super(celda, logica);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void setearImagenes(){
+		String tematica = Tematica.getTematica(); 
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Tematica.gif"));
+	}
+	
+	public void actuar(Jugador tanque) {
+		//HACER 
+	}
+}

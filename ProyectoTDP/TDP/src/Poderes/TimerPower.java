@@ -9,7 +9,6 @@ import Juego.*;
 import Tanques.*; 
 
 public class TimerPower extends PowerUp{
-	protected Logica logica; 
 	protected ControladorEnemigos controlador; 
 	protected Timer tiempo; 
 	
@@ -18,7 +17,6 @@ public class TimerPower extends PowerUp{
 	public TimerPower(Celda celda, ControladorEnemigos controlador){
 		super(celda); 
 		this.controlador = controlador; 
-			
 		TimerClass timerC = new TimerClass();
 		tiempo = new Timer(5000,timerC); 
 	}

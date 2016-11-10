@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import Juego.*;
+import TDisparo.Disparo;
+import TDisparo.DisparoRapido;
 
   public class Rapido extends Enemigo{
   
@@ -24,5 +26,13 @@ import Juego.*;
 
 	public int getEsperaPersonal() {
 		return 12;
+	}
+	
+	protected Disparo dispararAux(Logica logica){
+		if(Tematica.getTematica()=="Dexter"){
+			return new DisparoRapido(this, direccion, celda, logica);
+		} else{
+			return super.dispararAux(logica); 
+		}
 	}
   }

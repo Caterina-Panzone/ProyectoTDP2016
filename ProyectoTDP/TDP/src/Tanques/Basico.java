@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import Juego.*;
+import TDisparo.Disparo;
+import TDisparo.DisparoBasico;
 
   public class Basico extends Enemigo{
   
@@ -23,5 +25,13 @@ import Juego.*;
 
 	public int getEsperaPersonal() {
 		return 2;
+	}
+	
+	protected Disparo dispararAux(Logica logica){
+		if(Tematica.getTematica()=="Dexter"){
+			return new DisparoBasico(this, direccion, celda, logica);
+		} else{
+			return super.dispararAux(logica); 
+		}
 	}
   }

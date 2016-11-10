@@ -100,19 +100,14 @@ public class Mapa {
 	 * @param nueva Celda donde se posicionará el tanque, desvinculandose de la anterior. 
 	 */
 	
-	public void concretarMovimientoTanque(Tanque tanque, Celda vieja, Celda nueva){
+	public void concretarMovimientoTanque(Tanque tanque, Celda nueva){
 		// PUEDE DAR EL ERROR DE OBJETO CON IMAGEN NULL. 
 		//DA ERROR PORQUE EL TANQUE ES NULO. 
 		
-		//Tanque tanque = vieja.getTanque();
-		System.out.println(tanque); 
+		Celda vieja = getCelda(tanque.getFila(),tanque.getColumna()); 
 		vieja.setTanque(null);
 		nueva.setTanque(tanque);
-		tanque.setCelda(nueva);
-		
-		vieja.bloquear(); 
-		nueva.desbloquear(); 
-		
+		tanque.setCelda(nueva);	
 		tanque.actuar(nueva.getPower());
 	}
 	

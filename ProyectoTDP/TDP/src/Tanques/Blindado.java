@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import Juego.*;
+import TDisparo.Disparo;
+import TDisparo.DisparoBlindado;
 
   public class Blindado extends Enemigo{
   
@@ -24,5 +26,13 @@ import Juego.*;
 
 	public int getEsperaPersonal() {
 		return 4;
+	}
+	
+	protected Disparo dispararAux(Logica logica){
+		if(Tematica.getTematica()=="Dexter"){
+			return new DisparoBlindado(this, direccion, celda, logica);
+		} else{
+			return super.dispararAux(logica); 
+		}
 	}
   }

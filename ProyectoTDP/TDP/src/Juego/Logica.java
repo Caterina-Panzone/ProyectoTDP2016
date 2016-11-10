@@ -2,6 +2,7 @@ package Juego;
 
 import Tanques.*;
 import Obstaculos.*;
+import TDisparo.Disparo;
 
 import java.awt.event.KeyEvent;
 
@@ -9,6 +10,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JLabel;
+
+import JGeneradores.Generador;
+import JGeneradores.GeneradorNivel1;
 
 public class Logica {
 
@@ -32,6 +36,7 @@ public class Logica {
 		this.gui = gui;
 		nivelMapa = 1;
 		elegirTematica();
+		cantidadBosques=0;
 		generarNuevoMapa();
 
 		Celda celda = mapa.getCelda(mapa.cantidadFilas() - 1, mapa.cantidadColumnas() / 2 - 2);
@@ -61,13 +66,20 @@ public class Logica {
 	private void elegirTematica() {
 		Tematica.setTematica("EdEdd&Eddy");
 	}
+	
+	public void cambiarFondoGUI(){
+		gui.cambiarFondo(); 
+	}
+	
+	public void setImagenJugador(){
+		jugador.setearImagenes(); 
+	}
 
 	public void añadirDisparo(Disparo disparo) {
 		disparos.add(disparo);
 		gui.add(disparo.getImagenActual());
 		gui.traerFrenteDisparo(disparo.getImagenActual());
 	}
-
 	
 	public void añadirBosque(List<Obstaculo> bosque){
 		gui.ubicarBosque(bosque);
@@ -78,9 +90,10 @@ public class Logica {
 	}
 
 	private void generarNuevoMapa() {
-		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel1.txt").getPath(),this);
+		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel"+nivelMapa+".txt").getPath(),this);
 	}
-
+	
+	//ELIMINAR
 	public void aumentarNivelJugador() {
 		jugador.aumentarNivel();
 	}
@@ -187,28 +200,31 @@ public class Logica {
 			if (enemigos.isEmpty()) {
 				// HAY QUE CAMBIAR EL MAPA
 				nivelMapa++;
-				gui.setNivel(nivelMapa);
+				if(nivelMapa<4){
+					resetearMapa();
+				} else {
+					//AVISAR A LA GUI QUE GANO.
+				}
 			}
 		}
 		if (jugador.getEnemigosDestruidos() % 4 == 0) {
 			generarPowerUp();
 		}
 	}
-
-	public void aumentarVidaJugador() {
-		jugador.aumentarVida();
-	}
-
-	public void respawnearJugador() {
-
-		// VER QUE PASA SI EN LA CELDA DONDE RESPAWNEO HAY UN ENEMIGO
-
-		Celda celda = mapa.getCelda(mapa.cantidadFilas() - 1, mapa.cantidadColumnas() / 2 - 2);
-		celda.setTanque(jugador);
-		jugador.setCelda(celda);
-		jugador.cambiarImagenActual(0);
-		jugador.setDireccion(0);
-		gui.add(jugador.getImagenActual());
+	
+	private void resetearMapa(){
+		while(!disparos.isEmpty()){
+			//esperar
+		}
+		gui.deshabilitarTeclado();
+		cantidadBosques=0;
+		generarNuevoMapa(); 
+		generador = generador.getSiguienteGenerador();
+		jugador.reiniciarDestruidos();
+		jugador.volverPosicionInicial(); 
+		gui.habilitarTeclado();
+		gui.setNivel(nivelMapa);
+		gui.repaint(); 
 	}
 
 	public void añadirEnemigoEnGui(Enemigo enemigo) {

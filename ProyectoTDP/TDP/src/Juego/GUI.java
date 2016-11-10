@@ -40,8 +40,8 @@ public class GUI extends JFrame{
 	protected JLabel muertos[];
 	protected JPanel contentPuntaje; 
 	protected JPanel contentJuego; 
-	protected JPanel contentArboles; 
-	protected JPanel contentAgua; 
+	protected JPanel contentPower; 
+	protected JPanel menu; 
 	protected Logica logica;
 	
 	/**
@@ -65,8 +65,7 @@ public class GUI extends JFrame{
 	 */
 	public GUI() {
 		addKeyListener(new OyenteTeclado()); 
-		setFocusable(true);
-	    setFocusTraversalKeysEnabled(false);
+		habilitarTeclado();
 	    
 		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +81,7 @@ public class GUI extends JFrame{
 	}
 	
 	protected void crearMenu(){
-		JPanel menu = new JPanel(); 
+		menu = new JPanel(); 
 		menu.setBounds(0, 0, 1216, 706);
 		menu.setOpaque(false);
 		menu.setLayout(null); 
@@ -125,7 +124,7 @@ public class GUI extends JFrame{
 		boton.setHorizontalAlignment(JLabel.CENTER);
 		boton.setVerticalTextPosition(JLabel.CENTER);
 		boton.setFont(new Font("Arial",1,26));
-		boton.setForeground(Color.LIGHT_GRAY);
+		boton.setForeground(Color.WHITE);
 		hacerBotonMonotono(boton); 
 	}
 	
@@ -136,34 +135,28 @@ public class GUI extends JFrame{
 	}
 	
 	protected void inicializarPanelesJuego(){		
+		inicializarPaneles();		
+		logica = new Logica(this);
+		cambiarFondo(); 
+		this.repaint(); 
+	}
+	
+	protected void inicializarPaneles(){
 		contentJuego = new JPanel(); 
 		contentJuego.setLayout(null);
 		contentJuego.setBounds(100, 0, 1116, 706);
 		contentJuego.setOpaque(false);
 		
-		contentArboles = new JPanel();
-		contentArboles.setLayout(null);
-		contentArboles.setBounds(100, 0, 1116, 706);
-		contentArboles.setOpaque(false);
-		
-		contentAgua = new JPanel();
-		contentAgua.setLayout(null);
-		contentAgua.setBounds(100, 0, 1116, 706);
-		contentAgua.setOpaque(false);
+		contentPower = new JPanel();
+		contentPower.setLayout(null);
+		contentPower.setBounds(100, 0, 1116, 706);
+		contentPower.setOpaque(false);
 		
 		crearPanelPuntaje(); 
 		
-		contentPane.add(contentArboles);
+		contentPane.add(contentPower);
 		contentPane.add(contentJuego); 
-		contentPane.add(contentAgua);
 		contentPane.add(contentPuntaje); 
-		
-		logica = new Logica(this);
-		
-		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+Tematica.getTematica()+"/Fondo.png")).getImage(); 	
-		contentPane.setImage(img); 
-		
-		this.repaint(); 
 	}
 	
 	protected void crearPanelPuntaje(){
@@ -210,7 +203,6 @@ public class GUI extends JFrame{
 	}
 	
 	public void gameOver(){
-		logica = null; 
 		String puntos = puntaje.getText(); 
 				
 		JLabel score = new JLabel();
@@ -232,8 +224,7 @@ public class GUI extends JFrame{
 		
 		contentPuntaje = null; 
 		contentJuego = null; 
-		contentArboles = null; 
-		contentAgua = null; 
+		contentPower = null; 
 		
 //		contentPane = new JPanelFondo();
 //		setContentPane(contentPane);
@@ -254,6 +245,7 @@ public class GUI extends JFrame{
 		logica.jugadorDispara();
 	}
 	
+	//ELIMINAR
 	protected void cambiarNivelJugador(){
 		logica.aumentarNivelJugador();
 	}
@@ -263,10 +255,29 @@ public class GUI extends JFrame{
 		this.repaint();
 	}
 	
+	public void deshabilitarTeclado(){
+		//NO ESTOY SEGURA QUE SEA ASI. 
+		setFocusable(false);
+	    setFocusTraversalKeysEnabled(true);
+	}
+	
+	public void habilitarTeclado(){
+		setFocusable(true);
+	    setFocusTraversalKeysEnabled(false);
+	}
+	
+	public void eliminarPaneles(){
+		contentPane.removeAll();
+		
+	}
+	
 	public Component add (Component comp){
-//		Component componente = contentJuego.add(comp); 
-//		contentJuego.setComponentZOrder(componente,0);
 		return contentJuego.add(comp); 
+	}
+	
+	public void cambiarFondo(){
+		Image img = new ImageIcon(getClass().getResource("/Imagenes/"+Tematica.getTematica()+"/Fondo.png")).getImage(); 		
+		contentPane.setImage(img);
 	}
 	
 	public void ubicarBosque(List<Obstaculo> bosque){
@@ -276,13 +287,12 @@ public class GUI extends JFrame{
 	}
 	
 	public void ubicarPower(JLabel imagen){
-		contentArboles.add(imagen); 
-		contentArboles.setComponentZOrder(imagen, 0);
+		contentPower.add(imagen); 
+		contentPower.setComponentZOrder(imagen, 0);
 	}
 	
 	public void traerFrenteDisparo(JLabel imagen){
 		contentJuego.setComponentZOrder(imagen,logica.getcantidadBosques()+1);
-		//actualizar cant bosques con los power up
 	}
 	
 	public void setNivel(int nivel){
@@ -328,7 +338,9 @@ public class GUI extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			timerFinJuego.stop();
 			contentPane.removeAll(); 
-			crearMenu(); 
+			contentPane.setLayout(null);
+			//crearMenu(); 
+			inicializarPanelesJuego(); 
 		}
 	}
 	

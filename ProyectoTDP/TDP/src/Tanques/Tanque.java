@@ -2,6 +2,7 @@ package Tanques;
 
 import Juego.*;
 import Poderes.PowerUp;
+import TDisparo.Disparo;
 import Obstaculos.Acero;
 
 
@@ -25,14 +26,7 @@ public abstract class Tanque extends ObjetoDesplazable {
 	
 	public abstract void actuar(PowerUp poder);
 	
-	public Disparo disparar(Logica logica){
-		Disparo disparo = null; 
-		if(disparosRealizados<cantMaximaDisparos()){
-			disparosRealizados++;
-			disparo = new Disparo(this, direccion, celda, logica);
-		}
-		return disparo; 
-	}
+	public abstract Disparo disparar(Logica logica); 
 	
 	public void eliminarDisparo(){
 		if(disparosRealizados>0){
@@ -54,6 +48,8 @@ public abstract class Tanque extends ObjetoDesplazable {
 	
 	//Unicamente el jugador con nivel 4 rompe el acero. 
 	public void romperAcero(Acero acero){ }
+	
+	public void destroy(){}
 	
 	//Consultas
 	

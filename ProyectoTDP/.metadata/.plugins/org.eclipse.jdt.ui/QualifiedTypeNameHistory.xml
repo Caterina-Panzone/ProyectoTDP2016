@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="Juego.Celda"/>
 <fullyQualifiedTypeName name="Tanques.Jugador"/>
-<fullyQualifiedTypeName name="Obstaculos.Obstaculo"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="Poderes.PowerUp"/>
@@ -31,6 +29,16 @@
 <fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
 <fullyQualifiedTypeName name="javax.swing.WindowConstants"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
-<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="Juego.Celda"/>
+<fullyQualifiedTypeName name="Juego.Logica"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="Tanques.Enemigo"/>
+<fullyQualifiedTypeName name="Tanques.Disparo"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="Obstaculos.Obstaculo"/>
+<fullyQualifiedTypeName name="Juego.Mapa"/>
+<fullyQualifiedTypeName name="TDisparo.DisparoJugador"/>
+<fullyQualifiedTypeName name="TDisparo.DisparoRapido"/>
+<fullyQualifiedTypeName name="TDisparo.DisparoBlindado"/>
+<fullyQualifiedTypeName name="TDisparo.DisparoBasico"/>
 </qualifiedTypeNameHistroy>

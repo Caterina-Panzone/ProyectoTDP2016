@@ -2,8 +2,7 @@ package Juego;
 
 import java.util.List;
 
-import Tanques.*;
-import Juego.Mapa;
+import TDisparo.Disparo;
 
 public class ControladorDisparos extends Thread{
 

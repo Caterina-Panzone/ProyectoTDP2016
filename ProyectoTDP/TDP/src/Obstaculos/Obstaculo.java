@@ -24,6 +24,10 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	
 	//Consultas
 	
+	public int indiceActual(){
+		return 0; 
+	}
+	
 	public boolean atraviesanDisparos(){
 		return atraviesanDisparos;
 	}

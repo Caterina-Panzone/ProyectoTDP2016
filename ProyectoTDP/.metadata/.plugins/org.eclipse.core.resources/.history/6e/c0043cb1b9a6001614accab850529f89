@@ -1,0 +1,16 @@
+package Poderes;
+
+import Juego.Celda;
+import Juego.Logica;
+import Tanques.Jugador;
+
+public abstract class CambioTematica extends PowerUp{
+	
+	public CambioTematica(Celda celda, Logica logica){
+		super(celda); 
+	}
+	
+	public void actuar(Jugador tanque) {
+		
+	}
+}

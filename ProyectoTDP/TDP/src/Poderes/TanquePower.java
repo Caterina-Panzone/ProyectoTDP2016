@@ -6,13 +6,10 @@ import Juego.*;
 import Tanques.*; 
 
 public class TanquePower extends PowerUp{
-	protected Logica logica; 
-	
 	//Constructor
 	
-	public TanquePower(Celda celda, Logica logica){
+	public TanquePower(Celda celda){
 		super(celda); 
-		this.logica = logica; 
 	}
 	
 	public void setearImagenes(){
@@ -22,7 +19,7 @@ public class TanquePower extends PowerUp{
 
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
-		logica.aumentarVidaJugador(); 
+		tanque.aumentarVida();  
 	}
 	
 }

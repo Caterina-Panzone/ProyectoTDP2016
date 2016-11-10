@@ -3,6 +3,8 @@ package Juego;
 import Tanques.*; 
 import java.util.List;
 
+import TDisparo.Disparo;
+
 
 public class ControladorEnemigos extends Thread{
 	protected Logica logica;

@@ -36,4 +36,8 @@ public class Ladrillo extends Obstaculo {
 		}else
 			cambiarImagenActual(golpesRecibidos);
 	}
+	
+	public int indiceActual(){
+		return golpesRecibidos; 
+	}
 }

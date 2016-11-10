@@ -2,7 +2,8 @@ package Juego;
 
 import Tanques.*;
 import Obstaculos.*;
-import Poderes.*; 
+import Poderes.*;
+import TDisparo.Disparo; 
 
 public class Celda {
 	protected int fila;

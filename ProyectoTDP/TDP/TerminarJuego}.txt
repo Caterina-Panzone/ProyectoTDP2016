@@ -1,16 +1,16 @@
-- HACER LOS POWER UP de cambio de tema
-- FINALIZAR JUEGO.
+- Hacer el generador de Power UP. 
+- Hacer un random para elegir la tematica del juego. 
 - Los disparos del jugador no se tienen que morir entre si. 
-- Los disparos tienen que ir por abajo del arbol. 
 - Cambiar el nivel y el mapa cuando los enemigos destruidos sean una lista vacia. {En aumentarDestruidosJugador()}
 - Poner la musica. 
 - Cuando hay un enemigo en el lugar del jugador ocurre un error. Arreglarlo. 
+- Hacer que setCelda de jugador/Tanque/Disparo le setee el tanque/disparo a la celda. 
 
 PREGUNTAS:
 
-- Esta mal poner un boolean para ver en que capa ponemos los obstaculos. {No nos salio, preguntar como se hace}
 - Como hacemos para que el jugador no pueda realizar disparos tan seguidos y se eliminen entre si. 
 - Logica:: finalizarJuego() => Es necesario eliminar los elementos de cada lista? No se que hace el interrumpir pero si lo hacemos lanza un error. Dejamos unicamente el terminate(), poniendo luego las referencias nulas. 
   GUI:: gameOver() => Si cambio el orden de las operaciones el fondo del contentPane es gris. 
+- Esta mal poner que las cosas dependan de la tematica {if (tal tematica) entonces hago algo que no es igual para todas las tematicas.}
 
 

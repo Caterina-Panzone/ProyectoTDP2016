@@ -4,7 +4,9 @@ import Juego.*;
 
 import java.util.List;
 import java.util.Random;
+
 import Poderes.PowerUp;
+import TDisparo.Disparo;
 
 public abstract class Enemigo extends Tanque{
 	protected int velocidadMovimiento;
@@ -63,7 +65,7 @@ public abstract class Enemigo extends Tanque{
 			else {
 				if(lock == (tamaño/(velocidadMovimiento*aumento))/2){ 
 					inteligencia.concretarMovimiento(this, nuevaCelda);
-//					viejaCelda.bloquear();
+					viejaCelda.bloquear();
 				}
 				//Genera el movimiento continuo del tanque con posiciones, dependiendo de la velocidad de cada tanque. 
 				moverseGraficamente();
@@ -86,6 +88,11 @@ public abstract class Enemigo extends Tanque{
 	}
 	
 	public void morirme(){
+		destroy(); 
+		inteligencia.aumentarDestruidosJugador(puntos);
+	}
+	
+	public void destroy(){
 		celda.setTanque(null);
 		enemigos.remove(this);
 		celda.desbloquear(); 
@@ -96,13 +103,19 @@ public abstract class Enemigo extends Tanque{
 		}
 		celda = null; 
 		ponerImagenVacia();
-		inteligencia.aumentarDestruidosJugador(puntos);
+	}
+	
+	//Metodo auxiliar.
+	
+	protected Disparo dispararAux(Logica logica){
+		return new Disparo(this, direccion, celda, logica);
 	}
 	
 	public Disparo disparar (Logica logica){
 		Disparo disparo = null; 
-		if(espera<=0){
-			disparo = super.disparar(logica); 
+		if(espera<=0 && disparosRealizados<cantMaximaDisparos()){
+			disparosRealizados++;
+			disparo = dispararAux(logica); 
 			espera = getEsperaPersonal(); 
 		}else{
 			espera--; 

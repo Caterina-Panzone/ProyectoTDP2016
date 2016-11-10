@@ -7,6 +7,7 @@ import java.util.Random;
 import Juego.Celda;
 import Juego.Logica;
 import Juego.Mapa;
+import Juego.Tematica;
 import Poderes.*;
 
 public abstract class Generador{
@@ -85,15 +86,53 @@ public abstract class Generador{
 		
 		//ver que pasa si ya habia un powerup en la celda
 		
-		int fila, columna;
+		int fila, columna,power;
+		
+		PowerUp nuevo=null;
+		
 		Random rnd = new Random();
 		fila = rnd.nextInt(mapa.cantidadFilas());
 		columna= rnd.nextInt(mapa.cantidadColumnas());
+		power=rnd.nextInt(7);
 		//Celda celda = mapa.getCelda(1,6); 
 		Celda celda= mapa.getCelda(fila, columna);
+		switch(power){
+			case 0: {
+				nuevo= new Casco(celda);
+				break;
+			}
+			case 1: {
+				nuevo= new Granada(celda, enemigos);
+				break;
+			}
+			case 2: {
+				nuevo= new TimerPower(celda, logica.getControladorEnemigos()); 
+				break;
+			}
+			case 3: {
+				nuevo= new Pala(celda, logica);
+				break;
+			}
+			case 4: {
+				nuevo= new TanquePower(celda); 
+				break;
+			}
+			case 5: {
+				nuevo= new Estrella(celda);
+				break;
+			}
+			case 6: {
+				if(Tematica.getTematica()!="Coraje")
+					nuevo= new TematicaCoraje(celda,logica);
+				break;
+			}			   
+		}
 		
-		PowerUp nuevo= new Granada(celda,enemigos);
-		//PowerUp nuevo= new Casco(celda);
+		if(nuevo==null){
+			nuevo= new Estrella(celda);
+		}
+		//PowerUp nuevo = new Granada(celda,enemigos);
+		//PowerUp nuevo = new Casco(celda);
 		//PowerUp nuevo = new TimerPower(celda, logica.getControladorEnemigos()); 
 		//PowerUp nuevo = new Pala(celda, logica); 
 		//PowerUp nuevo = new TanquePower(celda, logica); 

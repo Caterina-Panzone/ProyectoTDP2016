@@ -5,6 +5,10 @@
 - Poner la musica. 
 - Cuando hay un enemigo en el lugar del jugador ocurre un error. Arreglarlo. 
 - Hacer que setCelda de jugador/Tanque/Disparo le setee el tanque/disparo a la celda. 
+- Achicar el mapa
+-Cambiar la celda de raspawneo de los enemigos cada vez que se crea uno nuevo
+-Cuando me puso el jugador 3 no me podia mover
+-Coraje dispara excepciones
 
 PREGUNTAS:
 

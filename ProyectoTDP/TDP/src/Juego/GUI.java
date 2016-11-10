@@ -44,6 +44,8 @@ public class GUI extends JFrame{
 	protected JPanel menu; 
 	protected Logica logica;
 	
+	protected boolean puedoDisparar;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -64,18 +66,18 @@ public class GUI extends JFrame{
 	 * Create the frame.
 	 */
 	public GUI() {
-		addKeyListener(new OyenteTeclado()); 
-		habilitarTeclado();
-	    
+		addKeyListener(new OyenteTeclado(this)); 
+		habilitarTeclado();    
 		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1216, 706);
+		puedoDisparar=true;
 		contentPane = new JPanelFondo();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		TimerClass tc = new TimerClass(); 
-		timerFinJuego = new Timer(5000,tc); 
+		timerFinJuego = new Timer(3000,tc); 
 		
 		crearMenu(); 
 	}
@@ -313,6 +315,10 @@ public class GUI extends JFrame{
 			muertos[16-i].setIcon(null); 
 		}
 	}
+	
+	public void resetearMapa(){
+		logica.resetearMapa(); 
+	}
 
 	private class JPanelFondo extends JPanel{ 
 		private static final long serialVersionUID = 1L;
@@ -339,8 +345,8 @@ public class GUI extends JFrame{
 			timerFinJuego.stop();
 			contentPane.removeAll(); 
 			contentPane.setLayout(null);
-			//crearMenu(); 
-			inicializarPanelesJuego(); 
+			crearMenu(); 
+			//inicializarPanelesJuego(); 
 		}
 	}
 	
@@ -388,14 +394,28 @@ public class GUI extends JFrame{
 		}
 	}
 	
+	public void habilitarDisparo(){
+		puedoDisparar=true;
+	}
+	
 	private class OyenteTeclado extends KeyAdapter{
+		protected GUI  gui;
+		
+		public OyenteTeclado(GUI gui){
+			this.gui = gui; 
+		}
+		
 		public void keyPressed(KeyEvent arg0) {
 			if(logica!=null){
-				if(arg0.getKeyCode()==KeyEvent.VK_SPACE){
+				if(arg0.getKeyCode()==KeyEvent.VK_SPACE && puedoDisparar){
+					puedoDisparar=false;
+					ContadorTiempoDisparo ctd=new ContadorTiempoDisparo(gui);
+					ctd.start();
 					jugadorDispara();	
 				} else {
 					if (arg0.getKeyCode()==KeyEvent.VK_N){
-						cambiarNivelJugador(); 
+						resetearMapa(); 
+						//cambiarNivelJugador(); 
 					}else{
 						mover(arg0);
 					}

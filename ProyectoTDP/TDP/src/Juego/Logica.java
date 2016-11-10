@@ -143,31 +143,11 @@ public class Logica {
 		// eliminar la lista de enemigos y disparos. 
 		
 		System.out.println("Finalizo Juego");
-			
-//		controladorEnemigos.dormir(true); 
-//		
-//		while(!disparos.isEmpty()){
-//			System.out.println("Elimino disparo:: "+(disparos.size()-1));
-//			disparos.remove(disparos.size()-1); 
-//		}
-//		
-//		while(!enemigos.isEmpty()){
-//			System.out.println("Elimino enemigos:: "+(enemigos.size()-1));
-//			enemigos.remove(enemigos.size()-1); 
-//		}
 		
 		controladorEnemigos.terminate();
 		System.out.println("Termine controlador enemigos");
 		controladorDisparos.terminate();
 		System.out.println("Termine controlador disparos");
-		
-//		controladorEnemigos.interrupt(); 
-//		System.out.println("Interrumpi enemigos");
-//		controladorDisparos.interrupt(); 
-//		System.out.println("Interrumpi disparos");
-		
-//		System.out.println(controladorEnemigos.isAlive());
-//		System.out.println(controladorDisparos.isAlive());
 		
 		controladorEnemigos = null; 
 		System.out.println("Puse nulo controladorEnemigos");
@@ -211,12 +191,19 @@ public class Logica {
 			generarPowerUp();
 		}
 	}
-	
-	private void resetearMapa(){
+	//private
+	public void resetearMapa(){
+		gui.deshabilitarTeclado();
+		
+		controladorEnemigos.dormir(true);
 		while(!disparos.isEmpty()){
 			//esperar
 		}
-		gui.deshabilitarTeclado();
+		
+		while(!enemigos.isEmpty()){
+			enemigos.get(0).destroy(); 
+		}
+		
 		cantidadBosques=0;
 		generarNuevoMapa(); 
 		generador = generador.getSiguienteGenerador();

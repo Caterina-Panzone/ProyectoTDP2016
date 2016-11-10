@@ -1,0 +1,21 @@
+package Juego;
+
+public class ContadorTiempoDisparo extends Thread{
+	
+	private GUI gui;
+	
+	public ContadorTiempoDisparo(GUI g){
+		gui=g;
+		
+	}
+	
+	public void run(){
+		try {
+			Thread.sleep(1000);
+			gui.habilitarDisparo();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

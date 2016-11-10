@@ -17,6 +17,6 @@ PREGUNTAS:
   GUI:: gameOver() => Si cambio el orden de las operaciones el fondo del contentPane es gris. 
 - Esta mal poner que las cosas dependan de la tematica {if (tal tematica) entonces hago algo que no es igual para todas las tematicas.}
 
--A veces funciona la granada y a aveces no
+-A veces funciona la granada y a veces no
 
 

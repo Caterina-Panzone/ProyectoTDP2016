@@ -22,7 +22,7 @@ public class Pala extends PowerUp{
 	
 	public void setearImagenes(){
 		String tematica = Tematica.getTematica(); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"Pala.gif"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/Pala.gif"));
 	}
 
 	public void actuar(Jugador tanque) {

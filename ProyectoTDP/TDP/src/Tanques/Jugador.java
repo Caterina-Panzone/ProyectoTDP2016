@@ -250,7 +250,7 @@ public class Jugador extends Tanque implements Runnable{
 					}
 				}
 				moverseGraficamente(); 
-				Thread.sleep(30); 
+				Thread.sleep(15); 
 			}
 			lock=0; 
 		} catch (InterruptedException e) {}

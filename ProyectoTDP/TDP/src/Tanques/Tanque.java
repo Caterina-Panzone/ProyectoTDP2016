@@ -17,12 +17,25 @@ public abstract class Tanque extends ObjetoDesplazable {
 	//Constructor
 	
 	public Tanque(Celda celda){
-		super(celda,1);
+		super(celda, 1); 
+		celda.setTanque(this);
 		golpesRecibidos=0;
 		disparosRealizados = 0;
 	}
 	
 	//Comandos
+	
+	public void setCelda(Celda nueva){
+		if(celda!=null){
+			celda.setTanque(null);
+			celda.desbloquear(); 
+		}
+		celda = nueva; 
+		if (celda!=null){
+			celda.setTanque(this);
+			celda.bloquear(); 
+		}
+	}
 	
 	public abstract void actuar(PowerUp poder);
 	

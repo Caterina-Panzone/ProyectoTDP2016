@@ -17,4 +17,13 @@ public abstract class PowerUp extends ObjetoConImagen {
 		ponerImagenVacia();
 	}
 	
+	public void setCelda(Celda nueva){
+		if(celda!=null){
+			celda.setPower(null);
+		}
+		celda = nueva; 
+		if (celda!=null){
+			celda.setPower(this);  
+		}
+	}
 }

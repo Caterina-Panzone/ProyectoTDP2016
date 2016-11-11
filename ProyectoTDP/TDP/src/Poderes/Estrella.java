@@ -21,5 +21,4 @@ public class Estrella extends PowerUp{
 		super.actuar(tanque); 
 		tanque.aumentarNivel();
 	}
-	
 }

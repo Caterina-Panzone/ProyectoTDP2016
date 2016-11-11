@@ -43,6 +43,7 @@ public class GUI extends JFrame{
 	protected JPanel contentPower; 
 	protected JPanel menu; 
 	protected Logica logica;
+	protected boolean tecladoHabilitado; 
 	
 	protected boolean puedoDisparar;
 	
@@ -66,8 +67,10 @@ public class GUI extends JFrame{
 	 * Create the frame.
 	 */
 	public GUI() {
-		addKeyListener(new OyenteTeclado(this)); 
-		habilitarTeclado();    
+		addKeyListener(new OyenteTeclado(this));   
+		setFocusable(true);
+	    setFocusTraversalKeysEnabled(false);
+		habilitarTeclado();  	
 		setResizable(false); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1216, 706);
@@ -136,10 +139,11 @@ public class GUI extends JFrame{
 		boton.setContentAreaFilled(false);
 	}
 	
-	protected void inicializarPanelesJuego(){		
-		inicializarPaneles();		
+	protected void inicializarPanelesJuego(){	
+		habilitarTeclado();  	
+		inicializarPaneles();	
 		logica = new Logica(this);
-		cambiarFondo(); 
+		cambiarFondo();
 		this.repaint(); 
 	}
 	
@@ -222,25 +226,34 @@ public class GUI extends JFrame{
 		GameOver.add(score);
 				
 		contentPane.removeAll(); 
-//		this.remove(contentPane);
 		
 		contentPuntaje = null; 
 		contentJuego = null; 
 		contentPower = null; 
 		
-//		contentPane = new JPanelFondo();
-//		setContentPane(contentPane);
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		Image img = new ImageIcon(getClass().getResource("/Imagenes/GameOver.png")).getImage(); 		
 		contentPane.setImage(img);
-//		contentPane.setLayout(null);
 		
 		contentPane.add(GameOver); 
 		
 		this.repaint(); 
 		
 		timerFinJuego.start(); 
+	}
+	
+	public void reiniciarPanelesJuego(){
+		contentPuntaje.removeAll();
+		contentJuego.removeAll(); 
+		contentPower.removeAll(); 
+		contentPane.removeAll(); 
 		
+		contentPuntaje = null; 
+		contentJuego = null; 
+		contentPower = null; 
+		
+		cambiarFondo();	
+		this.repaint(); 
+		inicializarPanelesJuego(); 
 	}
 	
 	protected void jugadorDispara(){
@@ -258,19 +271,15 @@ public class GUI extends JFrame{
 	}
 	
 	public void deshabilitarTeclado(){
-		//NO ESTOY SEGURA QUE SEA ASI. 
-		setFocusable(false);
-	    setFocusTraversalKeysEnabled(true);
+		tecladoHabilitado = false; 
 	}
 	
 	public void habilitarTeclado(){
-		setFocusable(true);
-	    setFocusTraversalKeysEnabled(false);
+		tecladoHabilitado = true; 
 	}
 	
-	public void eliminarPaneles(){
-		contentPane.removeAll();
-		
+	public void habilitarDisparo(){
+		puedoDisparar=true;
 	}
 	
 	public Component add (Component comp){
@@ -345,8 +354,8 @@ public class GUI extends JFrame{
 			timerFinJuego.stop();
 			contentPane.removeAll(); 
 			contentPane.setLayout(null);
-			crearMenu(); 
-			//inicializarPanelesJuego(); 
+			//crearMenu(); 
+			inicializarPanelesJuego(); 
 		}
 	}
 	
@@ -394,10 +403,6 @@ public class GUI extends JFrame{
 		}
 	}
 	
-	public void habilitarDisparo(){
-		puedoDisparar=true;
-	}
-	
 	private class OyenteTeclado extends KeyAdapter{
 		protected GUI  gui;
 		
@@ -406,7 +411,7 @@ public class GUI extends JFrame{
 		}
 		
 		public void keyPressed(KeyEvent arg0) {
-			if(logica!=null){
+			if(logica!=null && tecladoHabilitado){
 				if(arg0.getKeyCode()==KeyEvent.VK_SPACE && puedoDisparar){
 					puedoDisparar=false;
 					ContadorTiempoDisparo ctd=new ContadorTiempoDisparo(gui);

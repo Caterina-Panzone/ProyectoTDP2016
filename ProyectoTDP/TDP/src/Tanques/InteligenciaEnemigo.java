@@ -6,19 +6,17 @@ import Juego.*;
 
 public class InteligenciaEnemigo {
 	//Atributos
-	protected Mapa mapa; 
 	protected Logica logica;
 	
 	//Constructor
 	public InteligenciaEnemigo(Logica logica){
-		this.logica= logica;
-		mapa = logica.getMapa(); 
+		this.logica= logica; 
 	}
 	
 	//Comandos
 	
 	public Celda moverse(Enemigo enemigo){
-		
+		Mapa mapa = logica.getMapa();
 		int i = enemigo.getFila(); 
 		int j = enemigo.getColumna(); 
 		int direccion=enemigo.getDireccion();
@@ -61,7 +59,7 @@ public class InteligenciaEnemigo {
 	}
 	
 	public void concretarMovimiento(Enemigo enemigo, Celda proximaCelda){
-		mapa.concretarMovimientoTanque(enemigo, proximaCelda);
+		logica.getMapa().concretarMovimientoTanque(enemigo, proximaCelda);
 	}	
 	
 	/*
@@ -69,19 +67,21 @@ public class InteligenciaEnemigo {
 	 */
 	
 	private boolean puedoMoverIzquierda(int i, int j){
-		return ((j-1>=0) && (mapa.getCelda(i, j-1).permitidoAvanzarTanque()));
+		return ((j-1>=0) && (logica.getMapa().getCelda(i, j-1).permitidoAvanzarTanque()));
 	}
 	
 	private boolean puedoMoverDerecha(int i, int j){
+		Mapa mapa = logica.getMapa();
 		return ((j+1<mapa.cantidadColumnas()) && (mapa.getCelda(i, j+1).permitidoAvanzarTanque()));
 	}
 	
 	private boolean puedoMoverAbajo(int i, int j){
+		Mapa mapa = logica.getMapa();
 		return ((i+1<mapa.cantidadFilas()) && (mapa.getCelda(i+1, j).permitidoAvanzarTanque()));
 	}
 	
 	private boolean puedoMoverArriba(int i, int j){
-	    return ((i-1>=0) && (mapa.getCelda(i-1, j).permitidoAvanzarTanque()));
+	    return ((i-1>=0) && (logica.getMapa().getCelda(i-1, j).permitidoAvanzarTanque()));
 	}
 	
 	private boolean puedoMover(int direccion, int i, int j){

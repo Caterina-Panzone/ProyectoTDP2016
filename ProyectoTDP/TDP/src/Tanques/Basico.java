@@ -12,7 +12,7 @@ import TDisparo.DisparoBasico;
   
 	//Constructor
     public Basico(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
-	    super(1,1,1,celda, 100, inteligencia,enemigos);
+	    super(3,2,1,celda, 100, inteligencia,enemigos);
     }
     
     public void setearImagenes(){

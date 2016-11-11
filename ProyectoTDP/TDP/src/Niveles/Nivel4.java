@@ -8,7 +8,7 @@ public class Nivel4 extends Nivel{
 	
 	public Nivel4(){
 		velocidadMovimiento = 2; 
-		velocidadDisparo = 3;
+		velocidadDisparo = 4;
 		resistencia = 4;
 		disparosSimultaneos = 3; 
 	}

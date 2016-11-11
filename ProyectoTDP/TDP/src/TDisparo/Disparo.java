@@ -13,7 +13,7 @@ public class Disparo extends ObjetoDesplazable{
 	
 	protected Tanque emisor;
 	protected int direccion;
-	protected Mapa mapa; 
+	protected Logica logica; 
 	protected List<Disparo> disparos; 
 	
 	
@@ -21,15 +21,32 @@ public class Disparo extends ObjetoDesplazable{
 	
 	public Disparo(Tanque emisor, int dir, Celda celda, Logica logica){
 		super(celda,2);
-		celda.setBala(this); 
-		this.mapa = logica.getMapa();
-		disparos = logica.getListaDisparos();		
+		this.logica = logica; 
 		this.emisor=emisor;
 		direccion=dir;
-		cambiarImagenActual(direccion);
+		disparos = logica.getListaDisparos();		
+		celda.setBala(this); 
+		Celda nueva = logica.getMapa().getCeldaSiguiente(celda, dir); 
+		if(nueva!=null){
+			logica.añadirDisparo(this);
+			moverse(); 
+		} else {
+			destruirse(); 
+		}
+			
 	}
 	
 	//Comandos 
+	
+	public void setCelda(Celda nueva){
+		if(celda!=null){
+			celda.setBala(null);
+		}
+		celda = nueva; 
+		if (celda!=null){
+			celda.setBala(this);
+		}
+	}
 	
 	public void setearImagenes(){
 		String tematica = Tematica.getTematica(); 
@@ -39,46 +56,46 @@ public class Disparo extends ObjetoDesplazable{
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BalaIzquierda.gif"));
 	}
 	
-	public void destruirse(List<Disparo> disparos){
+	public void destruirse(){		
+		disparos.remove(this);
 		if(celda!=null){
 			cambiarImagenActual(direccion);
 			celda.setBala(null);
 		}
 		ponerImagenVacia();
-		
 		emisor.eliminarDisparo(); 
 		celda=null;		
 		emisor=null;
 		lock = 0; 
-		disparos.remove(this);
 	}
 	
 	private void avanzar(){
-		
-		Celda nueva = mapa.getCeldaSiguiente(celda, direccion); 
+		Celda nueva = logica.getMapa().getCeldaSiguiente(celda, direccion); 
 		
 		if(nueva!=null){
 			Tanque tanqueColision = nueva.getTanque(); 
+			Disparo disp = nueva.getBala();
+			
 			if(nueva.getObstaculo()!=null && !nueva.getObstaculo().atraviesanDisparos()){
 				//Es ladrillo o acero. 
 				nueva.getObstaculo().recibirGolpe(emisor);
-				destruirse(disparos);
+				destruirse();
 			}else{
 				if(nueva.getObstaculo()==null || nueva.getObstaculo()!=null && nueva.getObstaculo().atraviesanTanques()){
 					//Es bosque o piso. 
-					if(nueva.getBala()!=null || nueva.getTanque()!=null){
+					if(disp!=null || nueva.getTanque()!=null){
 						//Bala y tanque. 
-						if(nueva.getBala()!=null && nueva.getTanque()!=null){
+						if(disp!=null && (!disp.equals(this)) && nueva.getTanque()!=null){
 							//Colisiona con el tanque y las balas.  
 							getEmisor().dispareTanque(tanqueColision);
-							nueva.getBala().destruirse(disparos);
-							destruirse(disparos);
+							disp.destruirse();
+							destruirse();
 						}
 						else { 
 							//Bala o tanque
-							if(nueva.getBala()!=null){
-								nueva.getBala().destruirse(disparos); 
-								destruirse(disparos);
+							if(disp!=null && (!disp.equals(this))){
+								disp.destruirse(); 
+								destruirse();
 							}
 							if(tanqueColision!=null){
 								if(getEmisor()==null) {
@@ -88,7 +105,7 @@ public class Disparo extends ObjetoDesplazable{
 								else {
 									boolean seRompio = getEmisor().dispareTanque(tanqueColision);
 									if(seRompio)
-										destruirse(disparos); 
+										destruirse(); 
 									else 
 										concretarMovimientoDisparo(nueva); 
 								}
@@ -101,9 +118,9 @@ public class Disparo extends ObjetoDesplazable{
 				}
 				else{
 					//Hay agua
-					if(nueva.getBala()!=null){
-						nueva.getBala().destruirse(disparos); 
-						destruirse(disparos);
+					if(disp!=null && !disp.equals(this)){
+						disp.destruirse(); 
+						destruirse();
 					}
 					else{
 						concretarMovimientoDisparo(nueva);
@@ -112,13 +129,12 @@ public class Disparo extends ObjetoDesplazable{
 			}
 		}
 		else { //Se fue del mapa. 
-			destruirse(disparos);
+			destruirse();
 		}
 	}
 	
 	public void moverse(){	
 		//Si el disparo dejó de moverse.
-		
 		if(lock<=0){
 			lock = tamaño/(getVelocidadMovimiento()*aumento);  	
 		}
@@ -150,9 +166,7 @@ public class Disparo extends ObjetoDesplazable{
 	 */
 	
 	private void concretarMovimientoDisparo(Celda nueva){
-		celda.setBala(null); 
-		celda=nueva;
-		celda.setBala(this);
+		setCelda(nueva); 
 		cambiarImagenActual(direccion);
 	}
 	

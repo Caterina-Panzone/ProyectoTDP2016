@@ -41,7 +41,6 @@ public class Logica {
 
 		Celda celda = mapa.getCelda(mapa.cantidadFilas() - 1, mapa.cantidadColumnas() / 2 - 2);
 		jugador = new Jugador(celda, this);
-		celda.setTanque(jugador);
 		gui.add(jugador.getImagenActual());
 		gui.setVida(jugador.getVidas());
 		gui.setPuntaje(jugador.getPuntos());
@@ -140,27 +139,17 @@ public class Logica {
 	}
 
 	public void finalizarJuego() {
-		// eliminar la lista de enemigos y disparos. 
-		
 		System.out.println("Finalizo Juego");
-		
+		gui.deshabilitarTeclado(); 
 		controladorEnemigos.terminate();
-		System.out.println("Termine controlador enemigos");
 		controladorDisparos.terminate();
-		System.out.println("Termine controlador disparos");
-		
 		controladorEnemigos = null; 
-		System.out.println("Puse nulo controladorEnemigos");
 		controladorDisparos = null; 
-		System.out.println("Puse nulo controladorDisparos");
-
 		gui.gameOver();
 	}
 
 	public void jugadorDispara() {
-		Disparo disparo = jugador.disparar(this);
-		if (disparo != null)
-			añadirDisparo(disparo);
+		jugador.disparar(this);
 	}
 
 	private void generarPowerUp() {
@@ -194,21 +183,43 @@ public class Logica {
 	//private
 	public void resetearMapa(){
 		gui.deshabilitarTeclado();
+	
+		controladorEnemigos.terminate(); 
+		controladorDisparos.terminate(); 
 		
-		controladorEnemigos.dormir(true);
 		while(!disparos.isEmpty()){
-			//esperar
+			disparos.get(0).destruirse(); 
+			System.out.println("Disparo destruido.");
 		}
-		
 		while(!enemigos.isEmpty()){
 			enemigos.get(0).destroy(); 
+			System.out.println("Enemigo destruido.");
 		}
 		
-		cantidadBosques=0;
-		generarNuevoMapa(); 
-		generador = generador.getSiguienteGenerador();
+		enemigos = new LinkedList<Enemigo>();
+		controladorEnemigos = new ControladorEnemigos(this);
+		disparos = new LinkedList<Disparo>();
+		controladorDisparos = new ControladorDisparos(this);
+		
+		cantidadBosques=0; 
+		nivelMapa++; 
+		gui.reiniciarPanelesJuego();
+		generarNuevoMapa();
+		
 		jugador.reiniciarDestruidos();
 		jugador.volverPosicionInicial(); 
+		
+		generador = generador.getSiguienteGenerador();
+		for (int i = 0; i < 4; i++) {
+			generador.generarEnemigo();
+		}
+		
+		//controladorEnemigos.start(); 
+		//controladorDisparos.start(); 
+		
+		gui.add(jugador.getImagenActual());
+		gui.setVida(jugador.getVidas());
+		gui.setPuntaje(jugador.getPuntos());
 		gui.habilitarTeclado();
 		gui.setNivel(nivelMapa);
 		gui.repaint(); 

@@ -12,20 +12,17 @@ import Poderes.*;
 
 public abstract class Generador{
 	protected Logica logica;
-	protected Mapa mapa;
-	protected List<Enemigo> enemigos;
 	protected Celda proximaCeldaSpawneo;
 	protected InteligenciaEnemigo inteligencia; //Es para evitar tener 4 objetos distintos
 	
 	protected Generador(Logica logica){
 		this.logica=logica;
-		mapa=logica.getMapa();
-		enemigos=logica.getListaEnemigos();
-		proximaCeldaSpawneo=mapa.getCelda(0, mapa.cantidadColumnas()-1);
+		proximaCeldaSpawneo=logica.getMapa().getCelda(0, logica.getMapa().cantidadColumnas()-1);
 		inteligencia= new InteligenciaEnemigo(logica);
 	}
 	
 	private Celda getProximaCelda(){
+		Mapa mapa = logica.getMapa(); 
 		if(proximaCeldaSpawneo.getColumna()==0){
 			return mapa.getCelda(0, mapa.cantidadColumnas()/3);
 		}
@@ -45,6 +42,7 @@ public abstract class Generador{
 	}
 	
 	public void generarEnemigo(){
+		List<Enemigo> enemigos = logica.getListaEnemigos();
 		Enemigo nuevo;
 		int n;
 		Random rnd = new Random();
@@ -83,6 +81,7 @@ public abstract class Generador{
 	public abstract boolean perteneceBlindado(int n);
 
 	public PowerUp generarPowerUp(){
+		Mapa mapa = logica.getMapa(); 
 		
 		//ver que pasa si ya habia un powerup en la celda
 		
@@ -94,7 +93,6 @@ public abstract class Generador{
 		fila = rnd.nextInt(mapa.cantidadFilas());
 		columna= rnd.nextInt(mapa.cantidadColumnas());
 		power=rnd.nextInt(6);
-//		//Celda celda = mapa.getCelda(1,6); 
 		Celda celda= mapa.getCelda(fila, columna);
 		switch(power){
 			case 0: {
@@ -102,7 +100,7 @@ public abstract class Generador{
 				break;
 			}
 			case 1: {
-				nuevo= new Granada(celda, enemigos);
+				nuevo= new Granada(celda, logica.getListaEnemigos());
 				break;
 			}
 			case 2: {
@@ -133,11 +131,10 @@ public abstract class Generador{
 		//PowerUp nuevo = new Pala(celda, logica); 
 		//PowerUp nuevo = new TanquePower(celda, logica); 
 		//PowerUp nuevo = new Estrella(celda); 
-	//	nuevo = new TematicaCoraje(celda,logica); 
+		//nuevo = new TematicaCoraje(celda,logica); 
 		
 		celda.setPower(nuevo);
 		return nuevo;
-		
 	}
 	
 	public abstract Generador getSiguienteGenerador();

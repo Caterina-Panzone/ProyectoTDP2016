@@ -17,6 +17,18 @@ PREGUNTAS:
   GUI:: gameOver() => Si cambio el orden de las operaciones el fondo del contentPane es gris. 
 - Esta mal poner que las cosas dependan de la tematica {if (tal tematica) entonces hago algo que no es igual para todas las tematicas.}
 
+
+
+
+COSAS PARA HACER:
+- Hacer que el enemigo disparo cuando lock es 0. 
+- el generador tenia que dormirse? 
+- aumentar el timer del que congela. 
+- aumentar nivel disparo. 
+
+
+ELIMINAR TODOS LOS SETOBSTACULO AL CREAR UN OBSTA
+
 -A veces funciona la granada y a veces no
 
 

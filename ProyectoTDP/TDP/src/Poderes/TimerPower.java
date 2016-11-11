@@ -18,7 +18,7 @@ public class TimerPower extends PowerUp{
 		super(celda); 
 		this.controlador = controlador; 
 		TimerClass timerC = new TimerClass();
-		tiempo = new Timer(5000,timerC); 
+		tiempo = new Timer(10000,timerC); 
 	}
 	
 	public void setearImagenes(){

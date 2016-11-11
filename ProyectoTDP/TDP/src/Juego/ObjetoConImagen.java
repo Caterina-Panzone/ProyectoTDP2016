@@ -35,9 +35,7 @@ public abstract class ObjetoConImagen{
 		imagenActual.setOpaque(false);
 	}
 	
-	public void setCelda(Celda celda){
-		this.celda = celda;
-	}
+	public abstract void setCelda(Celda celda);
 	
 	public abstract void setearImagenes();
 	

@@ -13,6 +13,7 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	
 	public Obstaculo(boolean ad, boolean at,Celda celda){
 		super(celda); 
+		celda.setObstaculo(this);
 		atraviesanDisparos = ad;
 		atraviesanTanques = at; 
 		cambiarImagenActual(0); 
@@ -21,6 +22,16 @@ public abstract class Obstaculo extends ObjetoConImagen {
 	//Comandos
 	
 	public abstract void recibirGolpe(Tanque tanque); 
+	
+	public void setCelda(Celda nueva){
+		if(celda!=null){
+			celda.setObstaculo(null);
+		}
+		celda = nueva; 
+		if (celda!=null){
+			celda.setObstaculo(this);  
+		}
+	}
 	
 	//Consultas
 	

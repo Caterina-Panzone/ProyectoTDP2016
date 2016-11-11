@@ -118,9 +118,8 @@ public class Jugador extends Tanque implements Runnable{
 	
 	public void volverPosicionInicial(){
 		Mapa mapa = logica.getMapa(); 
-		celda.setTanque(null);
-		celda.desbloquear(); 
-		celda = null; 
+		
+		setCelda(null);  
 		ponerImagenVacia();
 		if(nueva!=null){
 			nueva.desbloquear(); 
@@ -131,8 +130,7 @@ public class Jugador extends Tanque implements Runnable{
 		if(tanque!=null){
 			tanque.destroy(); 
 		}
-		nuevaC.setTanque(this);
-		celda = nuevaC; 
+		setCelda(nuevaC);
 		x = celda.getColumna()*tamaño;
 		y = celda.getFila()*tamaño;
 		
@@ -144,16 +142,16 @@ public class Jugador extends Tanque implements Runnable{
 	public boolean recibirGolpe(Enemigo tanque){
 		if(!invulnerabilidad){
 			golpesRecibidos++;
-		}
-		if(nivel.getResistencia()<=golpesRecibidos){
-			volverPosicionInicial(); 
-			vidas--;
-			logica.resetearVida(vidas);
-			if(vidas<=0){
-				logica.finalizarJuego();
-			}
-			else{
-				nivel=new Nivel1();
+			if(nivel.getResistencia()<=golpesRecibidos){
+				volverPosicionInicial(); 
+				vidas--;
+				logica.resetearVida(vidas);
+				if(vidas<=0){
+					logica.finalizarJuego();
+				}
+				else{
+					nivel=new Nivel1();
+				}
 			}
 		}
 		return true; 
@@ -227,7 +225,7 @@ public class Jugador extends Tanque implements Runnable{
 	public void moverse(Celda nueva) {
 		this.nueva = nueva;
 		nueva.bloquear(); 
-		lock = tamaño/(getVelocidadMovimiento()*aumento); 
+		lock = (tamaño/(getVelocidadMovimiento()*aumento)); 
 		t = new Thread(this); 
 		t.start(); 
 	}

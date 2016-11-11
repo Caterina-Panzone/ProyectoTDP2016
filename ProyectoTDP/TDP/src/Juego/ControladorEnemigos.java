@@ -3,9 +3,6 @@ package Juego;
 import Tanques.*; 
 import java.util.List;
 
-import TDisparo.Disparo;
-
-
 public class ControladorEnemigos extends Thread{
 	protected Logica logica;
 	protected List<Enemigo> enemigos; 
@@ -30,15 +27,11 @@ public class ControladorEnemigos extends Thread{
 		while(ejecutar){
 			if(!dormir){
 				try {
-					Disparo disparo; 
 					for(int i=0; i<enemigos.size(); i++){
-						disparo = enemigos.get(i).disparar(logica); 
-						if(disparo!=null){
-							logica.añadirDisparo(disparo);
-						}
+						enemigos.get(i).disparar(logica); 
 						enemigos.get(i).moverse();
 					}
-					Thread.sleep(50);
+					Thread.sleep(60);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

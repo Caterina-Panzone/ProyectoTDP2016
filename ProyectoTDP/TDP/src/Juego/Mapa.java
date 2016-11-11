@@ -67,7 +67,6 @@ public class Mapa {
 							break; 
 						}
 					}
-					celda.setObstaculo(obst); 
 					matriz[i][j]=celda; 
 					if (obst!=null  && !añadirBosque){
 						logica.añadirObstaculo(obst);
@@ -101,12 +100,6 @@ public class Mapa {
 	 */
 	
 	public void concretarMovimientoTanque(Tanque tanque, Celda nueva){
-		// PUEDE DAR EL ERROR DE OBJETO CON IMAGEN NULL. 
-		//DA ERROR PORQUE EL TANQUE ES NULO. 
-		
-		Celda vieja = getCelda(tanque.getFila(),tanque.getColumna()); 
-		vieja.setTanque(null);
-		nueva.setTanque(tanque);
 		tanque.setCelda(nueva);	
 		tanque.actuar(nueva.getPower());
 	}
@@ -190,13 +183,11 @@ public class Mapa {
 	
 	private void setearCeldaAcero(Celda celda, Logica logica){
 		if(celda.getObstaculo()!=null){
-			celda.getObstaculo().setCelda(null);
 			celda.getObstaculo().ponerImagenVacia(); 
-			celda.setObstaculo(null); 
+			celda.getObstaculo().setCelda(null);
 		}
 		Obstaculo acero = new Acero(celda);
 		logica.añadirObstaculo(acero); 
-		celda.setObstaculo(acero);
 	}
 	
 	/**
@@ -227,12 +218,10 @@ public class Mapa {
 	
 	private void setearCeldaLadrillo(Celda celda, Logica logica){
 		if(celda.getObstaculo()!=null){
-			celda.getObstaculo().setCelda(null);
 			celda.getObstaculo().ponerImagenVacia(); 
-			celda.setObstaculo(null); 
+			celda.getObstaculo().setCelda(null);
 			Obstaculo acero = new Ladrillo(celda);
 			logica.añadirObstaculo(acero); 
-			celda.setObstaculo(acero);
 		}
 	}
 	

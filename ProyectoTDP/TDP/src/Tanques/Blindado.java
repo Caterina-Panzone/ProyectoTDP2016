@@ -13,7 +13,7 @@ import TDisparo.DisparoBlindado;
 	//Constructor
 	  
     public Blindado(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
-	    super(1,2,4,celda, 400, inteligencia,enemigos);
+	    super(3,3,4,celda, 400, inteligencia,enemigos);
     }
     
     public void setearImagenes(){

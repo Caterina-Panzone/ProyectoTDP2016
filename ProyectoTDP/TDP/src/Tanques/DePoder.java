@@ -11,7 +11,7 @@ import Juego.*;
 	//Constructor
 	  
     public DePoder(Celda celda, InteligenciaEnemigo inteligencia, List<Enemigo> enemigos){
-	    super(2,3,1,celda, 300, inteligencia, enemigos);
+	    super(4,4,1,celda, 300, inteligencia, enemigos);
     }
     
     public void setearImagenes(){

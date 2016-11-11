@@ -71,7 +71,7 @@ public abstract class Generador{
 		proximaCeldaSpawneo.setTanque(nuevo);
 		enemigos.add(nuevo);
 		logica.añadirEnemigoEnGui(nuevo);
-			
+		proximaCeldaSpawneo = getProximaCelda(); 
 	}
 	
 	public abstract boolean perteneceRapido(int n);

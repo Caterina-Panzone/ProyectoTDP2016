@@ -1,0 +1,26 @@
+package Juego;
+
+public class LogicaBonus extends Logica{
+
+	public LogicaBonus(GUI gui) {
+		super(gui); 
+		nivelMapa = 0;
+	}
+	
+	// Comandos
+	
+	protected void elegirTematica(){
+		Tematica.setTematica("Bonus");
+	}
+	
+	protected void generarNuevoMapa() {
+		mapa = new Mapa(this.getClass().getResource("/Archivos/Bonus.txt").getPath(),this);
+	}
+	
+	public void aumentarDestruidosJugador(int puntos) {
+		jugador.aumentarEnemigosDestruidos(puntos);
+		gui.aumentarEnemigosDestruidos(jugador.getEnemigosDestruidos());
+		gui.setPuntaje(jugador.getPuntos());
+		generador.generarEnemigo();
+	}
+}

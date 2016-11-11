@@ -147,6 +147,14 @@ public class GUI extends JFrame{
 		this.repaint(); 
 	}
 	
+	protected void inicializarPanelesBonus(int puntos){
+		habilitarTeclado();  	
+		inicializarPaneles();	
+		logica = new LogicaBonus(this,puntos);
+		cambiarFondo();
+		this.repaint();
+	}
+	
 	protected void inicializarPaneles(){
 		contentJuego = new JPanel(); 
 		contentJuego.setLayout(null);
@@ -253,7 +261,7 @@ public class GUI extends JFrame{
 		
 		cambiarFondo();	
 		this.repaint(); 
-		inicializarPanelesJuego(); 
+		inicializarPaneles(); 
 	}
 	
 	protected void jugadorDispara(){
@@ -405,25 +413,63 @@ public class GUI extends JFrame{
 	
 	private class OyenteTeclado extends KeyAdapter{
 		protected GUI  gui;
+		protected boolean disparar; 
+		protected boolean moverse; 
+		protected boolean cambiarNivel; 
 		
 		public OyenteTeclado(GUI gui){
 			this.gui = gui; 
+			disparar = false; 
+			moverse = false; 
+			cambiarNivel = false; 
 		}
 		
-		public void keyPressed(KeyEvent arg0) {
+		public synchronized void keyReleased(KeyEvent e) {
+	        if(KeyEvent.VK_SPACE==e.getKeyCode()){
+	            disparar=false;
+	        }
+
+	        if(esFlecha(e)){
+	           moverse=false;
+	        }
+	        
+	        if(e.getKeyCode()==KeyEvent.VK_N){
+	        	cambiarNivel = false; 
+	        }
+	    }
+		
+		private boolean esFlecha(KeyEvent e){
+			return (e.getKeyCode()==KeyEvent.VK_UP || 
+					e.getKeyCode()==KeyEvent.VK_DOWN ||
+					e.getKeyCode()==KeyEvent.VK_LEFT || 
+					e.getKeyCode()==KeyEvent.VK_RIGHT);
+		}
+		
+		public synchronized void keyPressed(KeyEvent arg0) {
 			if(logica!=null && tecladoHabilitado){
 				if(arg0.getKeyCode()==KeyEvent.VK_SPACE && puedoDisparar){
+					disparar = true; 
+				} else {
+					if (arg0.getKeyCode()==KeyEvent.VK_N){
+						cambiarNivel = true;  
+					}else if (esFlecha(arg0)){
+							moverse = true; 
+						}
+				}
+				
+				if(disparar){
 					puedoDisparar=false;
 					ContadorTiempoDisparo ctd=new ContadorTiempoDisparo(gui);
 					ctd.start();
 					jugadorDispara();	
-				} else {
-					if (arg0.getKeyCode()==KeyEvent.VK_N){
-						resetearMapa(); 
-						//cambiarNivelJugador(); 
-					}else{
-						mover(arg0);
-					}
+				}
+				
+				if(moverse){
+					mover(arg0);
+				}
+				
+				if(cambiarNivel){
+					resetearMapa(); 
 				}
 			}
 		}

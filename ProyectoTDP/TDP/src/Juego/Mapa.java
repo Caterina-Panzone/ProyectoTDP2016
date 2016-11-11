@@ -100,8 +100,13 @@ public class Mapa {
 	 */
 	
 	public void concretarMovimientoTanque(Tanque tanque, Celda nueva){
-		tanque.setCelda(nueva);	
-		tanque.actuar(nueva.getPower());
+		//Cuando el jugador muere y todavia se esta moviendo, al ser un hilo 
+		// puede ocasionar que a la nueva celda se le asigne nula. 
+		
+		if(nueva!=null){
+			tanque.setCelda(nueva);
+			tanque.actuar(nueva.getPower());
+		}
 	}
 	
 	/**

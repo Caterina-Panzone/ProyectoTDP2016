@@ -116,6 +116,11 @@ public class Jugador extends Tanque implements Runnable{
 		logica.resetearVida(vidas);
 	}
 	
+	public void disminuirVida(){
+		vidas--; 
+		logica.resetearVida(vidas);
+	}
+	
 	public void volverPosicionInicial(){
 		Mapa mapa = logica.getMapa(); 
 		
@@ -144,8 +149,7 @@ public class Jugador extends Tanque implements Runnable{
 			golpesRecibidos++;
 			if(nivel.getResistencia()<=golpesRecibidos){
 				volverPosicionInicial(); 
-				vidas--;
-				logica.resetearVida(vidas);
+				disminuirVida(); 
 				if(vidas<=0){
 					logica.finalizarJuego();
 				}

@@ -1,0 +1,16 @@
+14
+23
+P P P P P P P P P P P P P P P P P P P P P P P 
+P P P P P P B P P P P P P P P P P P P P A A P  
+L L L L L L L L B B B B B P P P P P P P P P A  
+P P P P P P P P P P P P P P P P P P P P P H P  
+P P P P P P P P P P P P P P P P P P P P P P P  
+P H P P P P P P P P P H P P P P P P P P P P H 
+P P H P P P P P P P P P P P P P P P H P P P P  
+A P P P P P P P P P P P P P P A P P A P P P P  
+P P P P P P P A P P P P P P P P P P P P P P P  
+L L L L L L L L B B B B B L L P P P P P P P P  
+P P P P P P P P P P P P P P P P P P P P P P P  
+L L L B B B L L L P P P P P P P P P P P P P P  
+P P P P P P P P P P L L L P P L L L L L L L L 
+P P P P P P P P P P L F L P P P P P P P P P P  

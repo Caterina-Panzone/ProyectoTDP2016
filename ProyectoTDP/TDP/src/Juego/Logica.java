@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JLabel;
 
@@ -15,7 +16,6 @@ import JGeneradores.Generador;
 import JGeneradores.GeneradorNivel1;
 
 public class Logica {
-
 	// Atributos
 
 	protected GUI gui;
@@ -27,7 +27,6 @@ public class Logica {
 	protected ControladorEnemigos controladorEnemigos;
 	protected ControladorDisparos controladorDisparos;
 	protected Generador generador;
-	
 	protected int cantidadBosques;
 
 	// Constructor
@@ -62,8 +61,24 @@ public class Logica {
 
 	// Comandos
 
-	private void elegirTematica() {
-		Tematica.setTematica("EdEdd&Eddy");
+	protected void elegirTematica() {
+		Random rnd = new Random();
+		int tematica = rnd.nextInt(3);
+		
+		switch(tematica){
+			case 0: {
+				Tematica.setTematica("Coraje");
+				break;
+			}
+			case 1: {
+				Tematica.setTematica("Coraje");
+				break;
+			}
+			case 2: {
+				Tematica.setTematica("EdEdd&Eddy");
+				break;
+			}
+		}
 	}
 	
 	public void cambiarFondoGUI(){
@@ -88,7 +103,7 @@ public class Logica {
 		gui.add(obstaculo.getImagenActual());
 	}
 
-	private void generarNuevoMapa() {
+	protected void generarNuevoMapa() {
 		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel"+nivelMapa+".txt").getPath(),this);
 	}
 	
@@ -139,7 +154,6 @@ public class Logica {
 	}
 
 	public void finalizarJuego() {
-		System.out.println("Finalizo Juego");
 		gui.deshabilitarTeclado(); 
 		controladorEnemigos.terminate();
 		controladorDisparos.terminate();
@@ -167,12 +181,12 @@ public class Logica {
 			generador.generarEnemigo();
 		} else {
 			if (enemigos.isEmpty()) {
-				// HAY QUE CAMBIAR EL MAPA
 				nivelMapa++;
 				if(nivelMapa<4){
 					resetearMapa();
 				} else {
 					//AVISAR A LA GUI QUE GANO.
+					gui.inicializarPanelesBonus(jugador.getPuntos()); 
 				}
 			}
 		}
@@ -180,6 +194,7 @@ public class Logica {
 			generarPowerUp();
 		}
 	}
+	
 	//private
 	public void resetearMapa(){
 		gui.deshabilitarTeclado();
@@ -189,11 +204,10 @@ public class Logica {
 		
 		while(!disparos.isEmpty()){
 			disparos.get(0).destruirse(); 
-			System.out.println("Disparo destruido.");
 		}
+		//Eliminar cuando se saque de la gui. 
 		while(!enemigos.isEmpty()){
 			enemigos.get(0).destroy(); 
-			System.out.println("Enemigo destruido.");
 		}
 		
 		enemigos = new LinkedList<Enemigo>();
@@ -201,28 +215,34 @@ public class Logica {
 		disparos = new LinkedList<Disparo>();
 		controladorDisparos = new ControladorDisparos(this);
 		
-		cantidadBosques=0; 
-		nivelMapa++; 
-		gui.reiniciarPanelesJuego();
-		generarNuevoMapa();
-		
-		jugador.reiniciarDestruidos();
-		jugador.volverPosicionInicial(); 
-		
-		generador = generador.getSiguienteGenerador();
-		for (int i = 0; i < 4; i++) {
-			generador.generarEnemigo();
+		if(nivelMapa<3){
+			cantidadBosques=0; 
+			nivelMapa++; 
+			gui.reiniciarPanelesJuego();
+			generarNuevoMapa();
+			
+			jugador.reiniciarDestruidos();
+			jugador.volverPosicionInicial(); 
+			jugador.aumentarNivel();
+			
+			generador = generador.getSiguienteGenerador();
+			for (int i = 0; i < 4; i++) {
+				generador.generarEnemigo();
+			}
+			
+			controladorEnemigos.start(); 
+			controladorDisparos.start(); 
+			
+			gui.add(jugador.getImagenActual());
+			gui.setVida(jugador.getVidas());
+			gui.setPuntaje(jugador.getPuntos());
+			gui.habilitarTeclado();
+			gui.setNivel(nivelMapa);
+			gui.repaint(); 
+		}else {
+			gui.reiniciarPanelesJuego();
+			gui.inicializarPanelesBonus(jugador.getPuntos()); 
 		}
-		
-		//controladorEnemigos.start(); 
-		//controladorDisparos.start(); 
-		
-		gui.add(jugador.getImagenActual());
-		gui.setVida(jugador.getVidas());
-		gui.setPuntaje(jugador.getPuntos());
-		gui.habilitarTeclado();
-		gui.setNivel(nivelMapa);
-		gui.repaint(); 
 	}
 
 	public void añadirEnemigoEnGui(Enemigo enemigo) {

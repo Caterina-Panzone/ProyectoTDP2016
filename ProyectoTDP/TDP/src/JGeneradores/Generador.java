@@ -94,53 +94,53 @@ public abstract class Generador{
 		columna= rnd.nextInt(mapa.cantidadColumnas());
 		power=rnd.nextInt(9);
 		Celda celda= mapa.getCelda(fila, columna);
-		switch(power){
-			case 0: {
-				nuevo= new Casco(celda);
-				break;
-			}
-			case 1: {
-				nuevo= new Granada(celda, logica.getListaEnemigos());
-				break;
-			}
-			case 2: {
-				nuevo= new TimerPower(celda, logica.getControladorEnemigos()); 
-				break;
-			}
-			case 3: {
-				nuevo= new Pala(celda, logica);
-				break;
-			}
-			case 4: {
-				nuevo= new TanquePower(celda); 
-				break;
-			}
-			case 5: {
-				if(Tematica.getTematica()!="Coraje")
-					nuevo= new TematicaCoraje(celda,logica);
-				break;
-			}	
-			case 6: {
-				if(Tematica.getTematica()!="EdEdd&Eddy")
-					nuevo= new TematicaEEnE(celda,logica);
-				break;
-			}
-			case 7: {
-				if(Tematica.getTematica()!="Dexter")
-					nuevo= new TematicaDexter(celda,logica);
-				break;
-			}
-			case 8: {
-				nuevo= new Estrella(celda); 
-				break;
-			}
-		}
-		
-		if(nuevo==null){
-			nuevo= new Estrella(celda);
-		}
+//		switch(power){
+//			case 0: {
+//				nuevo= new Casco(celda);
+//				break;
+//			}
+//			case 1: {
+//				nuevo= new Granada(celda, logica.getListaEnemigos());
+//				break;
+//			}
+//			case 2: {
+//				nuevo= new TimerPower(celda, logica.getControladorEnemigos()); 
+//				break;
+//			}
+//			case 3: {
+//				nuevo= new Pala(celda, logica);
+//				break;
+//			}
+//			case 4: {
+//				nuevo= new TanquePower(celda); 
+//				break;
+//			}
+//			case 5: {
+//				if(Tematica.getTematica()!="Coraje")
+//					nuevo= new TematicaCoraje(celda,logica);
+//				break;
+//			}	
+//			case 6: {
+//				if(Tematica.getTematica()!="EdEdd&Eddy")
+//					nuevo= new TematicaEEnE(celda,logica);
+//				break;
+//			}
+//			case 7: {
+//				if(Tematica.getTematica()!="Dexter")
+//					nuevo= new TematicaDexter(celda,logica);
+//				break;
+//			}
+//			case 8: {
+//				nuevo= new Estrella(celda); 
+//				break;
+//			}
+//		}
+//		
+//		if(nuevo==null){
+//			nuevo= new Estrella(celda);
+//		}
 		//PowerUp nuevo = new Granada(celda,enemigos);
-		//PowerUp nuevo = new Casco(celda);
+		 nuevo = new Casco(celda);
 		//PowerUp nuevo = new TimerPower(celda, logica.getControladorEnemigos()); 
 		//PowerUp nuevo = new Pala(celda, logica); 
 		//PowerUp nuevo = new TanquePower(celda, logica); 

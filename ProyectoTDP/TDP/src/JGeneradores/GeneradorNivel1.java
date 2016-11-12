@@ -9,15 +9,15 @@ public class GeneradorNivel1 extends Generador {
 	}
 
 	public boolean perteneceRapido(int n) {
-		return (n>=12)&&(n<=15);
+		return (n>=14)&&(n<=16);
 	}
 
 	public boolean perteneceDePoder(int n) {
-		return (n>=0)&&(n<=5);
+		return (n>=0)&&(n<=6);
 	}
 
 	public boolean perteneceBlindado(int n) {
-		return (n>=16)&&(n<=20);
+		return (n>=17)&&(n<=19);
 	}
 	
 	public Generador getSiguienteGenerador(){

@@ -1,0 +1,25 @@
+package JGeneradores;
+import Juego.Logica;
+
+public class GeneradorNivel3 extends Generador {
+
+	public GeneradorNivel3(Logica logica){
+		super(logica);
+	}
+
+	public boolean perteneceRapido(int n) {
+		return (n>=12)&&(n<=15);
+	}
+
+	public boolean perteneceDePoder(int n) {
+		return (n>=0)&&(n<=5);
+	}
+
+	public boolean perteneceBlindado(int n) {
+		return (n>=16)&&(n<=20);
+	}
+	
+	public Generador getSiguienteGenerador(){
+		return null; 
+	}
+}

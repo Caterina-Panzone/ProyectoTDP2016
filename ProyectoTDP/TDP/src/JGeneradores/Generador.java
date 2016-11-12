@@ -92,7 +92,7 @@ public abstract class Generador{
 		Random rnd = new Random();
 		fila = rnd.nextInt(mapa.cantidadFilas());
 		columna= rnd.nextInt(mapa.cantidadColumnas());
-		power=rnd.nextInt(6);
+		power=rnd.nextInt(9);
 		Celda celda= mapa.getCelda(fila, columna);
 		switch(power){
 			case 0: {
@@ -119,7 +119,21 @@ public abstract class Generador{
 				if(Tematica.getTematica()!="Coraje")
 					nuevo= new TematicaCoraje(celda,logica);
 				break;
-			}			   
+			}	
+			case 6: {
+				if(Tematica.getTematica()!="EdEdd&Eddy")
+					nuevo= new TematicaEEnE(celda,logica);
+				break;
+			}
+			case 7: {
+				if(Tematica.getTematica()!="Dexter")
+					nuevo= new TematicaDexter(celda,logica);
+				break;
+			}
+			case 8: {
+				nuevo= new Estrella(celda); 
+				break;
+			}
 		}
 		
 		if(nuevo==null){

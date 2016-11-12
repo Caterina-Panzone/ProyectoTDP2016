@@ -17,7 +17,7 @@ public class GeneradorNivel2 extends Generador {
 	}
 
 	public boolean perteneceBlindado(int n) {
-		return (n>=16)&&(n<=20);
+		return (n>=16)&&(n<=19);
 	}
 	
 	public Generador getSiguienteGenerador(){

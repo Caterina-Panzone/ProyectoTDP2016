@@ -34,7 +34,6 @@ public class Logica {
 	public Logica(GUI gui) {
 		this.gui = gui;
 		nivelMapa = 1;
-		elegirTematica();
 		cantidadBosques=0;
 		generarNuevoMapa();
 
@@ -65,22 +64,20 @@ public class Logica {
 		Random rnd = new Random();
 		int tematica = rnd.nextInt(3);
 		
-		Tematica.setTematica("Dexter");
-		
-//		switch(tematica){
-//			case 0: {
-//				Tematica.setTematica("Coraje");
-//				break;
-//			}
-//			case 1: {
-//				Tematica.setTematica("Coraje");
-//				break;
-//			}
-//			case 2: {
-//				Tematica.setTematica("Dexter");
-//				break;
-//			}
-//		}
+		switch(tematica){
+			case 0: {
+				Tematica.setTematica("Coraje");
+				break;
+			}
+			case 1: {
+				Tematica.setTematica("Coraje");
+				break;
+			}
+			case 2: {
+				Tematica.setTematica("Dexter");
+				break;
+			}
+		}
 	}
 	
 	public void cambiarFondoGUI(){
@@ -106,6 +103,7 @@ public class Logica {
 	}
 
 	protected void generarNuevoMapa() {
+		elegirTematica();
 		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel"+nivelMapa+".txt").getPath(),this);
 	}
 	

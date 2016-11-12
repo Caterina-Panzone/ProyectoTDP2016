@@ -21,10 +21,10 @@ public class Ladrillo extends Obstaculo {
 	
 	public void setearImagenes(){
 		String tematica = Tematica.getTematica(); 
-		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L1.png"));
-		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L2.png"));
-		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L3.png"));
-		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L4.png"));
+		imagenes[0]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L1.gif"));
+		imagenes[1]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L2.gif"));
+		imagenes[2]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L3.gif"));
+		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/L4.gif"));
 	}
 	
 	public void recibirGolpe(Tanque tanque){

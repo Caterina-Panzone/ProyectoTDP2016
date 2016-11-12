@@ -28,9 +28,11 @@ public class Pala extends PowerUp{
 	public void actuar(Jugador tanque) {
 		super.actuar(tanque); 
 		logica.getMapa().protegerAguila(logica); 
+		logica.repaint();
 		TimerClass timerC = new TimerClass();
         tiempo = new Timer(10000,timerC);
-		tiempo.start(); 
+		tiempo.start();
+		logica.repaint();
 	}
 	
 	private class TimerClass implements ActionListener {		

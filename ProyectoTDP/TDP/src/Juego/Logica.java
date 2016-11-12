@@ -75,7 +75,7 @@ public class Logica {
 				break;
 			}
 			case 2: {
-				Tematica.setTematica("EdEdd&Eddy");
+				Tematica.setTematica("Coraje");
 				break;
 			}
 		}
@@ -276,5 +276,9 @@ public class Logica {
 	
 	public int getcantidadBosques(){
 		return cantidadBosques;
+	}
+	
+	public void repaint(){
+		gui.repaint();
 	}
 }

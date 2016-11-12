@@ -74,7 +74,7 @@ public class Logica {
 				break;
 			}
 			case 2: {
-				Tematica.setTematica("Dexter");
+				Tematica.setTematica("Coraje");
 				break;
 			}
 		}

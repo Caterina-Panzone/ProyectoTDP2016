@@ -29,10 +29,6 @@ import TDisparo.DisparoRapido;
 	}
 	
 	protected Disparo dispararAux(Logica logica){
-		if(Tematica.getTematica()=="Dexter"){
-			return new DisparoRapido(this, direccion, celda, logica);
-		} else{
-			return super.dispararAux(logica); 
-		}
+		return new DisparoRapido(this, direccion, celda, logica);
 	}
   }

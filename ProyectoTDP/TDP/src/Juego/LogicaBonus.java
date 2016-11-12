@@ -7,7 +7,9 @@ public class LogicaBonus extends Logica{
 		super(gui); 
 		nivelMapa = 0;
 		this.puntos = puntos;  
+		Tematica.setTematica("Bonus");
 		gui.setPuntaje(puntos);
+		gui.setNivel(nivelMapa);
 		
 		//El jugador comienza con nivel 4 
 		for(int i=0; i<4; i++){
@@ -36,5 +38,8 @@ public class LogicaBonus extends Logica{
 	}
 	
 	//Nivel Bonus. No se resetea el mapa. 
-	public void resetearMapa(){}
+	protected void resetearMapa(){}
+	
+	
+	public void resetearMapaELIMINAR(){}
 }

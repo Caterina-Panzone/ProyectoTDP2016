@@ -7,7 +7,7 @@ import Juego.*;
 import Tanques.ObjetoDesplazable;
 import Tanques.Tanque;
 
-public class Disparo extends ObjetoDesplazable{
+public abstract class Disparo extends ObjetoDesplazable{
 
 	//Atributos
 	

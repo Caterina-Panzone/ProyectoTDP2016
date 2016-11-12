@@ -147,15 +147,23 @@ public class GUI extends JFrame{
 		this.repaint(); 
 	}
 	
+	protected void inicializarPaneles(){
+		inicializarPanelesAux(); 
+		crearPanelPuntajeJuego(); 
+	}
+	
 	protected void inicializarPanelesBonus(int puntos){
 		habilitarTeclado();  	
-		inicializarPaneles();	
+		inicializarPanelesAux();	
+		crearPanelPuntajeGeneral(); 
+		contentPane.add(contentPuntaje); 
+			
 		logica = new LogicaBonus(this,puntos);
 		cambiarFondo();
 		this.repaint();
 	}
 	
-	protected void inicializarPaneles(){
+	protected void inicializarPanelesAux(){
 		contentJuego = new JPanel(); 
 		contentJuego.setLayout(null);
 		contentJuego.setBounds(100, 0, 1116, 706);
@@ -166,37 +174,13 @@ public class GUI extends JFrame{
 		contentPower.setBounds(100, 0, 1116, 706);
 		contentPower.setOpaque(false);
 		
-		crearPanelPuntaje(); 
-		
 		contentPane.add(contentPower);
-		contentPane.add(contentJuego); 
-		contentPane.add(contentPuntaje); 
+		contentPane.add(contentJuego);
 	}
 	
-	protected void crearPanelPuntaje(){
-		contentPuntaje = new JPanel(); 
-		contentPuntaje.setLayout(null); 
-		contentPuntaje.setOpaque(false);
-		contentPuntaje.setBounds(0,0,100,675);
-		contentPuntaje.setBorder(BorderFactory.createLineBorder(Color.black,3));
-	
-		nivel = new JLabel();
-		nivel.setBounds(0,0,100,100);
-		nivel.setHorizontalAlignment(JLabel.CENTER);
-		
-		puntaje = new JLabel(); 
-		puntaje.setBounds(0,100,100,80);
-		puntaje.setHorizontalAlignment(JLabel.CENTER);
-		puntaje.setVerticalTextPosition(JLabel.CENTER);
-		puntaje.setFont(new Font("Arial",1,15));
-		
-		ImageIcon img = new ImageIcon(getClass().getResource("/Imagenes/Vida.png"));
-		vida = new JLabel(img);
-		vida.setBounds(0,200,100,80);
-		vida.setHorizontalAlignment(JLabel.CENTER);
-		vida.setVerticalTextPosition(JLabel.CENTER);
-		vida.setFont(new Font("Arial",1,22));
-		
+	protected void crearPanelPuntajeJuego(){
+		crearPanelPuntajeGeneral(); 
+				
 		enemigos = new JLabel(); 
 		enemigos.setBounds(0,300,100,350);
 		enemigos.setLayout(new GridLayout(8,2));
@@ -209,11 +193,41 @@ public class GUI extends JFrame{
 			muertos[i].setIcon(new ImageIcon(getClass().getResource("/Imagenes/calabera.png")));
 			enemigos.add(muertos[i]);
 		}
+			
+		contentPuntaje.add(enemigos);
+		contentPane.add(contentPuntaje);
+	}
+	
+	protected void crearPanelPuntajeGeneral(){
+		contentPuntaje = new JPanel(); 
+		contentPuntaje.setLayout(null); 
+		contentPuntaje.setOpaque(false);
+		contentPuntaje.setBounds(0,0,100,675);
+		contentPuntaje.setBorder(BorderFactory.createLineBorder(Color.black,3));
+		
+		nivel = new JLabel();
+		nivel.setBounds(0,0,100,100);
+		nivel.setHorizontalAlignment(JLabel.CENTER);	
+		
+		puntaje = new JLabel(); 
+		puntaje.setBounds(0,100,100,80);
+		puntaje.setHorizontalAlignment(JLabel.CENTER);
+		puntaje.setVerticalTextPosition(JLabel.CENTER);
+		puntaje.setFont(new Font("Arial",1,15));
+		puntaje.setOpaque(true);
+		puntaje.setForeground(Color.WHITE);
+		puntaje.setBackground(Color.BLACK);
+		
+		ImageIcon img = new ImageIcon(getClass().getResource("/Imagenes/Vida.png"));
+		vida = new JLabel(img);
+		vida.setBounds(0,200,100,80);
+		vida.setHorizontalAlignment(JLabel.CENTER);
+		vida.setVerticalTextPosition(JLabel.CENTER);
+		vida.setFont(new Font("Arial",1,22));
 		
 		contentPuntaje.add(nivel);
 		contentPuntaje.add(puntaje);
-		contentPuntaje.add(vida); 	
-		contentPuntaje.add(enemigos);
+		contentPuntaje.add(vida); 
 	}
 	
 	public void gameOver(){
@@ -261,7 +275,6 @@ public class GUI extends JFrame{
 		
 		cambiarFondo();	
 		this.repaint(); 
-		inicializarPaneles(); 
 	}
 	
 	protected void jugadorDispara(){
@@ -334,7 +347,7 @@ public class GUI extends JFrame{
 	}
 	
 	public void resetearMapa(){
-		logica.resetearMapa(); 
+		logica.resetearMapaELIMINAR(); 
 	}
 
 	private class JPanelFondo extends JPanel{ 
@@ -413,30 +426,10 @@ public class GUI extends JFrame{
 	
 	private class OyenteTeclado extends KeyAdapter{
 		protected GUI  gui;
-		protected boolean disparar; 
-		protected boolean moverse; 
-		protected boolean cambiarNivel; 
 		
 		public OyenteTeclado(GUI gui){
 			this.gui = gui; 
-			disparar = false; 
-			moverse = false; 
-			cambiarNivel = false; 
 		}
-		
-		public synchronized void keyReleased(KeyEvent e) {
-	        if(KeyEvent.VK_SPACE==e.getKeyCode()){
-	            disparar=false;
-	        }
-
-	        if(esFlecha(e)){
-	           moverse=false;
-	        }
-	        
-	        if(e.getKeyCode()==KeyEvent.VK_N){
-	        	cambiarNivel = false; 
-	        }
-	    }
 		
 		private boolean esFlecha(KeyEvent e){
 			return (e.getKeyCode()==KeyEvent.VK_UP || 
@@ -445,31 +438,20 @@ public class GUI extends JFrame{
 					e.getKeyCode()==KeyEvent.VK_RIGHT);
 		}
 		
-		public synchronized void keyPressed(KeyEvent arg0) {
+		public void keyPressed(KeyEvent arg0) {
 			if(logica!=null && tecladoHabilitado){
 				if(arg0.getKeyCode()==KeyEvent.VK_SPACE && puedoDisparar){
-					disparar = true; 
-				} else {
-					if (arg0.getKeyCode()==KeyEvent.VK_N){
-						cambiarNivel = true;  
-					}else if (esFlecha(arg0)){
-							moverse = true; 
-						}
-				}
-				
-				if(disparar){
 					puedoDisparar=false;
 					ContadorTiempoDisparo ctd=new ContadorTiempoDisparo(gui);
 					ctd.start();
 					jugadorDispara();	
-				}
-				
-				if(moverse){
-					mover(arg0);
-				}
-				
-				if(cambiarNivel){
-					resetearMapa(); 
+				} else {
+					if (arg0.getKeyCode()==KeyEvent.VK_N){
+						resetearMapa(); 
+						//cambiarNivelJugador(); 
+					}else if(esFlecha(arg0)){
+							mover(arg0);
+						}
 				}
 			}
 		}

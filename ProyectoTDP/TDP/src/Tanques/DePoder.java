@@ -5,6 +5,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import Juego.*;
+import TDisparo.Disparo;
+import TDisparo.DisparoDePoder;
 
   public class DePoder extends Enemigo{
   
@@ -24,5 +26,9 @@ import Juego.*;
 
 	public int getEsperaPersonal() {
 		return 16;
+	}
+	
+	protected Disparo dispararAux(Logica logica){
+		return new DisparoDePoder(this, direccion, celda, logica);
 	}
   }

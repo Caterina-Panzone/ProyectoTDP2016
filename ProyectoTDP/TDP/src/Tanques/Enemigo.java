@@ -104,9 +104,7 @@ public abstract class Enemigo extends Tanque{
 	
 	//Metodo auxiliar.
 	
-	protected Disparo dispararAux(Logica logica){
-		return new Disparo(this, direccion, celda, logica);
-	}
+	protected abstract Disparo dispararAux(Logica logica); 
 	
 	public Disparo disparar (Logica logica){
 		Disparo disparo = null; 

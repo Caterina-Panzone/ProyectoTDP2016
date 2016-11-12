@@ -64,20 +64,22 @@ public class Logica {
 		Random rnd = new Random();
 		int tematica = rnd.nextInt(3);
 		
-		switch(tematica){
-			case 0: {
-				Tematica.setTematica("Coraje");
-				break;
-			}
-			case 1: {
-				Tematica.setTematica("Coraje");
-				break;
-			}
-			case 2: {
-				Tematica.setTematica("Coraje");
-				break;
-			}
-		}
+		Tematica.setTematica("Coraje");
+		
+//		switch(tematica){
+//			case 0: {
+//				Tematica.setTematica("Dexter");
+//				break;
+//			}
+//			case 1: {
+//				Tematica.setTematica("Coraje");
+//				break;
+//			}
+//			case 2: {
+//				Tematica.setTematica("EdEdd&Eddy");
+//				break;
+//			}
+//		}
 	}
 	
 	public void cambiarFondoGUI(){
@@ -186,6 +188,7 @@ public class Logica {
 					resetearMapa();
 				} else {
 					//AVISAR A LA GUI QUE GANO.
+					gui.reiniciarPanelesJuego();
 					gui.inicializarPanelesBonus(jugador.getPuntos()); 
 				}
 			}
@@ -195,8 +198,49 @@ public class Logica {
 		}
 	}
 	
+	protected void resetearMapa(){
+		gui.deshabilitarTeclado();
+	
+		controladorEnemigos.terminate(); 
+		controladorDisparos.terminate(); 
+		
+		while(!disparos.isEmpty()){
+			disparos.get(0).destruirse(); 
+		}
+		
+		enemigos = new LinkedList<Enemigo>();
+		controladorEnemigos = new ControladorEnemigos(this);
+		disparos = new LinkedList<Disparo>();
+		controladorDisparos = new ControladorDisparos(this);
+		
+		cantidadBosques=0; 
+		gui.reiniciarPanelesJuego();
+		gui.inicializarPaneles(); 
+		generarNuevoMapa();
+		gui.cambiarFondo(); 
+			
+		jugador.reiniciarDestruidos();
+		jugador.volverPosicionInicial(); 
+		jugador.aumentarNivel();
+			
+		generador = generador.getSiguienteGenerador();
+		for (int i = 0; i < 4; i++) {
+			generador.generarEnemigo();
+		}
+			
+		controladorEnemigos.start(); 
+		controladorDisparos.start(); 
+			
+		gui.add(jugador.getImagenActual());
+		gui.setVida(jugador.getVidas());
+		gui.setPuntaje(jugador.getPuntos());
+		gui.habilitarTeclado();
+		gui.setNivel(nivelMapa);
+		gui.repaint(); 
+	}
+	
 	//private
-	public void resetearMapa(){
+	public void resetearMapaELIMINAR(){
 		gui.deshabilitarTeclado();
 	
 		controladorEnemigos.terminate(); 
@@ -219,7 +263,9 @@ public class Logica {
 			cantidadBosques=0; 
 			nivelMapa++; 
 			gui.reiniciarPanelesJuego();
+			gui.inicializarPaneles(); 
 			generarNuevoMapa();
+			gui.cambiarFondo(); 
 			
 			jugador.reiniciarDestruidos();
 			jugador.volverPosicionInicial(); 

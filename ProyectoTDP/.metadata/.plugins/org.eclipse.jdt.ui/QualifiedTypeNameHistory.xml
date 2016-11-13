@@ -45,4 +45,6 @@
 <fullyQualifiedTypeName name="JGeneradores.GeneradorBonus"/>
 <fullyQualifiedTypeName name="Tanques.Rapido"/>
 <fullyQualifiedTypeName name="Juego.Tematica"/>
+<fullyQualifiedTypeName name="java.applet.Applet"/>
+<fullyQualifiedTypeName name="java.applet.AudioClip"/>
 </qualifiedTypeNameHistroy>

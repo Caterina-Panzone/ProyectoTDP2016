@@ -1,0 +1,15 @@
+package Juego;
+
+public final class Tematica{
+	protected static String miTematica = null;
+	protected static Sonido sonido;
+	
+	public static void setTematica(String tematica){
+		miTematica = tematica;
+		sonido.cambiar();
+	}
+	
+	public static String getTematica(){
+		return miTematica; 
+	}
+}

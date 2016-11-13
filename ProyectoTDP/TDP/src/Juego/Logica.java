@@ -75,22 +75,22 @@ public class Logica {
 		Random rnd = new Random();
 		int tematica = rnd.nextInt(3);
 		
-//		Tematica.setTematica("Dexter");
-		
-		switch(tematica){
-			case 0: {
-				Tematica.setTematica("Dexter");
-				break;
-			}
-			case 1: {
-				Tematica.setTematica("Coraje");
-				break;
-			}
-			case 2: {
-				Tematica.setTematica("EdEdd&Eddy");
-				break;
-			}
-		}
+		Tematica.setTematica("EdEdd&Eddy");
+//		
+//		switch(tematica){
+//			case 0: {
+//				Tematica.setTematica("Dexter");
+//				break;
+//			}
+//			case 1: {
+//				Tematica.setTematica("Coraje");
+//				break;
+//			}
+//			case 2: {
+//				Tematica.setTematica("EdEdd&Eddy");
+//				break;
+//			}
+//		}
 	}
 	
 	public void cambiarFondoGUI(){

@@ -43,7 +43,4 @@ public class LogicaBonus extends Logica{
 	
 	//Nivel Bonus. No se resetea el mapa. 
 	protected void resetearMapa(){}
-	
-	
-	public void resetearMapaELIMINAR(){}
 }

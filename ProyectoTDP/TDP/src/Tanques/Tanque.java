@@ -47,8 +47,6 @@ public abstract class Tanque extends ObjetoDesplazable {
 		}
 	}
 	
-	//hay que cambiar el boolean a void. 
-	
 	public abstract boolean recibirGolpe(Jugador tanque);
 	
 	public abstract boolean recibirGolpe(Enemigo tanque);

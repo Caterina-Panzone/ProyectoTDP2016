@@ -99,60 +99,52 @@ public abstract class Generador{
 			celda.getPower().setCelda(null); 
 		}
 		
-//		switch(power){
-//			case 0: {
-//				nuevo= new Casco(celda);
-//				break;
-//			}
-//			case 1: {
-//				nuevo= new Granada(celda, logica.getListaEnemigos());
-//				break;
-//			}
-//			case 2: {
-//				nuevo= new TimerPower(celda, logica.getControladorEnemigos()); 
-//				break;
-//			}
-//			case 3: {
-//				nuevo= new Pala(celda, logica);
-//				break;
-//			}
-//			case 4: {
-//				nuevo= new TanquePower(celda); 
-//				break;
-//			}
-//			case 5: {
-//				if(Tematica.getTematica()!="Coraje")
-//					nuevo= new TematicaCoraje(celda,logica);
-//				break;
-//			}	
-//			case 6: {
-//				if(Tematica.getTematica()!="EdEdd&Eddy")
-//					nuevo= new TematicaEEnE(celda,logica);
-//				break;
-//			}
-//			case 7: {
-//				if(Tematica.getTematica()!="Dexter")
-//					nuevo= new TematicaDexter(celda,logica);
-//				break;
-//			}
-//			case 8: {
-//				nuevo= new Estrella(celda); 
-//				break;
-//			}
-//		}
-//		
-//		if(nuevo==null){
-//			nuevo= new Estrella(celda);
-//		}
+		switch(power){
+			case 0: {
+				nuevo= new Casco(celda);
+				break;
+			}
+			case 1: {
+				nuevo= new Granada(celda, logica.getListaEnemigos());
+				break;
+			}
+			case 2: {
+				nuevo= new TimerPower(celda, logica.getControladorEnemigos()); 
+				break;
+			}
+			case 3: {
+				nuevo= new Pala(celda, logica);
+				break;
+			}
+			case 4: {
+				nuevo= new TanquePower(celda); 
+				break;
+			}
+			case 5: {
+				if(Tematica.getTematica()!="Coraje")
+					nuevo= new TematicaCoraje(celda,logica);
+				break;
+			}	
+			case 6: {
+				if(Tematica.getTematica()!="EdEdd&Eddy")
+					nuevo= new TematicaEEnE(celda,logica);
+				break;
+			}
+			case 7: {
+				if(Tematica.getTematica()!="Dexter")
+					nuevo= new TematicaDexter(celda,logica);
+				break;
+			}
+			case 8: {
+				nuevo= new Estrella(celda); 
+				break;
+			}
+		}
 		
-		// nuevo = new Granada(celda,enemigos);
-		// nuevo = new Casco(celda);
-		// nuevo = new TimerPower(celda, logica.getControladorEnemigos()); 
-		// nuevo = new Pala(celda, logica); 
-		// nuevo = new TanquePower(celda, logica); 
-		// nuevo = new Estrella(celda); 
-		 //nuevo = new TematicaCoraje(celda,logica); 
-		
+		if(nuevo==null){
+			nuevo= new Estrella(celda);
+		}
+				
 		celda.setPower(nuevo);
 		return nuevo;
 	}

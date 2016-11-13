@@ -1,16 +1,16 @@
 14
 23
-P P P A B P P P P P P P P P P P P P A B P P P 
-P P P P P P P P P H P P P P P P P P P P P P P   
-P P P P P P P P P P P P P P P P P P P P P P P   
+P P A A P P P B P P P P P P P B P A A P P P P
+P P P P P P P B P L L L L L P B P P P P P P P   
+P P P P P P P B P P P P P P P B P P H P P P P 
 P P B B B L L L P P P P P P P L L L B B B P P   
-P P P P P P P P P P P P P P P P P P P P P P P 
+P P H P P P P P P P A A B P P P P P P P P H P 
 P P P P P P P P P P P P P P P P P P P P P P P
-P P H P P P P P P P P P P P P P P P P P H P P   
-P H P P P P P A A A A A A P P P P P P P P P P 
-P P P P P P P P P P P P P P P P P P L L L A P P   
-P P L L L L P P P P P P P P P P P P P P P P P 
-P P P P P P P P P P P P P P P P P P P P H P P   
-P P P P P P P P P P P P P P P P P P P P P P P  
+P P P H P P P P P P P P P P P P A A P P H P P   
+P P P P P P P A A A A A A A P P P P P P P P P 
+P P P P P P P P P P P P P P P P P P L L L A P   
+L L L L B B B B P P P P P P P P P P P P P P P 
+P P P P P P P P P P P P P P P H P P P P H P P   
+P P P P P P P P P P L P L P P P P P P P P P P  
 P P A A A A A A P P L L L P P P A A A A A A B
-P P P P P P P P P P L F L P P P P P P P P P P   
+P P P P P H P P P P L F L P P P P P P P P P P   

@@ -75,22 +75,20 @@ public class Logica {
 		Random rnd = new Random();
 		int tematica = rnd.nextInt(3);
 		
-		Tematica.setTematica("EdEdd&Eddy");
-//		
-//		switch(tematica){
-//			case 0: {
-//				Tematica.setTematica("Dexter");
-//				break;
-//			}
-//			case 1: {
-//				Tematica.setTematica("Coraje");
-//				break;
-//			}
-//			case 2: {
-//				Tematica.setTematica("EdEdd&Eddy");
-//				break;
-//			}
-//		}
+		switch(tematica){
+			case 0: {
+				Tematica.setTematica("Dexter");
+				break;
+			}
+			case 1: {
+				Tematica.setTematica("Coraje");
+				break;
+			}
+			case 2: {
+				Tematica.setTematica("EdEdd&Eddy");
+				break;
+			}
+		}
 	}
 	
 	public void cambiarFondoGUI(){
@@ -119,11 +117,6 @@ public class Logica {
 		elegirTematica();
 		mapa = new Mapa(this.getClass().getResource("/Archivos/nivel"+nivelMapa+".txt").getPath(),this);
 	}
-	
-	//ELIMINAR
-//	public void aumentarNivelJugador() {
-//		jugador.aumentarNivel();
-//	}
 
 	public void moverJugador(int dir) {
 		if(!jugador.bloqueado()){
@@ -249,58 +242,6 @@ public class Logica {
 		gui.habilitarTeclado();
 		gui.setNivel(nivelMapa);
 		gui.repaint(); 
-	}
-	
-	//eliminar
-	public void resetearMapaELIMINAR(){
-		gui.deshabilitarTeclado();
-	
-		controladorEnemigos.terminate(); 
-		controladorDisparos.terminate(); 
-		
-		while(!disparos.isEmpty()){
-			disparos.get(0).eliminarse(); 
-		}
-		//Eliminar cuando se saque de la gui. 
-		while(!enemigos.isEmpty()){
-			enemigos.get(0).destroy(); 
-		}
-		
-		enemigos = new LinkedList<Enemigo>();
-		controladorEnemigos = new ControladorEnemigos(this);
-		disparos = new LinkedList<Disparo>();
-		controladorDisparos = new ControladorDisparos(this);
-		
-		if(nivelMapa<3){
-			cantidadBosques=0; 
-			nivelMapa++; 
-			gui.reiniciarPanelesJuego();
-			gui.inicializarPaneles(); 
-			generarNuevoMapa();
-			gui.cambiarFondo(); 
-			
-			jugador.reiniciarDestruidos();
-			jugador.volverPosicionInicial(); 
-			jugador.aumentarNivel();
-			
-			generador = generador.getSiguienteGenerador();
-			for (int i = 0; i < 4; i++) {
-				generador.generarEnemigo();
-			}
-			
-			controladorEnemigos.start(); 
-			controladorDisparos.start(); 
-			
-			gui.add(jugador.getImagenActual());
-			gui.setVida(jugador.getVidas());
-			gui.setPuntaje(jugador.getPuntos());
-			gui.habilitarTeclado();
-			gui.setNivel(nivelMapa);
-			gui.repaint(); 
-		}else {
-			gui.reiniciarPanelesJuego();
-			gui.inicializarPanelesBonus(jugador.getPuntos()); 
-		}
 	}
 
 	public void añadirEnemigoEnGui(Enemigo enemigo) {

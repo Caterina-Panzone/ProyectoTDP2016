@@ -7,7 +7,6 @@ public class LogicaBonus extends Logica{
 	
 	public LogicaBonus(GUI gui, int puntos) {
 		super(gui); 
-		nivelMapa = 0;
 		this.puntos = puntos;  
 		gui.setPuntaje(puntos);
 		gui.setNivel(nivelMapa);
@@ -32,6 +31,7 @@ public class LogicaBonus extends Logica{
 	}
 	
 	protected void elegirTematica(){
+		nivelMapa = 0;
 		Tematica.setTematica("Bonus");
 	}
 	

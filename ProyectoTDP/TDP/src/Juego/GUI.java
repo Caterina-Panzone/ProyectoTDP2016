@@ -280,12 +280,6 @@ public class GUI extends JFrame{
 		logica.jugadorDispara();
 	}
 	
-//  ELIMINAR
-	
-//	protected void cambiarNivelJugador(){
-//		logica.aumentarNivelJugador();
-//	}
-	
 	protected void mover(KeyEvent key){	
 		logica.moverJugador(key.getKeyCode());
 		this.repaint();
@@ -345,10 +339,6 @@ public class GUI extends JFrame{
 			muertos[16-i].setIcon(null); 
 		}
 	}
-	
-	public void resetearMapa(){
-		logica.resetearMapaELIMINAR(); 
-	}
 
 	private class JPanelFondo extends JPanel{ 
 		private static final long serialVersionUID = 1L;
@@ -375,7 +365,6 @@ public class GUI extends JFrame{
 			timerFinJuego.stop();
 			contentPane.removeAll(); 
 			contentPane.setLayout(null);
-			//crearMenu(); 
 			inicializarPanelesJuego(); 
 		}
 	}
@@ -446,10 +435,7 @@ public class GUI extends JFrame{
 					ctd.start();
 					jugadorDispara();	
 				} else {
-					if (arg0.getKeyCode()==KeyEvent.VK_N){
-						resetearMapa(); 
-						//cambiarNivelJugador(); 
-					}else if(esFlecha(arg0)){
+					if(esFlecha(arg0)){
 							mover(arg0);
 						}
 				}

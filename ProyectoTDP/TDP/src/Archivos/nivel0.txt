@@ -1,9 +1,9 @@
 14
 23
-L L L L L L L L L L L L L L L L L L L L L L L 
-P L L L L L L L P P P P P P P P P P P P P P L 
-P P P P L P P P P P P P P P P P L L L P P P L 
-P P P P L P P P P P P P P P P P L P P L P P L
+P P P P P P P P P P P P P P P P P P P P P P P
+L L L L L L L L P P P P P P P P P P P P P P L 
+L P P P L P P P P P P P P P P P L L L P P P L 
+L P P P L P P P P P P P P P P P L P P L P P L
 L P P P L P P P L L L P P P P P L P P L P P L  
 L P P P L P P P L P P L P P P P L P P L P P L
 L P P P L P P P L P P P L P P P L L L P P P L 
@@ -13,4 +13,4 @@ L P P P P P P P L P P L P P P P L P P P P P L
 L P P P P P P P L L L P P P P P P P P P P P L 
 L P P P P P P P P P P P P P P P P P P P P P L  
 L P P P P P P P P P L L L P P P P P P P P P L  
-L L L L L L L L L L L F L L L L L L L L L L L  
+L P P P P P P P P P L F L P P P P P P P P P L  

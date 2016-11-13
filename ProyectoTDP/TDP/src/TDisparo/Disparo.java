@@ -56,15 +56,20 @@ public abstract class Disparo extends ObjetoDesplazable{
 		imagenes[3]= new ImageIcon(this.getClass().getResource("/Imagenes/"+tematica+"/BalaIzquierda.gif"));
 	}
 	
-	public void destruirse(){		
+	public void eliminarse(){
 		disparos.remove(this);
 		if(celda!=null){
 			cambiarImagenActual(direccion);
 			celda.setBala(null);
 		}
 		ponerImagenVacia();
+		
+		celda=null;	
+	}
+	
+	private void destruirse(){		
+		eliminarse(); 
 		emisor.eliminarDisparo(); 
-		celda=null;		
 		emisor=null;
 		lock = 0; 
 	}

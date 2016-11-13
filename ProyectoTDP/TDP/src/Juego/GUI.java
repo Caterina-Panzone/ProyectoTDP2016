@@ -80,7 +80,7 @@ public class GUI extends JFrame{
 		contentPane.setLayout(null);
 		
 		TimerClass tc = new TimerClass(); 
-		timerFinJuego = new Timer(3000,tc); 
+		timerFinJuego = new Timer(2500,tc); 
 		
 		crearMenu(); 
 	}
@@ -246,20 +246,19 @@ public class GUI extends JFrame{
 		GameOver.setOpaque(false);
 		GameOver.setBounds(0, 0, 1216, 706);
 		GameOver.add(score);
-				
-		contentPane.removeAll(); 
 		
 		contentPuntaje = null; 
 		contentJuego = null; 
 		contentPower = null; 
 		
+		contentPane.removeAll();
+		
 		Image img = new ImageIcon(getClass().getResource("/Imagenes/GameOver.png")).getImage(); 		
 		contentPane.setImage(img);
 		
-		contentPane.add(GameOver); 
+		contentPane.add(GameOver); 	
 		
-		this.repaint(); 
-		
+		repaint(); 
 		timerFinJuego.start(); 
 	}
 	
@@ -281,10 +280,11 @@ public class GUI extends JFrame{
 		logica.jugadorDispara();
 	}
 	
-	//ELIMINAR
-	protected void cambiarNivelJugador(){
-		logica.aumentarNivelJugador();
-	}
+//  ELIMINAR
+	
+//	protected void cambiarNivelJugador(){
+//		logica.aumentarNivelJugador();
+//	}
 	
 	protected void mover(KeyEvent key){	
 		logica.moverJugador(key.getKeyCode());
@@ -324,7 +324,7 @@ public class GUI extends JFrame{
 	}
 	
 	public void traerFrenteDisparo(JLabel imagen){
-		contentJuego.setComponentZOrder(imagen,logica.getcantidadBosques()+1);
+		contentJuego.setComponentZOrder(imagen,logica.getcantidadBosques());
 	}
 	
 	public void setNivel(int nivel){

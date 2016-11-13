@@ -27,9 +27,11 @@ public class ControladorEnemigos extends Thread{
 		while(ejecutar){
 			if(!dormir){
 				try {
+					Enemigo enemy; 
 					for(int i=0; i<enemigos.size(); i++){
-						enemigos.get(i).disparar(logica); 
-						enemigos.get(i).moverse();
+						enemy = enemigos.get(i); 
+						enemy.disparar(logica); 
+						enemy.moverse();
 					}
 					Thread.sleep(60);
 				} catch (InterruptedException e) {

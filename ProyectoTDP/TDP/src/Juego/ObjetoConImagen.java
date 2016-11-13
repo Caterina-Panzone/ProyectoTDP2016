@@ -25,7 +25,7 @@ public abstract class ObjetoConImagen{
 	
 	//Comandos
 	
-	protected void ponerImagenVacia(){
+	public void ponerImagenVacia(){
 		imagenActual.setIcon(null);
 	}
 	

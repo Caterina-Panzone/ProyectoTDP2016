@@ -1,5 +1,7 @@
 package Juego;
 
+import JGeneradores.GeneradorBonus;
+
 public class LogicaBonus extends Logica{
 	protected int puntos; 
 	
@@ -7,7 +9,6 @@ public class LogicaBonus extends Logica{
 		super(gui); 
 		nivelMapa = 0;
 		this.puntos = puntos;  
-		Tematica.setTematica("Bonus");
 		gui.setPuntaje(puntos);
 		gui.setNivel(nivelMapa);
 		
@@ -23,12 +24,15 @@ public class LogicaBonus extends Logica{
 	
 	// Comandos
 	
-	protected void elegirTematica(){
-		Tematica.setTematica("Bonus");
+	protected void crearGenerador(){
+		generador = new GeneradorBonus(this);
+		for (int i = 0; i < 4; i++) {
+			generador.generarEnemigo();
+		}
 	}
 	
-	protected void generarNuevoMapa() {
-		mapa = new Mapa(this.getClass().getResource("/Archivos/Bonus.txt").getPath(),this);
+	protected void elegirTematica(){
+		Tematica.setTematica("Bonus");
 	}
 	
 	public void aumentarDestruidosJugador(int puntos) {

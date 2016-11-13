@@ -4,12 +4,15 @@ import Tanques.*;
 import Obstaculos.*;
 import TDisparo.Disparo;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.Timer;
 import javax.swing.JLabel;
 
 import JGeneradores.Generador;
@@ -28,6 +31,7 @@ public class Logica {
 	protected ControladorDisparos controladorDisparos;
 	protected Generador generador;
 	protected int cantidadBosques;
+	protected Timer tiempo; 
 
 	// Constructor
 
@@ -36,6 +40,9 @@ public class Logica {
 		nivelMapa = 1;
 		cantidadBosques=0;
 		generarNuevoMapa();
+		
+		TimerGameOver tgo = new TimerGameOver(); 
+		tiempo = new Timer(500,tgo); 
 
 		Celda celda = mapa.getCelda(mapa.cantidadFilas() - 1, mapa.cantidadColumnas() / 2 - 2);
 		jugador = new Jugador(celda, this);
@@ -49,37 +56,41 @@ public class Logica {
 		disparos = new LinkedList<Disparo>();
 		controladorDisparos = new ControladorDisparos(this);
 
-		generador = new GeneradorNivel1(this);
-		for (int i = 0; i < 4; i++) {
-			generador.generarEnemigo();
-		}
+		crearGenerador(); 
 
 		controladorEnemigos.start();
 		controladorDisparos.start();
 	}
 
 	// Comandos
+	
+	protected void crearGenerador(){
+		generador = new GeneradorNivel1(this);
+		for (int i = 0; i < 4; i++) {
+			generador.generarEnemigo();
+		}
+	}
 
 	protected void elegirTematica() {
 		Random rnd = new Random();
 		int tematica = rnd.nextInt(3);
 		
-		Tematica.setTematica("Coraje");
+//		Tematica.setTematica("Dexter");
 		
-//		switch(tematica){
-//			case 0: {
-//				Tematica.setTematica("Dexter");
-//				break;
-//			}
-//			case 1: {
-//				Tematica.setTematica("Coraje");
-//				break;
-//			}
-//			case 2: {
-//				Tematica.setTematica("EdEdd&Eddy");
-//				break;
-//			}
-//		}
+		switch(tematica){
+			case 0: {
+				Tematica.setTematica("Dexter");
+				break;
+			}
+			case 1: {
+				Tematica.setTematica("Coraje");
+				break;
+			}
+			case 2: {
+				Tematica.setTematica("EdEdd&Eddy");
+				break;
+			}
+		}
 	}
 	
 	public void cambiarFondoGUI(){
@@ -110,9 +121,9 @@ public class Logica {
 	}
 	
 	//ELIMINAR
-	public void aumentarNivelJugador() {
-		jugador.aumentarNivel();
-	}
+//	public void aumentarNivelJugador() {
+//		jugador.aumentarNivel();
+//	}
 
 	public void moverJugador(int dir) {
 		if(!jugador.bloqueado()){
@@ -161,7 +172,7 @@ public class Logica {
 		controladorDisparos.terminate();
 		controladorEnemigos = null; 
 		controladorDisparos = null; 
-		gui.gameOver();
+		tiempo.start(); 
 	}
 
 	public void jugadorDispara() {
@@ -187,7 +198,6 @@ public class Logica {
 				if(nivelMapa<4){
 					resetearMapa();
 				} else {
-					//AVISAR A LA GUI QUE GANO.
 					gui.reiniciarPanelesJuego();
 					gui.inicializarPanelesBonus(jugador.getPuntos()); 
 				}
@@ -195,6 +205,7 @@ public class Logica {
 		}
 		if (jugador.getEnemigosDestruidos() % 4 == 0) {
 			generarPowerUp();
+			gui.repaint(); 
 		}
 	}
 	
@@ -205,7 +216,7 @@ public class Logica {
 		controladorDisparos.terminate(); 
 		
 		while(!disparos.isEmpty()){
-			disparos.get(0).destruirse(); 
+			disparos.get(0).eliminarse(); 
 		}
 		
 		enemigos = new LinkedList<Enemigo>();
@@ -216,10 +227,11 @@ public class Logica {
 		cantidadBosques=0; 
 		gui.reiniciarPanelesJuego();
 		gui.inicializarPaneles(); 
+		
+		jugador.reiniciarDestruidos();
 		generarNuevoMapa();
 		gui.cambiarFondo(); 
 			
-		jugador.reiniciarDestruidos();
 		jugador.volverPosicionInicial(); 
 		jugador.aumentarNivel();
 			
@@ -239,7 +251,7 @@ public class Logica {
 		gui.repaint(); 
 	}
 	
-	//private
+	//eliminar
 	public void resetearMapaELIMINAR(){
 		gui.deshabilitarTeclado();
 	
@@ -247,7 +259,7 @@ public class Logica {
 		controladorDisparos.terminate(); 
 		
 		while(!disparos.isEmpty()){
-			disparos.get(0).destruirse(); 
+			disparos.get(0).eliminarse(); 
 		}
 		//Eliminar cuando se saque de la gui. 
 		while(!enemigos.isEmpty()){
@@ -304,6 +316,7 @@ public class Logica {
 	}
 
 	// Consultas
+	
 	public ControladorEnemigos getControladorEnemigos() {
 		return controladorEnemigos;
 	}
@@ -326,5 +339,13 @@ public class Logica {
 	
 	public void repaint(){
 		gui.repaint();
+	}
+	
+	private class TimerGameOver implements ActionListener {		
+		public void actionPerformed(ActionEvent e) {
+			tiempo.stop(); 
+			gui.gameOver();
+			tiempo = null; 
+		}
 	}
 }
